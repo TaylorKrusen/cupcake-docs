@@ -1,11 +1,6 @@
 // doczrc.js
-// export default {
-//     themeConfig: {
-//         mode: 'dark',
-//         colors: {
-//         header: {
-//           bg: 'tomato',
-//         },
-//       },
-//     },
-//   }
+module.exports = {
+    "src": "src/mdx",
+    "source": "src/mdx",
+    "plugins": ['gatsby-plugin-mdx'],
+}
