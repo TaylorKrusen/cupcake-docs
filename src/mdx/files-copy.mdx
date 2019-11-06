@@ -1,0 +1,35 @@
+---
+name: copy
+route: /files/copy
+menu: files
+paramType:
+  kind: struct
+  name: GetMetadataArg
+  members:
+    - label: path
+      typeName: String(pattern="(/(.|[\r\n])*|id:.*)|(rev:[0-9a-f]{9,})|(ns:[0-9]+(/.*)?)")
+      explanation: The path of a file or folder on Dropbox.
+    - label: include_media_info
+      typeName: Boolean
+      explanation: If true, FileMetadata.media_info is set for photo and video. The default for this field is False.
+    - label: include_deleted
+      typeName: Boolean
+      explanation: If true, DeletedMetadata will be returned for deleted file or folder, otherwise LookupError.not_found will be returned. The default for this field is False.
+    - label: include_has_explicit_shared_members
+      typeName: Boolean
+      explanation: If true, the results will include a flag for each file indicating whether or not that file has any explicit members. The default for this field is False.
+    - label: include_property_groups
+      type: 
+        kind: open_union
+        name: TemplateFilterBase?
+        members:
+          - label: filter_some
+            typeName: List of (String(min_length=1, pattern="(/|ptid:).*"), min_items=1)
+            explanation: Only templates with an ID in the supplied list will be returned (a subset of templates will be returned).
+      explanation: If set to a valid list of template IDs, FileMetadata.property_groups is set if there exists property data associated with the file and each of the listed templates. This field is optional.
+---
+import Endpoint from '../components/Endpoint'
+
+<Endpoint namespace="files" route="copy" isDeprecated="false" authTypes={['user']} description={"Copy a file to another location."}
+    shellExample={`{\"from_path\": \"/Homework/math\",\"to_path\": \"/Homework/algebra\",\"allow_shared_folder\": false,\"autorename\": false,\"allow_ownership_transfer\": false}`}
+    paramType={props.pageContext.frontmatter.paramType}/>
