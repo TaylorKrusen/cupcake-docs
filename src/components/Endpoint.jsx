@@ -8,7 +8,7 @@ import Code from './Code'
 import TypeExplanation from './TypeExplanation'
 
 export default function Endpoint(props) {
-    const {namespace, route, isDeprecated, deprecatedBy, description, authTypes, shellExample, paramType, resultType, errorType} = props
+    const {namespace, route, isDeprecated, deprecatedBy, description, authTypes, shellExample, paramType, resultType, errorType, children} = props
     const components = useComponents()
     const url = "https://api.dropboxapi.com/2/" + namespace + "/" + route
     return <>
@@ -25,5 +25,7 @@ export default function Endpoint(props) {
         <TypeExplanation type={paramType} />
         <components.h3>Returns</components.h3>
         <components.h3>Errors</components.h3>
+        <p>{children}</p>
     </>
 }
+

@@ -29,7 +29,10 @@ paramType:
       explanation: If set to a valid list of template IDs, FileMetadata.property_groups is set if there exists property data associated with the file and each of the listed templates. This field is optional.
 ---
 import Endpoint from '../components/Endpoint'
+import Description from '../components/Description'
 
 <Endpoint namespace="files" route="copy" isDeprecated="false" authTypes={['user']} description={"Copy a file to another location."}
     shellExample={`{\"from_path\": \"/Homework/math\",\"to_path\": \"/Homework/algebra\",\"allow_shared_folder\": false,\"autorename\": false,\"allow_ownership_transfer\": false}`}
-    paramType={props.pageContext.frontmatter.paramType}/>
+    paramType={props.pageContext.frontmatter.paramType}>
+    <Description>Testinggg</Description>
+</Endpoint>
