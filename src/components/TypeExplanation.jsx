@@ -16,32 +16,35 @@ const memberRowHeaderStyle = {
     backgroundColor: 'orange',
 }
 
-function MemberRow({ member }) {
-    const {label, type, typeName, explanation} = member;
+function MemberRow({ member, typeInfo }) {
+    const {label, type, typeName, explanation, validator, optional, list} = member;
     const isTerminal = !!typeName;
     const [expanded, setExpanded] = useState(true)
-    const toggleExpanded = useCallback(e => setExpanded(!expanded), [expanded, setExpanded])
+    const toggleExpanded = useCallback(e => setExpanded(s => !s), [setExpanded])
 
     return <>
         <div>
             <div style={memberRowHeaderStyle} onClick={isTerminal ? null : toggleExpanded}>
                 <pre>{label}</pre>
-                <i>{isTerminal ? typeName : type.name}</i>
+                <i>{list ? "List of " : null}{isTerminal ? typeName : type.datatype}{optional ? "?" : null}</i>
+                {validator}
             </div> 
             <span>{explanation}</span>
         </div>
         {isTerminal ||
-            <NestingTypeBox visible={expanded}><TypeExplanation type={type} /></NestingTypeBox>
+            <NestingTypeBox visible={expanded}><TypeExplanation type={type} typeInfo={typeInfo} /></NestingTypeBox>
         }
     </>
 }
 
-export default function TypeExplanation({ type }) {
-    const {kind, name, members} = type;
+export default function TypeExplanation({ type, typeInfo }) {
+    const {namespace, datatype} = type;
+    const info = typeInfo[namespace][datatype]
+    const {kind, members} = info;
     return <>
-        <p>{name} <i>({kindToExplanation[kind]})</i></p>
+        <p>{datatype} <i>({kindToExplanation[kind]})</i></p>
         <ul>
-            {members.map(member => <li key={member.label}><MemberRow member={member} /></li>)}
+            {members.map(member => <li key={member.label}><MemberRow member={member} typeInfo={typeInfo} /></li>)}
         </ul>
     </>
 }

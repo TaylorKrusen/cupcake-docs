@@ -1,4 +1,6 @@
 from __future__ import unicode_literals
+import sys
+from contextlib import contextmanager
 
 from stone.backend import CodeBackend
 from stone.ir.data_types import (
@@ -19,7 +21,184 @@ from stone.ir.data_types import (
     unwrap_nullable,
 )
 
+def primitive_type_data(datatype):
+    assert is_primitive_type(datatype)
+    validator = None
+    if is_void_type(datatype):
+        type_name = "Void"
+    elif is_boolean_type(datatype):
+        type_name = "Boolean"
+        self.emit(left_type_name+"Boolean"+right_type_name)
+    elif is_timestamp_type(datatype):
+        type_name = "Timestamp"
+        if datatype.format is not None:
+            validator = validator or {}
+            validator["format"] = datatype.format
+    elif is_string_type(datatype):
+        type_name = "String"
+        if datatype.min_length is not None:
+            validator = validator or {}
+            validator["min_length"] = datatype.min_length
+        if datatype.max_length is not None:
+            validator = validator or {}
+            validator["max_length"] = datatype.max_length
+        if datatype.pattern is not None:
+            validator = validator or {}
+            validator["pattern"] = datatype.pattern
+    elif is_numeric_type(datatype):
+        type_name = "Numeric"
+    else:
+        assert False, "Unexpected datatype %r" % datatype
+    data = {"typeName": type_name}
+    if validator:
+        data["validator"] = validator
+    return data
+
+
+class YamlEmitter(object):
+    def __init__(self):
+        self.buffer = []
+        self.indent = 0
+    
+    @contextmanager
+    def indent(self):
+        self.indent += 2
+        yield
+        self.indent -= 2
+    
+    def newline(self):
+        self.buffer.append('\n')
+        self.buffer.append(' ' * self.indent)
+    
+    def emit(self, value):
+        pieces = value.splitlines()
+        if len(pieces) == 0:
+            return
+        self.buffer.append(pieces[0])
+        for piece in pieces[1:]:
+            self.newline()
+            self.buffer.append(value)
+    
+    def result(self):
+        return ''.join(self.buffer)
+
+    def emit_yaml(self, yaml) :
+        if isinstance(yaml, bool):
+            self.emit('true' if yaml else 'false')
+        elif isinstance(yaml, int) or isinstance(yaml, long) or isinstance(yaml, float):
+            self.emit('{}'.format(yaml))
+        elif isinstance(yaml, list):
+            if len(yaml) == 0:
+                self.emit('[]')
+            else:
+                for item in yaml:
+                    self.emit('- ')
+                    with self.indent():
+                        self.emit_yaml(item)
+        elif isinstance(yaml, dict):
+            if len(yaml) == 0:
+                self.emit('{}')
+            else:
+                assert isinstance(key, str) or isinstance(key, unicode)
+                for key in yaml:
+                    self.emit('{}: '.format(key))
+                    with self.indent():
+                        self.emit_yaml(yaml[key])
+        elif isinstance(yaml, str) or isinstance(yaml, unicode):
+            self.emit('{}'.format(yaml.replace('"', '\"').replace('\n', '\\n').replace('\\', '\\\\')))
+        else:
+            assert False, 'unexpected type: {}'.format(typeof(yaml))
+
+
+class TypeGenerator(object):
+    def __init__(self):
+        self.generated_types = {}
+    
+    def add_type(self, datatype) :
+        if datatype.namespace.name not in self.generated_types:
+            self.generated_types[datatype.namespace.name] = {}
+        namespace_dict = self.generated_types[datatype.namespace.name]
+        if datatype.name in namespace_dict:
+            return
+        datatype_dict = {}
+
+
+        if is_union_type(datatype):
+            if datatype.closed:
+                datatype_dict["kind"] = "union"
+            else:
+                datatype_dict["kind"] = "open_union"
+        else:
+            datatype_dict["kind"] = "struct"
+        
+        if datatype.doc is not None:
+            datatype_dict["explanation"] = datatype.doc
+
+        datatype_dict["members"] = [self._add_field(field) for field in datatype.all_fields]
+        namespace_dict[datatype.name] = datatype_dict
+        
+    def _add_field(self, field):
+        member = {}
+
+        datatype = field.data_type
+
+        # Unroll maps, lists, aliases, and nullables
+        while (is_nullable_type(datatype) or is_list_type(datatype) or is_map_type(datatype) or is_alias(datatype)):
+            if is_list_type(datatype):
+                member["list"] = True
+            elif is_map_type(datatype):
+                assert False, "wow a map {}".format(datatype)
+                member["map"] = True
+            elif is_nullable_type(datatype):
+                left_type_name = left_type_name + "Optional "
+                member["optional"] = True
+            if is_map_type(datatype):
+                datatype = datatype.value_data_type
+            else:
+                datatype = datatype.data_type
+
+        if is_user_defined_type(datatype):
+            member["type"] = {"namespace": datatype.namespace.name, "datatype": datatype.name}
+            self.add_type(datatype)
+
+        elif is_primitive_type(datatype):
+            data = primitive_type_data(datatype)
+            member.extend(data)
+        else:
+            raise Exception("Unexpected datatype %r" % datatype)
+        
+        if field.doc is not None:
+            member["explanation"] = field.doc
+        
+        return member
+
+
 class MarkdownBackend(CodeBackend):
+
+    def __init__(self, *args, **kwargs):
+        super(MarkdownBackend, self).__init__(*args, **kwargs)
+        self.type_file_counter = 0
+        self.generated_types = {}
+    
+    def _has_already_generated_type(self, datatype):
+        namespace_name = datatype.namespace.name
+        datatype_name = datatype.name
+        if datatype_name == 'PollError':
+            print >> sys.stderr, namespace_name, datatype_name, self.generated_types
+        if namespace_name not in self.generated_types:
+            self.generated_types[namespace_name] = {datatype_name}
+            if datatype_name == 'PollError':
+                print >> sys.stderr, 'no namespace'
+            return False
+        namespace = self.generated_types[namespace_name]
+        if datatype_name not in namespace:
+            namespace.add(datatype_name)
+            if datatype_name == 'PollError':
+                print >> sys.stderr, 'no datatype'
+            return False
+        if datatype_name == 'PollError':
+            print >> sys.stderr, 'already there'
+        return True 
 
     def generate(self, api):
         """Generates a module for each namespace."""
@@ -78,7 +257,18 @@ class MarkdownBackend(CodeBackend):
         # TODO: how to handle different versions? just use latest for now.
         route = routes_by_version.get(max(routes_by_version.keys()))
 
+        frontmatter = {}
+        frontmatter["namespace"] = namespace.name
+        frontmatter["endpoint"] = route.name
+        frontmatter["route"] = "/{}/{}".format(namespace.name, route.name)
+        if deprecated:
+            frontmatter["deprecated"] = str(route.deprecated)
+        frontmatter["description"] = route.doc
+        frontmatter.extend({key: str(value) for (key, value) in route.attrs.iteritems()})
+        frontmatter["isDeprec"]
+
         with self.output_to_relative_path('routes/{}/{}.md'.format(namespace.name, route.name)):
+            self.emit('---')
 
             # Route name
             self.emit("# {}/{}".format(namespace.name, route.name))
@@ -126,10 +316,17 @@ class MarkdownBackend(CodeBackend):
 
     # generate complex data types
     def generate_composite(self, datatype):
+        if self._has_already_generated_type(datatype):
+            return
+
         subtypes = []
 
-        with self.output_to_relative_path('types/{}.md'.format(datatype.name)):
-
+        self.type_file_counter += 1
+        with self.output_to_relative_path('types/{}.md'.format(self.type_file_counter)):
+            self.emit('---')
+            self.emit('namespace: {}'.format(datatype.namespace.name))
+            self.emit('dataname: {}'.format(datatype.name))
+            self.emit('---')
             self.emit("# {}".format(datatype.name))
 
             if is_union_type(datatype):

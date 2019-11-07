@@ -10,16 +10,17 @@ import TypeExplanation from './TypeExplanation'
 export default function Endpoint(props) {
     const {namespace, route, isDeprecated, deprecatedBy, description, authTypes, shellExample, paramType, resultType, errorType, children} = props
     const components = useComponents()
+    console.log(components)
     const url = "https://api.dropboxapi.com/2/" + namespace + "/" + route
     return <>
-        {isDeprecated ? <DeprecatedWarning deprecatedBy={deprecatedBy} /> : null}
+        {deprecatedBy ? <DeprecatedWarning deprecatedBy={deprecatedBy} /> : null}
         <h1>/{namespace}/{route}</h1>
         <p>{description}</p>
-        <components.h3>Authentication</components.h3>
+        <h3>Authentication</h3>
         <p><AuthTypes authTypes={authTypes} /></p>
-        <components.h3>URL Structure</components.h3>
+        <h3>URL Structure</h3>
         <Code>{url}</Code>
-        <components.h3>Example</components.h3>
+        <h3>Example</h3>
         <ShellExample namespace={namespace} route={route} shellExample={shellExample} />
         <components.h3>Parameters</components.h3>
         <TypeExplanation type={paramType} />
