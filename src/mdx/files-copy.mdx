@@ -1,6 +1,6 @@
 ---
 name: copy
-route: /files/copy
+route: /files/othercopy
 namespace: files
 endpoint: copy
 menu: files
@@ -12,36 +12,6 @@ shellExample: "{\"from_path\": \"/Homework/math\",\"to_path\": \"/Homework/algeb
 paramType:
   namespace: files
   datatype: GetMetadataArg
-typeInfo:
-  files:
-    GetMetadataArg:
-      kind: struct
-      members:
-        - label: path
-          typeName: String
-          validator: pattern="(/(.|[\r\n])*|id:.*)|(rev:[0-9a-f]{9,})|(ns:[0-9]+(/.*)?)"
-          explanation: The path of a file or folder on Dropbox.
-        - label: include_media_info
-          typeName: Boolean
-          explanation: If true, FileMetadata.media_info is set for photo and video. The default for this field is False.
-        - label: include_deleted
-          typeName: Boolean
-          explanation: If true, DeletedMetadata will be returned for deleted file or folder, otherwise LookupError.not_found will be returned. The default for this field is False.
-        - label: include_has_explicit_shared_members
-          typeName: Boolean
-          explanation: If true, the results will include a flag for each file indicating whether or not that file has any explicit members. The default for this field is False.
-        - label: include_property_groups
-          type:
-            namespace: files
-            datatype: TemplateFilterBase
-          optional: true
-          explanation: If set to a valid list of template IDs, FileMetadata.property_groups is set if there exists property data associated with the file and each of the listed templates. This field is optional.
-    TemplateFilterBase:
-      kind: open_union
-      members:
-      - label: filter_some
-        typeName: List of (String(min_length=1, pattern="(/|ptid:).*"), min_items=1)
-        explanation: Only templates with an ID in the supplied list will be returned (a subset of templates will be returned).
 ---
 import Endpoint from '../components/Endpoint'
 import Description from '../components/Description'

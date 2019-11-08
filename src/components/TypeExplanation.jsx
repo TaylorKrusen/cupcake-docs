@@ -1,50 +1,77 @@
 import React from 'react'
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useMemo } from 'react'
 import NestingTypeBox from './NestingTypeBox';
 
 
-const kindToExplanation = {
+const stoneTypeDescription = {
     "struct": "Struct",
     "union": "Union",
     "open_union": "Open Union"
 }
 
-const memberRowHeaderStyle = {
+const fieldRowHeaderStyle = {
     display: 'flex',
-    alignItems: 'stretch',
+    alignItems: 'center',
     justifyContent: 'space-between',
-    backgroundColor: 'orange',
+    padding: '10px',
+    margin: '0'
 }
 
-function MemberRow({ member, typeInfo }) {
-    const {label, type, typeName, explanation, validator, optional, list} = member;
-    const isTerminal = !!typeName;
+function recursivelyResolveType(type) {
+    console.log(type)
+    const {primitive, optional, list, map, key, namespace, datatype} = type;
+    if (!!primitive) {
+        return {terminal: true, name: primitive, optional: false}
+    } else if (!!namespace) {
+        return {terminal: false, name: datatype, namespace, datatype, optional: false}
+    } else if (!!list) {
+        const previous = recursivelyResolveType(list);
+        return {terminal: previous.terminal, name: "List of (" + previous.name + ")", namespace: previous.namespace, datatype: previous.datatype, optional: false}
+    } else if (!!map) {
+        const previous = recursivelyResolveType(map);
+        return {terminal: previous.terminal, name: "Map from (" + key + ") to (" + previous.name + ")", namespace: previous.namespace, datatype: previous.datatype, optional: false}
+    } else if (!!optional) {
+        const previous = recursivelyResolveType(optional)
+        return {terminal: previous.terminal, name: previous.name + "?", namespace: previous.namespace, datatype: previous.datatype, optional: false}
+    } else {
+        throw Error('unexpected type ' + type)
+    }
+}
+
+function FieldRow({ field, typeInfo }) {
+    console.log(field)
+    const {parameter, description, type} = field;
+    const {terminal, name, namespace, datatype, optional} = useMemo(() => recursivelyResolveType(type), [type])
     const [expanded, setExpanded] = useState(true)
     const toggleExpanded = useCallback(e => setExpanded(s => !s), [setExpanded])
 
     return <>
         <div>
-            <div style={memberRowHeaderStyle} onClick={isTerminal ? null : toggleExpanded}>
-                <pre>{label}</pre>
-                <i>{list ? "List of " : null}{isTerminal ? typeName : type.datatype}{optional ? "?" : null}</i>
-                {validator}
+            <div style={{...fieldRowHeaderStyle, backgroundColor: optional ? 'lightsteelblue' : 'lightblue'}} onClick={terminal ? null : toggleExpanded}>
+                <pre style={{margin: '0'}}>{parameter}</pre>
+                <i>{name}</i>
             </div> 
-            <span>{explanation}</span>
+            <span>{description}</span>
         </div>
-        {isTerminal ||
-            <NestingTypeBox visible={expanded}><TypeExplanation type={type} typeInfo={typeInfo} /></NestingTypeBox>
+        {terminal ||
+            <NestingTypeBox visible={expanded}><TypeExplanation namespace={namespace} datatype={datatype} typeInfo={typeInfo} /></NestingTypeBox>
         }
     </>
 }
 
-export default function TypeExplanation({ type, typeInfo }) {
-    const {namespace, datatype} = type;
+const typeExplanationListStyle = {
+    listStyleType: 'none',
+    padding: '0',
+}
+
+export default function TypeExplanation({ namespace, datatype, typeInfo }) {
     const info = typeInfo[namespace][datatype]
-    const {kind, members} = info;
+    const {stone_type, fields, description} = info;
     return <>
-        <p>{datatype} <i>({kindToExplanation[kind]})</i></p>
-        <ul>
-            {members.map(member => <li key={member.label}><MemberRow member={member} typeInfo={typeInfo} /></li>)}
+        <p>{datatype} <i>({stoneTypeDescription[stone_type]})</i></p>
+        {description ? <p>{description}</p> : null}
+        <ul style={typeExplanationListStyle}>
+            {fields.map(field => <li key={field.label}><FieldRow field={field} typeInfo={typeInfo} /></li>)}
         </ul>
     </>
 }
