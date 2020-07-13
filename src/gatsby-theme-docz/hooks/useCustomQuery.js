@@ -7,12 +7,14 @@ export const useCustomQuery = () => {
         allStoneTypesJson {
           edges {
             node {
-              all_stone_types {
+              files {
                 GetMetadataArg {
-                  parameter
-                  type
-                  description
-                  kind
+                  fields {
+                    parameter
+                    type
+                    description
+                    pattern
+                  }
                 }
               }
             }
