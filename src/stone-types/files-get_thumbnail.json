@@ -1,0 +1,625 @@
+{
+    "version": 1,
+    "description": "Get a thumbnail for a file.",
+    "url structure": "https://content.dropboxapi.com/2/files/get_thumbnail_v2",
+    "authentication": ["App Authentication", "User Authentication", "Dropbox-API-Select-Admin (Whole Team)"],
+    "endpoint format": "Content-download",
+    "required scope": "files.content.read",
+    "example": "TODO",
+    "parameters example": {
+        "resource": {
+            ".tag": "path",
+            "path": "/a.docx"
+        },
+        "format": "jpeg",
+        "size": "w64h64",
+        "mode": "strict"
+    },
+    "parameters": {
+        "name": "ThumbnailV2Arg",
+        "fields": [
+            {
+                "name":"resource",
+                "type": {
+                    "type name":"PathOrLink",
+                    "properties":[
+                        {
+                            "name":"path",
+                            "type":"string",
+                            "description":"String(pattern=\"(/(.|[\r\n])*|id:.*)|(rev:[0-9a-f]{9,})|(ns:[0-9]+(/.*)?)\")"
+                        },
+                        {
+                            "name":"link",
+                            "type":{
+                                "type name":"SharedLinkFileInfo",
+                                "properties":[
+                                    {
+                                        "name":"url",
+                                        "type":"string",
+                                        "optional":false,
+                                        "description":"The shared link corresponding to either a file or shared link to a folder. If it is for a folder shared link, we use the path param to determine for which file in the folder the view is for."
+                                    },
+                                    {
+                                        "name":"path",
+                                        "type":"string",
+                                        "optional":true,
+                                        "description":"The path corresponding to a file in a shared link to a folder. Required for shared links to folders."
+                                    },
+                                    {
+                                        "name":"password",
+                                        "type":"string",
+                                        "optional":true,
+                                        "description":"Password for the shared link. Required for password-protected shared links to files  unless it can be read from a cookie."
+                                    }
+                                ]
+                            }
+                        }
+                    ],
+                    "description": "The value will be one of the following datatypes. New values may be introduced as our API evolves."
+                },            
+                "optional":false,
+                "description":"Information specifying which file to preview. This could be a path to a file, a shared link pointing to a file, or a shared link pointing to a folder, with a relative path."
+            },
+            {
+                "name":"format",
+                "type": {
+                    "type name":"ThumbnailFormat",
+                    "properties":[
+                        {
+                            "name":"jpeg",
+                            "type":"void",
+                            "optional":false
+                        },
+                        {
+                            "name":"png",
+                            "type":"void",
+                            "optional":false
+                        }
+                    ]
+                },
+                "optional":false,
+                "description":"The format for the thumbnail image, jpeg (default) or png. For images that are photos, jpeg should be preferred, while png is  better for screenshots and digital arts."
+            },
+            {
+                "name":"size",
+                "type": {
+                    "type name": "ThumbnailSize",
+                    "properties": [
+                        {
+                            "name":"w32h32",
+                            "type":"void",
+                            "optional":false,
+                            "description": "32 by 32 px."
+                        },
+                        {
+                            "name":"w64h64",
+                            "type":"void",
+                            "optional":false,
+                            "description": "64 by 64 px."
+                        },
+                        {
+                            "name":"w128h128",
+                            "type":"void",
+                            "optional":false,
+                            "description": "128 by 128 px."
+                        },
+                        {
+                            "name":"w256h256",
+                            "type":"void",
+                            "optional":false,
+                            "description": "256 by 256 px."
+                        },
+                        {
+                            "name":"w480h320",
+                            "type":"void",
+                            "optional":false,
+                            "description": "480 by 320 px."
+                        },
+                        {
+                            "name":"w640h480",
+                            "type":"void",
+                            "optional":false,
+                            "description": "640 by 480 px."
+                        },
+                        {
+                            "name":"w960h640",
+                            "type":"void",
+                            "optional":false,
+                            "description": "960 by 640 px."
+                        },
+                        {
+                            "name":"w1024h768",
+                            "type":"void",
+                            "optional":false,
+                            "description": "1024 by 768 px."
+                        },
+                        {
+                            "name":"w2048h1536",
+                            "type":"void",
+                            "optional":false,
+                            "description": "2048 by 1536 px."
+                        }
+                    ],
+                    "optional":false,
+                    "description":"The value will be one of the following datatypes:"
+                },
+                "optional":false,
+                "description":"The size for the thumbnail image."
+            },
+            {
+                "name":"mode",
+                "type": {
+                    "type name": "FilesThumbnailMode",
+                    "properties": [
+                        {
+                            "name":"strict",
+                            "type":"void",
+                            "optional":false,
+                            "description": "Scale down the image to fit within the given size."
+                        },
+                        {
+                            "name":"bestfit",
+                            "type":"void",
+                            "optional":false,
+                            "description": "Scale down the image to fit within the given size or its transpose."
+                        },
+                        {
+                            "name":"fitone_bestfit",
+                            "type":"void",
+                            "optional":false,
+                            "description": "Scale down the image to completely cover the given size or its transpose."
+                        }
+                    ],
+                    "optional":false,
+                    "description":"The value will be one of the following datatypes:"
+                },
+                "optional":false,
+                "description":"How to resize and crop the image to achieve the desired size."
+            }
+        ]
+    },
+    "returns example": {
+        "file_metadata": {
+            "name": "Prime_Numbers.txt",
+            "id": "id:a4ayc_80_OEAAAAAAAAAXw",
+            "client_modified": "2015-05-12T15:50:38Z",
+            "server_modified": "2015-05-12T15:50:38Z",
+            "rev": "a1c10ce0dd78",
+            "size": 7212,
+            "path_lower": "/homework/math/prime_numbers.txt",
+            "path_display": "/Homework/math/Prime_Numbers.txt",
+            "sharing_info": {
+                "read_only": true,
+                "parent_shared_folder_id": "84528192421",
+                "modified_by": "dbid:AAH4f99T0taONIb-OurWxbNQ6ywGRopQngc"
+            },
+            "is_downloadable": true,
+            "property_groups": [
+                {
+                    "template_id": "ptid:1a5n2i6d3OYEAAAAAAAAAYa",
+                    "fields": [
+                        {
+                            "name": "Security Policy",
+                            "value": "Confidential"
+                        }
+                    ]
+                }
+            ],
+            "has_explicit_shared_members": false,
+            "content_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "file_lock_info": {
+                "is_lockholder": true,
+                "lockholder_name": "Imaginary User",
+                "created": "2015-05-12T15:50:38Z"
+            }
+        }
+    },
+    "returns": {
+        "name": "PreviewResult",
+        "fields": [
+            {
+                "name":"file_metadata",
+                "type": {
+                    "type name":"FileMetadata",
+                    "properties":[
+                        {
+                            "name":"name",
+                            "type":"string",
+                            "optional": false,
+                            "description":"The last component of the path (including extension). This never contains a slash."
+                        },
+                        {
+                            "name":"id",
+                            "type":"String(min_length=1)",
+                            "optional": false,
+                            "description":"A unique identifier for the file."
+                        },
+                        {
+                            "name":"client_modified",
+                            "type":"Timestamp(format=\"%Y-%m-%dT%H:%M:%SZ\")",
+                            "optional": false,
+                            "description":"For files, this is the modification time set by the desktop client when the file was added to Dropbox. Since this time is not verified (the Dropbox server stores whatever the desktop client sends up), this should only be used for display purposes (such as sorting) and not, for example, to determine if a file has changed or not."
+                        },
+                        {
+                            "name":"server_modified",
+                            "type":"Timestamp(format=\"%Y-%m-%dT%H:%M:%SZ\")",
+                            "optional": false,
+                            "description":"The last time the file was modified on Dropbox."
+                        },
+                        {
+                            "name":"rev",
+                            "type":"String(min_length=9, pattern=\"[0-9a-f]+\")",
+                            "optional": false,
+                            "description":"A unique identifier for the current revision of a file. This field is the same rev as elsewhere in the API and can be used to detect changes and avoid conflicts."
+                        },
+                        {
+                            "name":"size",
+                            "type":"UInt64",
+                            "optional": false,
+                            "description":"The file size in bytes."
+                        },
+                        {
+                            "name":"path_lower",
+                            "type":"string",
+                            "optional": true,
+                            "description":"The lowercased full path in the user's Dropbox. This always starts with a slash. This field will be null if the file or folder is not mounted. This field is optional."
+                        },
+                        {
+                            "name":"path_display",
+                            "type":"string",
+                            "optional": true,
+                            "description":"The cased path to be used for display purposes only. In rare instances the casing will not correctly match the user's filesystem, but this behavior will match the path provided in the Core API v1, and at least the last path component will have the correct casing. Changes to only the casing of paths won't be returned by list_folder/continue (TODO MAKE LINK). This field will be null if the file or folder is not mounted. This field is optional."
+                        },
+                        {
+                            "name":"parent_shared_folder_id",
+                            "type":"String(pattern=\"[-_0-9a-zA-Z:]+\")?",
+                            "deprecated": true,
+                            "optional": false,
+                            "description":"Field is deprecated. Please use FileSharingInfo.parent_shared_folder_id or FolderSharingInfo.parent_shared_folder_id instead. This field is optional."
+                        },
+                        {
+                            "name":"media_info",
+                            "type":{
+                                "type name":"MediaInfo",
+                                "properties":[
+                                    {
+                                        "name":"pending",
+                                        "type":"void",
+                                        "optional":false,
+                                        "description":"Indicate the photo/video is still under processing and metadata is not available yet."
+                                    },
+                                    {
+                                        "name":"metadata",
+                                        "type":{
+                                            "type name":"MediaMetadata",
+                                            "properties":[
+                                                {
+                                                    "name": "photo",
+                                                    "type":{
+                                                        "type name":"PhotoMetadata",
+                                                        "properties":[
+                                                            {
+                                                                "name":"dimensions",
+                                                                "type":{
+                                                                    "type name":"Dimensions",
+                                                                    "properties":[
+                                                                        {
+                                                                            "name":"height",
+                                                                            "type":"UInt64",
+                                                                            "optional":false,
+                                                                            "description":"Height of the photo/video."
+                                                                        },
+                                                                        {
+                                                                            "name":"width",
+                                                                            "type":"UInt64",
+                                                                            "optional":false,
+                                                                            "description":"Width of the photo/video."
+                                                                        }
+                                                                    ],
+                                                                    "description":"Dimensions for a photo or video."
+                                                                },
+                                                                "optional":true,
+                                                                "description":" Dimension of the photo/video. This field is optional."
+                                                            },
+                                                            {
+                                                                "name":"location",
+                                                                "type":{
+                                                                    "type name":"GpsCoordinates",
+                                                                    "properties":[
+                                                                        {
+                                                                            "name":"latitude",
+                                                                            "type":"Float64",
+                                                                            "optional":false,
+                                                                            "description":"Latitude of the GPS coordinates."
+                                                                        },
+                                                                        {
+                                                                            "name":"longitude",
+                                                                            "type":"Float64",
+                                                                            "optional":false,
+                                                                            "description":"Longitude of the GPS coordinates."
+                                                                        }
+                                                                    ],
+                                                                    "description":"GPS coordinates for a photo or video."
+                                                                },
+                                                                "optional":true,
+                                                                "description":"The GPS coordinate of the photo/video. This field is optional."
+                                                            },
+                                                            {
+                                                                "name":"time_taken",
+                                                                "type":"Timestamp(format=\"%Y-%m-%dT%H:%M:%SZ\")?",
+                                                                "optional":true,
+                                                                "description":"The timestamp when the photo/video is taken. This field is optional."
+                                                            }
+                                                        ],
+                                                        "description":"Metadata for a photo.",
+                                                        "optional":false
+                                                    }
+                                                },
+                                                {
+                                                    "name":"video",
+                                                    "type":{
+                                                        "type name":"VideoMetadata",
+                                                        "properties":[
+                                                            {
+                                                                "name":"dimensions",
+                                                                "type":{
+                                                                    "type name":"Dimensions",
+                                                                    "properties":[
+                                                                        {
+                                                                            "name":"height",
+                                                                            "type":"UInt64",
+                                                                            "optional":false,
+                                                                            "description":"Height of the photo/video."
+                                                                        },
+                                                                        {
+                                                                            "name":"width",
+                                                                            "type":"UInt64",
+                                                                            "optional":false,
+                                                                            "description":"Width of the photo/video."
+                                                                        }
+                                                                    ],
+                                                                    "description":"Dimensions for a photo or video."
+                                                                },
+                                                                "optional":true,
+                                                                "description":" Dimension of the photo/video. This field is optional."
+                                                            },
+                                                            {
+                                                                "name":"location",
+                                                                "type":{
+                                                                    "type name":"GpsCoordinates",
+                                                                    "properties":[
+                                                                        {
+                                                                            "name":"latitude",
+                                                                            "type":"Float64",
+                                                                            "optional":false,
+                                                                            "description":"Latitude of the GPS coordinates."
+                                                                        },
+                                                                        {
+                                                                            "name":"longitude",
+                                                                            "type":"Float64",
+                                                                            "optional":false,
+                                                                            "description":"Longitude of the GPS coordinates."
+                                                                        }
+                                                                    ],
+                                                                    "description":"GPS coordinates for a photo or video."
+                                                                },
+                                                                "optional":true,
+                                                                "description":"The GPS coordinate of the photo/video. This field is optional."
+                                                            },
+                                                            {
+                                                                "name":"time_taken",
+                                                                "type":"Timestamp(format=\"%Y-%m-%dT%H:%M:%SZ\")?",
+                                                                "optional":true,
+                                                                "description":"The timestamp when the photo/video is taken. This field is optional."
+                                                            },
+                                                            {
+                                                                "name":"duration",
+                                                                "type":"UInt64",
+                                                                "optional":true,
+                                                                "description":"The duration of the video in milliseconds. This field is optional."
+                                                            }
+                                                        ],
+                                                        "description":"Metadata for a video.",
+                                                        "optional":false
+                                                    }
+                                                }
+                                            ],
+                                            "optional":false,
+                                            "description":"Metadata for a photo or video. This datatype will be one of the following subtypes:"
+                                        },
+                                        "description":"The metadata for the photo/video."
+                                    }
+                                ],
+                                "description": "The value will be one of the following datatypes:"
+                            },
+                            "optional":true,
+                            "description":"Additional information if the file is a photo or video. This field will not be set on entries returned by list_folder [TODO LINK], list_folder/continue [TODO LINK], or get_thumbnail_batch [TODO LINK], starting December 2, 2019. This field is optional."
+                        }
+                    ]
+                },            
+                "optional":true,
+                "description": "Metadata corresponding to the file received as an argument. Will be populated if the endpoint is called with a path (ReadPath). This field is optional."
+            },
+            {
+                "name":"link_metadata",
+                "type": {
+                    "type name":"MinimalFileLinkMetadata",
+                    "properties":[
+                        {
+                            "name":"url",
+                            "type":"string",
+                            "ojptional": false,
+                            "description":"URL of the shared link."
+                        },
+                        {
+                            "name":"rev",
+                            "type":"String(min_length=9, pattern=\"[0-9a-f]+\")",
+                            "ojptional": false,
+                            "description":"A unique identifier for the current revision of a file. This field is the same rev as elsewhere in the API and can be used to detect changes and avoid conflicts."
+                        },
+                        {
+                            "name":"id",
+                            "type":"string",
+                            "ojptional": true,
+                            "description":"Unique identifier for the linked file. This field is optional."
+                        },
+                        {
+                            "name":"path",
+                            "type":"string",
+                            "ojptional": true,
+                            "description":"Full path in the user's Dropbox. This always starts with a slash. This field will only be present only if the linked file is in the authenticated user's Dropbox. This field is optional."
+                        }
+                    ]
+                },            
+                "optional":true,
+                "description": "Minimal metadata corresponding to the file received as an argument. Will be populated if the endpoint is called using a shared link (SharedLinkFileInfo). This field is optional."
+            }
+        ]
+    },
+    "errors example": [
+        {
+            "example description":"Example: unsupported_extension",
+            "example": {
+                "error_summary": "unsupported_extension/...",
+                "error": {
+                    ".tag": "unsupported_extension"
+                }
+            }
+        },
+        {
+            "example description":"Example: unsupported_image",
+            "example": {
+                "error_summary": "unsupported_image/...",
+                "error": {
+                    ".tag": "unsupported_image"
+                }
+            }
+        },
+        {
+            "example description":"Example: conversion_error",
+            "example": {
+                "error_summary": "conversion_error/...",
+                "error": {
+                    ".tag": "conversion_error"
+                }
+            }
+        },
+        {
+            "example description":"Example: access_denied",
+            "example": {
+                "error_summary": "access_denied/...",
+                "error": {
+                    ".tag": "access_denied"
+                }
+            }
+        },
+        {
+            "example description":"Example: not_found",
+            "example": {
+                "error_summary": "not_found/...",
+                "error": {
+                    ".tag": "not_found"
+                }
+            }
+        },
+        {
+            "example description":"Example: other",
+            "example": {
+                "error_summary": "other/...",
+                "error": {
+                    ".tag": "other"
+                }
+            }
+        }
+    ],
+    "errors": {
+        "name":"ThumbnailV2Error",
+        "fields":[
+            {
+                "name":"path",
+                "type": {
+                    "type name":"LookupError",
+                    "properties":[
+                        {
+                            "name":"malformed_path",
+                            "type":"string",
+                            "optional":true,
+                            "description":"The given path does not satisfy the required path format. Please refer to the Path formats documentation [TODO LINK] for more information. This field is optional."
+                        },
+                        {
+                            "name":"not_found",
+                            "type":"void",
+                            "optional":false,
+                            "description":"There is nothing at the given path."
+                        },
+                        {
+                            "name":"not_file",
+                            "type":"void",
+                            "optional":false,
+                            "description":"We were expecting a file, but the given path refers to something that isn't a file."
+                        },
+                        {
+                            "name":"not_folder",
+                            "type":"void",
+                            "optional":false,
+                            "description":"We were expecting a folder, but the given path refers to something that isn't a folder."
+                        },
+                        {
+                            "name":"restricted_content",
+                            "type":"void",
+                            "optional":false,
+                            "description":"The file cannot be transferred because the content is restricted. For example, sometimes there are legal restrictions due to copyright claims."
+                        },
+                        {
+                            "name":"unsupported_content_type",
+                            "type":"void",
+                            "optional":false,
+                            "description":"This operation is not supported for this content type."
+                        },
+                        {
+                            "name":"locked",
+                            "type":"void",
+                            "optional":false,
+                            "description":"The given path is locked."
+                        }
+                    ],
+                    "optional":false,
+                    "description":"The value will be one of the following datatypes. New values may be introduced as our API evolves."
+                },
+                "optional": false,
+                "description":"An error occurred when downloading metadata for the image."
+            },
+            {
+                "name":"unsupported_extension",
+                "type":"void",
+                "optional":false,
+                "description":"The file extension doesn't allow conversion to a thumbnail."
+            },
+            {
+                "name":"unsupported_image",
+                "type":"void",
+                "optional":false,
+                "description":"The image cannot be converted to a thumbnail."
+            },
+            {
+                "name":"conversion_error",
+                "type":"void",
+                "optional":false,
+                "description":"An error occurred during thumbnail conversion."
+            },
+            {
+                "name":"access_denied",
+                "type":"void",
+                "optional":false,
+                "description":"Access to this shared link is forbidden."
+            },
+            {
+                "name":"not_found",
+                "type":"void",
+                "optional":false,
+                "description":"The shared link does not exist."
+            }
+        ],
+        "description":"The value will be one of the following datatypes. New values may be introduced as our API evolves."
+    }   
+}
