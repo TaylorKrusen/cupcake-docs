@@ -1,0 +1,121 @@
+---
+name: /export
+route: /files/export
+menu: files
+---
+
+# /files/export
+
+### Description
+Export a file from a user's Dropbox. This route only supports exporting files that cannot be downloaded directly  and whose `ExportResult.file_metadata` has `ExportInfo.export_as` populated.
+
+### URL Structure
+```
+https://api.dropbox.com/1/files/export
+```
+
+import LinkedTypeExplanation from '../../components/LinkedTypeExplanation'
+
+### parameters
+Example: default
+```
+{"path": "/Homework/math/Prime_Numbers.gsheet"}
+```
+Example: id
+```
+{"path": "id:a4ayc_80_OEAAAAAAAAAYa"}
+```
+FilesExportArg
+<LinkedTypeExplanation namespace={"files"} datatype={"ExportArg"} />
+
+### return values
+Example
+```
+{
+    "export_metadata": {
+        "export_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "name": "Prime_Numbers.xlsx",
+        "size": 7189
+    },
+    "file_metadata": {
+        "client_modified": "2015-05-12T15:50:38Z",
+        "content_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "file_lock_info": {
+            "created": "2015-05-12T15:50:38Z",
+            "is_lockholder": true,
+            "lockholder_name": "Imaginary User"
+        },
+        "has_explicit_shared_members": false,
+        "id": "id:a4ayc_80_OEAAAAAAAAAXw",
+        "is_downloadable": true,
+        "name": "Prime_Numbers.txt",
+        "path_display": "/Homework/math/Prime_Numbers.txt",
+        "path_lower": "/homework/math/prime_numbers.txt",
+        "property_groups": [
+            {
+                "fields": [
+                    {
+                        "name": "Security Policy",
+                        "value": "Confidential"
+                    }
+                ],
+                "template_id": "ptid:1a5n2i6d3OYEAAAAAAAAAYa"
+            }
+        ],
+        "rev": "a1c10ce0dd78",
+        "server_modified": "2015-05-12T15:50:38Z",
+        "sharing_info": {
+            "modified_by": "dbid:AAH4f99T0taONIb-OurWxbNQ6ywGRopQngc",
+            "parent_shared_folder_id": "84528192421",
+            "read_only": true
+        },
+        "size": 7212
+    }
+}
+```
+FilesExportResult
+<LinkedTypeExplanation namespace={"files"} datatype={"ExportResult"} />
+
+### errors
+Example: non_exportable
+```
+{
+    "error": {
+        ".tag": "non_exportable"
+    },
+    "error_summary": "non_exportable/..."
+}
+```
+Example: non_exportable
+```
+{".tag": "non_exportable"}
+```
+Example: retry_error
+```
+{
+    "error": {
+        ".tag": "retry_error"
+    },
+    "error_summary": "retry_error/..."
+}
+```
+Example: retry_error
+```
+{".tag": "retry_error"}
+```
+Example: other
+```
+{
+    "error": {
+        ".tag": "other"
+    },
+    "error_summary": "other/..."
+}
+```
+Example: other
+```
+{".tag": "other"}
+```
+FilesExportError
+<LinkedTypeExplanation namespace={"files"} datatype={"ExportError"} />
+

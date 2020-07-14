@@ -1,0 +1,131 @@
+---
+name: /save_url
+route: /files/save_url
+menu: files
+---
+
+# /files/save_url
+
+### Description
+Save the data from a specified URL into a file in user's Dropbox.
+
+Note that the transfer from the URL must complete within 5 minutes, or the operation will time out and the job will fail.
+
+If the given path already exists, the file will be renamed to avoid the conflict (e.g. myfile (1).txt).
+
+### URL Structure
+```
+https://api.dropbox.com/1/files/save_url
+```
+
+import LinkedTypeExplanation from '../../components/LinkedTypeExplanation'
+
+### parameters
+Example
+```
+{
+    "path": "/a.txt",
+    "url": "http://example.com/a.txt"
+}
+```
+FilesSaveUrlArg
+<LinkedTypeExplanation namespace={"files"} datatype={"SaveUrlArg"} />
+
+### return values
+Example
+```
+{
+    ".tag": "complete",
+    "client_modified": "2015-05-12T15:50:38Z",
+    "content_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "file_lock_info": {
+        "created": "2015-05-12T15:50:38Z",
+        "is_lockholder": true,
+        "lockholder_name": "Imaginary User"
+    },
+    "has_explicit_shared_members": false,
+    "id": "id:a4ayc_80_OEAAAAAAAAAXw",
+    "is_downloadable": true,
+    "name": "Prime_Numbers.txt",
+    "path_display": "/Homework/math/Prime_Numbers.txt",
+    "path_lower": "/homework/math/prime_numbers.txt",
+    "property_groups": [
+        {
+            "fields": [
+                {
+                    "name": "Security Policy",
+                    "value": "Confidential"
+                }
+            ],
+            "template_id": "ptid:1a5n2i6d3OYEAAAAAAAAAYa"
+        }
+    ],
+    "rev": "a1c10ce0dd78",
+    "server_modified": "2015-05-12T15:50:38Z",
+    "sharing_info": {
+        "modified_by": "dbid:AAH4f99T0taONIb-OurWxbNQ6ywGRopQngc",
+        "parent_shared_folder_id": "84528192421",
+        "read_only": true
+    },
+    "size": 7212
+}
+```
+FilesSaveUrlResult
+<LinkedTypeExplanation namespace={"files"} datatype={"SaveUrlResult"} />
+
+### errors
+Example: download_failed
+```
+{
+    "error": {
+        ".tag": "download_failed"
+    },
+    "error_summary": "download_failed/..."
+}
+```
+Example: download_failed
+```
+{".tag": "download_failed"}
+```
+Example: invalid_url
+```
+{
+    "error": {
+        ".tag": "invalid_url"
+    },
+    "error_summary": "invalid_url/..."
+}
+```
+Example: invalid_url
+```
+{".tag": "invalid_url"}
+```
+Example: not_found
+```
+{
+    "error": {
+        ".tag": "not_found"
+    },
+    "error_summary": "not_found/..."
+}
+```
+Example: not_found
+```
+{".tag": "not_found"}
+```
+Example: other
+```
+{
+    "error": {
+        ".tag": "other"
+    },
+    "error_summary": "other/..."
+}
+```
+Example: other
+```
+{".tag": "other"}
+```
+FilesSaveUrlError
+<LinkedTypeExplanation namespace={"files"} datatype={"SaveUrlError"} />
+
