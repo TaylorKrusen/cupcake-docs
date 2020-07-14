@@ -1,8 +1,12 @@
 /** @jsx jsx */
-import React from 'react'
-import { jsx, Box, Flex, useColorMode } from 'theme-ui'
+import { jsx, Box } from 'theme-ui'
 
 export default function({ deprecatedBy }) {
-    return <Box sx={{backgroundColor: 'red'}}>WARNING: This API is deprecated.{!!deprecatedBy ? 
-        <>Use {deprecatedBy} instead.</> : null}</Box>
+    let deprecatedByMsg;
+    if (deprecatedBy) {
+        deprecatedByMsg = <span>Use {deprecatedBy} instead.</span>
+    }
+    return (
+        <Box className="deprecated-warning">WARNING: This API is deprecated.{deprecatedByMsg}</Box>
+    );
 }

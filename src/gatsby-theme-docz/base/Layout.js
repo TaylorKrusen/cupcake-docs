@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import { useComponents } from 'docz'
 import { MDXProvider } from '@mdx-js/react'
 import { propEq, get } from 'lodash/fp'
-// import { useDbQuery } from '../hooks/useDbQuery'
 import { useCustomQuery } from '../hooks/useCustomQuery'
 import Wrapper from '../wrapper'
 import Theme from '../index'
@@ -34,12 +33,9 @@ const findEntry = (db, ctx) => {
 
 const Layout = ({ children, ...defaultProps }) => {
   const { pageContext: ctx } = defaultProps
-  console.log(ctx)
-  // const db = useDbQuery()
   const data = useCustomQuery()
   const db = data.doczData
   const stoneTypes = data.stoneTypes
-  // console.log(data)
   const entry = findEntry(db, ctx)
   return (
     <Fragment>

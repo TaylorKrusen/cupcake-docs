@@ -18,7 +18,6 @@ const fieldRowHeaderStyle = {
 }
 
 function recursivelyResolveType(type) {
-    console.log(type)
     const {primitive, optional, list, map, key, namespace, datatype} = type;
     if (!!primitive) {
         return {terminal: true, name: primitive, optional: false}
@@ -39,7 +38,6 @@ function recursivelyResolveType(type) {
 }
 
 function FieldRow({ field, typeInfo }) {
-    console.log(field)
     const {parameter, description, type} = field;
     const {terminal, name, namespace, datatype, optional} = useMemo(() => recursivelyResolveType(type), [type])
     const [expanded, setExpanded] = useState(true)
@@ -69,9 +67,9 @@ export default function TypeExplanation({ namespace, datatype, typeInfo }) {
     const {stone_type, fields, description} = info;
     return <>
         <p>{datatype} <i>({stoneTypeDescription[stone_type]})</i></p>
-        {description ? <p>{description}</p> : null}
+        {description && <p>{description}</p>}
         <ul style={typeExplanationListStyle}>
-            {fields.map(field => <li key={field.label}><FieldRow field={field} typeInfo={typeInfo} /></li>)}
+            {fields.map((field, idx) => <li key={`TypeExplanation-${idx}`}><FieldRow field={field} typeInfo={typeInfo} /></li>)}
         </ul>
     </>
 }

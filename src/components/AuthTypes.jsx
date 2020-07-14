@@ -10,7 +10,7 @@ function AuthLink(props) {
     } else if (authType === 'team') {
         return <Link to="TODO">Team</Link>;
     }
-    throw 'unexpected auth type ' + authType;
+    throw new Error('unexpected auth type ' + authType);
 }
 
 export default function AuthTypes(props) {

@@ -1,10 +1,11 @@
 ---
-name: copy
-route: /files/othercopy
+name: /copy
+route: /files/copy
 namespace: files
 endpoint: copy
 menu: files
-deprecated: false
+isDeprecated: false
+deprecatedBy: something else
 authTypes:
   - user
 description: Copy a file to another location.
@@ -14,17 +15,5 @@ paramType:
   datatype: GetMetadataArg
 ---
 import Endpoint from '../components/Endpoint'
-import Description from '../components/Description'
 
-<Endpoint
-    namespace={props.pageContext.frontmatter.namespace}
-    route={props.pageContext.frontmatter.endpoint}
-    isDeprecated={props.pageContext.frontmatter.deprecated}
-    authTypes={props.pageContext.frontmatter.authTypes}
-    description={props.pageContext.frontmatter.description}
-    shellExample={props.pageContext.frontmatter.shellExample}
-    paramType={props.pageContext.frontmatter.paramType}
-    typeInfo={props.pageContext.frontmatter.typeInfo}
->
-    <Description>Testinggg</Description>
-</Endpoint>
+<Endpoint endpointProps={props.pageContext.frontmatter} />
