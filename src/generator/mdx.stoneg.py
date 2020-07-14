@@ -250,7 +250,7 @@ class MdxBackend(CodeBackend):
         if not namespace.routes:
             return
 
-        with self.output_to_relative_path('namespaces/{}.md'.format(namespace.name)):
+        with self.output_to_relative_path('namespaces/{}.mdx'.format(namespace.name)):
 
             self.emit('## {}'.format(namespace.name))
             if namespace.doc:
@@ -286,16 +286,16 @@ class MdxBackend(CodeBackend):
         # TODO: how to handle different versions? just use latest for now.
         route = routes_by_version.get(max(routes_by_version.keys()))
 
-        with self.output_to_relative_path('routes/{}.md'.format('{}/{}'.format(namespace.name, route.name).replace('/', '-'))):
+        with self.output_to_relative_path('routes/{}.mdx'.format('{}/{}'.format(namespace.name, route.name).replace('/', '-'))):
 
             self.emit("---")
-            self.emit("name: {}".format(route.name))
+            self.emit("name: /{}".format(route.name))
             self.emit("route: /{}/{}".format(namespace.name, route.name))
             self.emit("menu: {}".format(namespace.name))
             self.emit("---")
             self.emit("")
 
-            self.emit("## /{}/{}".format(namespace.name, route.name))
+            self.emit("# /{}/{}".format(namespace.name, route.name))
             self.emit("")
 
             if route.doc:
