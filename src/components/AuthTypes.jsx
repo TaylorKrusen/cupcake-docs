@@ -1,8 +1,15 @@
 import React from 'react'
 import { Link } from 'docz';
 
+const authTypeMap = {
+    "App Authentication": 'app',
+    "User Authentication": 'user',
+    "Dropbox-API-Select-Admin (Whole Team)": 'team'
+};
+
 function AuthLink(props) {
-    const {authType} = props;
+    let {authType} = props;
+    authType = authTypeMap[authType] || authType; 
     if (authType === 'user') {
         return <Link to="TODO">User</Link>;
     } else if (authType === 'app') {
