@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Description = ({children}) => {
+const Description: React.FC<{}> = ({children}) => {
   return <div className="description-box">{children}</div>;
 };
 

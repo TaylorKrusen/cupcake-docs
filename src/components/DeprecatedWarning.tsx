@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import {jsx, Box} from 'theme-ui';
 
-export default function ({deprecatedBy}) {
+export default function ({deprecatedBy}: {deprecatedBy: string}) {
   let deprecatedByMsg;
   if (deprecatedBy) {
     deprecatedByMsg = <span>Use {deprecatedBy} instead.</span>;

@@ -6,7 +6,10 @@ const style = {
   padding: '10px',
 };
 
-export default function NestingTypeBox({children, visible}) {
+export default function NestingTypeBox({
+  children,
+  visible,
+}: React.PropsWithChildren<{visible: boolean}>) {
   // not even there when invisible
   if (!visible) return null;
   return <div style={style}>{children}</div>;

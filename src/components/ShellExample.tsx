@@ -1,7 +1,11 @@
 import React from 'react';
 import Code from './Code';
 
-export default function ShellExample(props) {
+export default function ShellExample(props: {
+  namespace: string;
+  endpoint: string;
+  shellExample: string;
+}) {
   const {namespace, endpoint, shellExample} = props;
   return (
     <Code>
