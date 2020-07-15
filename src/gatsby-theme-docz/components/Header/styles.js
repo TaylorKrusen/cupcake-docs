@@ -12,6 +12,18 @@ export const innerContainer = {
   py: '10px',
   position: 'relative',
   justifyContent: 'space-between',
+  padding: '18px',
+}
+
+export const headerLink = {
+  lineHeight: 0,
+  marginRight: '34px',
+  fontSize: '18px',
+  fontDecoration: 'none',
+  color: 'black',
+  ':hover': {
+    opacity: 0.5,
+  },
 }
 
 export const headerButton = {
