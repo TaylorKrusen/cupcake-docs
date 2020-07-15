@@ -8,8 +8,6 @@ import Code from './Code';
 import TypeExplanation from './TypeExplanation';
 import Description from './Description';
 
-import allTypes from '../stone-types/alltypes';
-
 import '../scss/styles.scss';
 
 import {StoneTypeReference, StoneTypeInfoMap} from '../interfaces/index';
@@ -48,7 +46,7 @@ export default function Endpoint(props: {endpointProps: EndpointProps}) {
   const url = `https://api.dropboxapi.com/2${route}`;
   return (
     <>
-      {isDeprecated && <DeprecatedWarning deprecatedBy={deprecatedBy} />}
+      {isDeprecated && <DeprecatedWarning deprecatedBy={deprecatedBy || ''} />}
       <h1>{route}</h1>
       <Description>{description}</Description>
       <components.h3>Authentication</components.h3>
@@ -61,14 +59,14 @@ export default function Endpoint(props: {endpointProps: EndpointProps}) {
       <TypeExplanation
         namespace={paramType.namespace}
         datatype={paramType.datatype}
-        typeInfo={typeInfo || allTypes}
+        typeInfo={typeInfo}
       />
       <components.h3>Returns</components.h3>
       {!!returnType ? (
         <TypeExplanation
           namespace={returnType.namespace}
           datatype={returnType.datatype}
-          typeInfo={typeInfo || allTypes}
+          typeInfo={typeInfo}
         />
       ) : (
         <p>Nothing</p>
@@ -78,7 +76,7 @@ export default function Endpoint(props: {endpointProps: EndpointProps}) {
         <TypeExplanation
           namespace={paramType.namespace}
           datatype={paramType.datatype}
-          typeInfo={typeInfo || allTypes}
+          typeInfo={typeInfo}
         />
       ) : (
         <p>Nothing</p>

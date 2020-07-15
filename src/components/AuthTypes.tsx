@@ -1,13 +1,13 @@
 import React from 'react';
 import {Link} from 'docz';
 
-const authTypeMap = {
+const authTypeMap: Record<string, string> = {
   'App Authentication': 'app',
   'User Authentication': 'user',
   'Dropbox-API-Select-Admin (Whole Team)': 'team',
 };
 
-function AuthLink(props) {
+function AuthLink(props: {authType: string}) {
   let {authType} = props;
   authType = authTypeMap[authType] || authType;
   if (authType === 'user') {
@@ -20,7 +20,7 @@ function AuthLink(props) {
   throw new Error('unexpected auth type ' + authType);
 }
 
-export default function AuthTypes(props) {
+export default function AuthTypes(props: {authTypes: string[]}) {
   const {authTypes} = props;
   if (authTypes.length === 0) {
     return null;

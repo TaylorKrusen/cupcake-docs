@@ -2,6 +2,8 @@ import React from 'react';
 import {useState, useCallback, useMemo} from 'react';
 import NestingTypeBox from './NestingTypeBox';
 
+import {StoneType, StoneTypeField, StoneTypeInfoMap} from '../interfaces/index';
+
 const stoneTypeDescription = {
   struct: 'Struct',
   union: 'Union',
@@ -16,50 +18,59 @@ const fieldRowHeaderStyle = {
   margin: '0',
 };
 
-function recursivelyResolveType(type) {
-  const {primitive, optional, list, map, key, namespace, datatype} = type;
-  if (!!primitive) {
+type ResolvedType = {
+  name: string;
+  optional: boolean;
+  terminal: boolean;
+} & (
+  | {
+      terminal: true;
+    }
+  | {
+      terminal: false;
+      namespace: string;
+      datatype: string;
+    }
+);
+function recursivelyResolveType(type: StoneType): ResolvedType {
+  if ('primitive' in type) {
+    const {primitive} = type;
     return {terminal: true, name: primitive, optional: false};
-  } else if (!!namespace) {
+  } else if ('namespace' in type) {
+    const {datatype, namespace} = type;
     return {terminal: false, name: datatype, namespace, datatype, optional: false};
-  } else if (!!list) {
-    const previous = recursivelyResolveType(list);
-    return {
-      terminal: previous.terminal,
-      name: 'List of (' + previous.name + ')',
-      namespace: previous.namespace,
-      datatype: previous.datatype,
+  } else if ('list' in type) {
+    const previous = recursivelyResolveType(type.list);
+    return Object.assign({}, previous, {
+      name: `List of (${previous.name})`,
       optional: false,
-    };
-  } else if (!!map) {
-    const previous = recursivelyResolveType(map);
-    return {
-      terminal: previous.terminal,
-      name: 'Map from (' + key + ') to (' + previous.name + ')',
-      namespace: previous.namespace,
-      datatype: previous.datatype,
+    });
+  } else if ('map' in type) {
+    const previous = recursivelyResolveType(type.map);
+
+    return Object.assign({}, previous, {
+      name: `Map from (${type.key}) to (${previous.name})`,
       optional: false,
-    };
-  } else if (!!optional) {
-    const previous = recursivelyResolveType(optional);
-    return {
-      terminal: previous.terminal,
-      name: previous.name + '?',
-      namespace: previous.namespace,
-      datatype: previous.datatype,
-      optional: false,
-    };
+    });
+  } else if ('optional' in type) {
+    const previous = recursivelyResolveType(type.optional);
+    return Object.assign({}, previous, {
+      name: `${previous.name}?`,
+      optional: true,
+    });
   } else {
     throw Error('unexpected type ' + type);
   }
 }
 
-function FieldRow({field, typeInfo}) {
+type FieldRowProps = {
+  field: StoneTypeField;
+  typeInfo: StoneTypeInfoMap;
+};
+function FieldRow({field, typeInfo}: FieldRowProps) {
   const {parameter, description, type} = field;
-  const {terminal, name, namespace, datatype, optional} = useMemo(
-    () => recursivelyResolveType(type),
-    [type]
-  );
+  const typeData = useMemo(() => recursivelyResolveType(type), [type]);
+  const {optional, name} = typeData;
   const [expanded, setExpanded] = useState(true);
   const toggleExpanded = useCallback((e) => setExpanded((s) => !s), [setExpanded]);
 
@@ -71,16 +82,20 @@ function FieldRow({field, typeInfo}) {
             ...fieldRowHeaderStyle,
             backgroundColor: optional ? 'lightsteelblue' : 'lightblue',
           }}
-          onClick={terminal ? null : toggleExpanded}
+          onClick={typeData.terminal ? () => {} : toggleExpanded}
         >
           <pre style={{margin: '0'}}>{parameter}</pre>
           <i>{name}</i>
         </div>
         <span>{description}</span>
       </div>
-      {terminal || (
+      {typeData.terminal ? null : (
         <NestingTypeBox visible={expanded}>
-          <TypeExplanation namespace={namespace} datatype={datatype} typeInfo={typeInfo} />
+          <TypeExplanation
+            namespace={typeData.namespace}
+            datatype={typeData.datatype}
+            typeInfo={typeInfo}
+          />
         </NestingTypeBox>
       )}
     </>
@@ -92,7 +107,13 @@ const typeExplanationListStyle = {
   padding: '0',
 };
 
-export default function TypeExplanation({namespace, datatype, typeInfo}) {
+type TypeExplainationProps = {
+  namespace: string;
+  datatype: string;
+  typeInfo: StoneTypeInfoMap;
+};
+
+export default function TypeExplanation({namespace, datatype, typeInfo}: TypeExplainationProps) {
   const info = typeInfo[namespace][datatype];
   const {stone_type, fields, description} = info;
   return (
