@@ -8,12 +8,12 @@ import Code from './Code'
 import TypeExplanation from './TypeExplanation'
 import Description from './Description'
 
-import endpoint_types from '../stone-types/alltypes'
+import allTypes from '../stone-types/alltypes'
 
 import "../scss/styles.scss"
 
 export default function Endpoint(props) {
-    const {namespace, endpoint, route, isDeprecated, deprecatedBy, description, authTypes, shellExample, paramType} = props.endpointProps;
+    const {namespace, endpoint, route, isDeprecated, deprecatedBy, description, authTypes, shellExample, paramType, typeInfo, returnType, errorType} = props.endpointProps;
     const components = useComponents();
     const url = `https://api.dropboxapi.com/2${route}`;
     return <>
@@ -21,17 +21,17 @@ export default function Endpoint(props) {
         <h1>{route}</h1>
         <Description>{description}</Description>
         <components.h3>Authentication</components.h3>
-        <p><AuthTypes authTypes={authTypes} /></p>
+        <p>{authTypes &&<AuthTypes authTypes={authTypes} />}</p>
         <components.h3>URL Structure</components.h3>
         <Code>{url}</Code>
         <components.h3>Example</components.h3>
         <ShellExample namespace={namespace} endpoint={endpoint} shellExample={shellExample} />
         <components.h3>Parameters</components.h3>
-        <TypeExplanation namespace={paramType.namespace} datatype={paramType.datatype} typeInfo={endpoint_types} />
+        <TypeExplanation namespace={paramType.namespace} datatype={paramType.datatype} typeInfo={typeInfo || allTypes} />
         <components.h3>Returns</components.h3>
-        <p>stuff</p>
+        {!!returnType ? <TypeExplanation namespace={returnType.namespace} datatype={returnType.datatype} typeInfo={typeInfo || allTypes} /> : <p>Nothing</p>}
         <components.h3>Errors</components.h3>
-        <p>stuff</p>
+        {!!errorType ? <TypeExplanation namespace={paramType.namespace} datatype={paramType.datatype} typeInfo={typeInfo || allTypes} /> : <p>Nothing</p>}
     </>
 }
 

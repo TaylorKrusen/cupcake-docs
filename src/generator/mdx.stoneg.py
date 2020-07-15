@@ -56,6 +56,9 @@ class MdxBackend(CodeBackend):
         for namespace in api.namespaces.values():
             for data_type in namespace.data_types:
                 self._generate_type_json(data_type)
+        # get all the types generated from json.stoneg.py
+        with open('alltypes.json') as f:
+            self.all_types = json.load(f)
         for namespace in api.namespaces.values():
             self._generate_namespace_markdown(namespace)
 
@@ -285,42 +288,109 @@ class MdxBackend(CodeBackend):
 
         # TODO: how to handle different versions? just use latest for now.
         route = routes_by_version.get(max(routes_by_version.keys()))
-
+        js_file_name = 'type-lookup/{}.js'.format('{}/{}'.format(namespace.name, route.name).replace('/', '-'))
         with self.output_to_relative_path('routes/{}.mdx'.format('{}/{}'.format(namespace.name, route.name).replace('/', '-'))):
 
             self.emit("---")
             self.emit("name: /{}".format(route.name))
             self.emit("route: /{}/{}".format(namespace.name, route.name))
+            self.emit("namespace: {}".format(namespace.name))
             self.emit("menu: {}".format(namespace.name))
+            # self.emit("description: {}".format(route.doc.replace('\n', '\n\n').replace(':val:', '').replace(':field:', '').replace(':route:', '').replace(':type:', '')+"\n"))
+            self.emit("paramType:")
+            self.emit('  namespace: {}'.format(namespace.name))
+            self.emit('  datatype: {}'.format(route.arg_data_type.name))
+            self.emit("returnType:")
+            self.emit('  namespace: {}'.format(namespace.name))
+            self.emit('  datatype: {}'.format(route.result_data_type.name))
+            self.emit("errorType:")
+            self.emit('  namespace: {}'.format(namespace.name))
+            self.emit('  datatype: {}'.format(route.error_data_type.name))
             self.emit("---")
             self.emit("")
 
-            self.emit("# /{}/{}".format(namespace.name, route.name))
-            self.emit("")
+            # self.emit("# /{}/{}".format(namespace.name, route.name))
+            # self.emit("")
 
-            if route.doc:
-                self.emit("### Description")
-                # TODO: better parsing of description?
-                self.emit_raw(route.doc.replace('\n', '\n\n').replace(':val:', '').replace(':field:', '').replace(':route:', '').replace(':type:', '')+"\n")
-                self.emit("")
+            # if route.doc:
+            #     self.emit("### Description")
+            #     # TODO: better parsing of description?
+            #     self.emit_raw(route.doc.replace('\n', '\n\n').replace(':val:', '').replace(':field:', '').replace(':route:', '').replace(':type:', '')+"\n")
+            #     self.emit("")
 
-            self.emit("### URL Structure")
-            self.emit("```")
-            self.emit("https://{}.dropbox.com/{}/{}/{}".format(route.attrs.get("host", "api"), route.version, namespace.name, route.name ))
-            self.emit("```")
-            self.emit("")
+            # self.emit("### URL Structure")
+            # self.emit("```")
+            # self.emit("https://{}.dropbox.com/{}/{}/{}".format(route.attrs.get("host", "api"), route.version, namespace.name, route.name ))
+            # self.emit("```")
+            # self.emit("")
 
             # TODO: more with permissions?
             # route.attrs.get("allow_app_folder_app")
             # route.attrs.get("select_admin_mode")
 
             # Args, returns, errors
-            self.emit('import LinkedTypeExplanation from \'../../components/LinkedTypeExplanation\'')
+            # self.emit('import LinkedTypeExplanation from \'../../components/LinkedTypeExplanation\'')
+            self.emit('import Endpoint from \'../components/Endpoint\'')
+            self.emit('import stoneTypes from \'../{}\''.format(js_file_name))
             self.emit('')
-            self._generate_route_datatype(route.arg_data_type, PARAMETER)
-            self._generate_route_datatype(route.result_data_type, RETURN_VALUE)
-            self._generate_route_datatype(route.error_data_type, ERROR)
+            # self._generate_route_datatype(route.arg_data_type, PARAMETER)
+            # self._generate_route_datatype(route.result_data_type, RETURN_VALUE)
+            # self._generate_route_datatype(route.error_data_type, ERROR)
+            self.emit('<Endpoint endpointProps={{typeInfo: stoneTypes, ...props.pageContext.frontmatter}} />');
+        with self.output_to_relative_path(js_file_name):
+            self.tempDict = {}
+            if not is_void_type(route.arg_data_type):
+                self.tempDict[namespace.name] = {}
+                # PARAMETER
+                self._resolve_route_datatype(namespace, route.arg_data_type)
+                # RETURN_VALUE
+                self._resolve_route_datatype(namespace, route.result_data_type)
+                # ERROR
+                self._resolve_route_datatype(namespace, route.error_data_type)
+            self.emit(u'export default {}'.format(json.dumps(self.tempDict)))
+            self.tempDict = {}
 
+    def _resolve_route_datatype(self, namespace, datatype):
+        if is_void_type(datatype):
+            return
+        if datatype.name == 'List':
+            # the top level type is not a struct, how do we know what custom type it contains?
+            # example: return value of "sharing/add_file_member"
+            return
+        elif datatype.name not in self.all_types[namespace.name]:
+            # this type is from a different namespace, how do we get the information?
+            # example: "PollArg", "LaunchEmptyResult", basically things from "async"
+            return
+        else:
+            self.tempDict[namespace.name][datatype.name] = self.all_types[namespace.name][datatype.name]
+            self._resolve_stone_type(self.all_types[namespace.name][datatype.name])
+
+    def _resolve_stone_type(self, parameter):
+        fields = parameter['fields']
+        for field in fields:
+            parameter_name = field['parameter']
+            parameter_type = field['type']
+            self._resolve_datatype(parameter_type)
+
+    def _resolve_datatype(self, parameter_type):
+        if 'stone_type' in parameter_type:
+            self._resolve_stone_type(parameter_type)
+        elif 'primitive' in parameter_type:
+            pass
+        elif 'list' in parameter_type:
+            self._resolve_datatype(parameter_type['list'])
+        elif 'map' in parameter_type:
+            pass
+        elif 'optional' in parameter_type:
+            self._resolve_datatype(parameter_type['optional'])
+        elif 'namespace' in parameter_type:
+            self._add_stone_type_to_temp_dict(parameter_type['namespace'], parameter_type['datatype'])
+            self._resolve_stone_type(self.all_types[parameter_type['namespace']][parameter_type['datatype']])
+
+    def _add_stone_type_to_temp_dict(self, namespace, datatype):
+        if namespace not in self.tempDict:
+            self.tempDict[namespace] = {}
+        self.tempDict[namespace][datatype] = self.all_types[namespace][datatype]
 
     # helper to emit either complex name or struct name in routes
     def _generate_route_datatype(self, datatype, section):
