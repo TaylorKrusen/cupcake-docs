@@ -5,4 +5,4 @@ To run the markdown generator
 3. Point the generator to the target API spec
 
 ````
-stone markdown.stoneg.py OUTPUT_DIR INPUT_DIR/*.stone
+stone -a :all mdx.stoneg.py OUTPUT_DIR INPUT_DIR/*.stone
