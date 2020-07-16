@@ -46,9 +46,9 @@ from stone.ir import (
     is_user_defined_type,
 )
 
-PARAMETER = "parameters"
-RETURN_VALUE = "return values"
-ERROR = "errors"
+PARAMETER = "param"
+RETURN_VALUE = "return"
+ERROR = "error"
 
 class MdxBackend(CodeBackend):
     def generate(self, api):
@@ -296,35 +296,18 @@ class MdxBackend(CodeBackend):
             self.emit("route: /{}/{}".format(namespace.name, route.name))
             self.emit("namespace: {}".format(namespace.name))
             self.emit("menu: {}".format(namespace.name))
-            # self.emit("description: {}".format(route.doc.replace('\n', '\n\n').replace(':val:', '').replace(':field:', '').replace(':route:', '').replace(':type:', '')+"\n"))
-            self.emit("paramType:")
-            self.emit('  namespace: {}'.format(namespace.name))
-            self.emit('  datatype: {}'.format(route.arg_data_type.name))
-            self.emit("returnType:")
-            self.emit('  namespace: {}'.format(namespace.name))
-            self.emit('  datatype: {}'.format(route.result_data_type.name))
-            self.emit("errorType:")
-            self.emit('  namespace: {}'.format(namespace.name))
-            self.emit('  datatype: {}'.format(route.error_data_type.name))
+            if route.doc:
+                self.emit_raw("description: {}".format(route.doc.replace('\n', '\\n').replace(':val:', '').replace(':field:', '').replace(':route:', '').replace(':type:', '')+"\n"))
+            self.emit("isDeprecated: {}".format('True' if route.deprecated else 'False'))
+            self.emit("urlStructure: https://{}.dropbox.com/{}/{}/{}".format(route.attrs.get("host", "api"), route.version, namespace.name, route.name ))
+            
+            self._generate_route_datatype(route.arg_data_type, PARAMETER)
+            self._generate_route_datatype(route.result_data_type, RETURN_VALUE)
+            self._generate_route_datatype(route.error_data_type, ERROR)
             self.emit("---")
             self.emit("")
-
-            # self.emit("# /{}/{}".format(namespace.name, route.name))
-            # self.emit("")
-
-            # if route.doc:
-            #     self.emit("### Description")
-            #     # TODO: better parsing of description?
-            #     self.emit_raw(route.doc.replace('\n', '\n\n').replace(':val:', '').replace(':field:', '').replace(':route:', '').replace(':type:', '')+"\n")
-            #     self.emit("")
-
-            # self.emit("### URL Structure")
-            # self.emit("```")
-            # self.emit("https://{}.dropbox.com/{}/{}/{}".format(route.attrs.get("host", "api"), route.version, namespace.name, route.name ))
-            # self.emit("```")
-            # self.emit("")
-
-            # TODO: more with permissions?
+            
+            # TODO: authentication, scopes, endpoint format, shell example
             # route.attrs.get("allow_app_folder_app")
             # route.attrs.get("select_admin_mode")
 
@@ -333,9 +316,7 @@ class MdxBackend(CodeBackend):
             self.emit('import Endpoint from \'../components/Endpoint\'')
             self.emit('import stoneTypes from \'../{}\''.format(js_file_name))
             self.emit('')
-            # self._generate_route_datatype(route.arg_data_type, PARAMETER)
-            # self._generate_route_datatype(route.result_data_type, RETURN_VALUE)
-            # self._generate_route_datatype(route.error_data_type, ERROR)
+            
             self.emit('<Endpoint endpointProps={{typeInfo: stoneTypes, ...props.pageContext.frontmatter}} />');
         with self.output_to_relative_path(js_file_name):
             self.tempDict = {}
@@ -352,18 +333,15 @@ class MdxBackend(CodeBackend):
 
     def _resolve_route_datatype(self, namespace, datatype):
         if is_void_type(datatype):
-            return
+            return        
+        dt = datatype
         if datatype.name == 'List':
-            # the top level type is not a struct, how do we know what custom type it contains?
-            # example: return value of "sharing/add_file_member"
-            return
-        elif datatype.name not in self.all_types[namespace.name]:
-            # this type is from a different namespace, how do we get the information?
-            # example: "PollArg", "LaunchEmptyResult", basically things from "async"
-            return
-        else:
-            self.tempDict[namespace.name][datatype.name] = self.all_types[namespace.name][datatype.name]
-            self._resolve_stone_type(self.all_types[namespace.name][datatype.name])
+            dt = datatype.data_type
+            
+        if dt.namespace.name not in self.tempDict:
+            self.tempDict[dt.namespace.name] = {}
+        self.tempDict[dt.namespace.name][dt.name] = self.all_types[dt.namespace.name][dt.name]
+        self._resolve_stone_type(self.all_types[dt.namespace.name][dt.name])
 
     def _resolve_stone_type(self, parameter):
         fields = parameter['fields']
@@ -394,17 +372,22 @@ class MdxBackend(CodeBackend):
 
     # helper to emit either complex name or struct name in routes
     def _generate_route_datatype(self, datatype, section):
-        self.emit("### {}".format(section))
+        self.emit("{}Type".format(section))
 
-        while is_nullable_type(datatype) or is_list_type(datatype) or is_alias(datatype):
+        nullable = False
+        while is_nullable_type(datatype) or is_alias(datatype):
             datatype = datatype.data_type
         if is_void_type(datatype):
-            self.emit("Void")
+            self.emit("  namespace: Void")
+            self.emit("  datatype: Void")
+        elif  is_list_type(datatype):
+            self.emit("  namespace: {}".format(datatype.data_type.namespace.name))
+            self.emit("  datatype: {}[]".format(datatype.data_type.name))
+            self.generate_examples(datatype.data_type, section)
         elif is_user_defined_type(datatype):
+            self.emit("  namespace: {}".format(datatype.namespace.name))
+            self.emit("  datatype: {}".format(datatype.name))
             self.generate_examples(datatype, section)
-            self.emit(self.fmt_type_name(datatype))
-            self.emit('<LinkedTypeExplanation namespace={{"{}"}} datatype={{"{}"}} />'.format(datatype.namespace.name, datatype.name))
-            self.emit("")
         else:
             raise Exception("Unexpected datatype %r" % datatype)
 
@@ -423,6 +406,8 @@ class MdxBackend(CodeBackend):
                 # If the only example is default other, skip it
                 return
 
+        self.emit("{}Examples: ".format(section))
+
         for tag, example in examples.iteritems():
 
             example_dict = example.value
@@ -435,30 +420,24 @@ class MdxBackend(CodeBackend):
                 )
 
                 if example.text:
-                    self.emit("Example: {}".format(example.text))
+                    self.emit("  label: {}".format(example.text))
                 elif example.label:
-                    self.emit("Example: {}".format(example.label))
+                    self.emit("  label: {}".format(example.label))
 
-                self.emit("```")
-                self.emit_raw(json.dumps(example_dict,   sort_keys=True, indent=4, separators=(',', ': ')) + "\n")
-                self.emit("```")
+                self.emit_raw("  content:" +json.dumps(example_dict, separators=(',', ': ')) + "\n")
 
             if len(examples) == 1:
                 example = examples.values()[0]
-                self.emit("Example")
-                self.emit("```")
-                self.emit_raw(json.dumps( example.value,  sort_keys=True, indent=4, separators=(',', ': ')) + "\n")
-                self.emit("```")
+                self.emit("  label: default")
+                self.emit_raw("  content:" +json.dumps( example.value, separators=(',', ': ')) + "\n")
 
             elif len(examples) > 1:
                 if example.text:
-                    self.emit("Example: {}".format(example.text))
+                    self.emit("  label: {}".format(example.text))
                 elif example.label:
-                    self.emit("Example: {}".format(example.label))
+                    self.emit("  label: {}".format(example.label))
 
-                self.emit("```")
-                self.emit_raw(json.dumps(example.value) + "\n")
-                self.emit("```")
+                self.emit_raw("  content:" +json.dumps(example.value) + "\n")
 
     @staticmethod
     def _error_summary(value):
