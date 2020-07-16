@@ -38,6 +38,7 @@ export interface EndpointProps {
   paramExamples: Example[];
   returnExamples: Example[];
   errorExamples: Example[];
+  urlStructure: string;
 }
 
 export default function Endpoint(props: {endpointProps: EndpointProps}) {
@@ -60,8 +61,8 @@ export default function Endpoint(props: {endpointProps: EndpointProps}) {
     paramExamples,
     returnExamples,
     errorExamples,
+    urlStructure,
   } = props.endpointProps;
-  const url = `https://api.dropboxapi.com/2${route}`;
   const renderExamples = function (examples: Example[]) {
     if (!examples) {
       return;
@@ -88,7 +89,7 @@ export default function Endpoint(props: {endpointProps: EndpointProps}) {
         <Description description={description} />
       </RowContainer>
       <RowContainer title="URL Structure">
-        <Code>{url}</Code>
+        <Code>{urlStructure}</Code>
       </RowContainer>
       <RowContainer title="Authentication">
         {!!authentication && <AuthTypes authTypes={authentication} />}
