@@ -1,0 +1,53 @@
+---
+name: /groups/job_status/get
+route: /team/groups/job_status/get
+namespace: team
+menu: team
+description: Once an async_job_id is returned from `groups/delete`, `groups/members/add` , or `groups/members/remove` use this method to poll the status of granting/revoking group members' access to group-owned resources.\nPermission :&nbspTeam member management.
+isDeprecated: False
+urlStructure: https://api.dropbox.com/1/team/groups/job_status/get
+endpointFormat: None
+isPreview: None
+scope: None
+authentication:
+  - user
+paramType: 
+  namespace: async
+  datatype: PollArg
+paramExamples: 
+  - label: default
+    content: {"async_job_id": "34g93hh34h04y384084"}
+returnType: 
+  namespace: async
+  datatype: PollEmptyResult
+returnExamples: 
+  - label: complete
+    content: {".tag": "complete"}
+  - label: in_progress
+    content: {".tag": "in_progress"}
+errorType: 
+  namespace: team
+  datatype: GroupsPollError
+errorExamples: 
+  - label: invalid_async_job_id
+    content: {"error_summary": "invalid_async_job_id/...","error": {".tag": "invalid_async_job_id"}}
+  - label: invalid_async_job_id
+    content: {".tag": "invalid_async_job_id"}
+  - label: internal_error
+    content: {"error_summary": "internal_error/...","error": {".tag": "internal_error"}}
+  - label: internal_error
+    content: {".tag": "internal_error"}
+  - label: other
+    content: {"error_summary": "other/...","error": {".tag": "other"}}
+  - label: other
+    content: {".tag": "other"}
+  - label: access_denied
+    content: {"error_summary": "access_denied/...","error": {".tag": "access_denied"}}
+  - label: access_denied
+    content: {".tag": "access_denied"}
+---
+
+import Endpoint from '../../components/Endpoint'
+import stoneTypes from '../../type-lookup/team-groups-job_status-get.js'
+
+<Endpoint endpointProps={{typeInfo: stoneTypes, ...props.pageContext.frontmatter}} />

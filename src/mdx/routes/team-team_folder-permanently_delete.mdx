@@ -1,0 +1,31 @@
+---
+name: /team_folder/permanently_delete
+route: /team/team_folder/permanently_delete
+namespace: team
+menu: team
+description: Permanently deletes an archived team folder.\nPermission :&nbspTeam member file access.
+isDeprecated: False
+urlStructure: https://api.dropbox.com/1/team/team_folder/permanently_delete
+endpointFormat: None
+isPreview: None
+scope: None
+authentication:
+  - user
+paramType: 
+  namespace: team
+  datatype: TeamFolderIdArg
+paramExamples: 
+  - label: default
+    content: {"team_folder_id": "123456789"}
+returnType: 
+  namespace: Void
+  datatype: Void
+errorType: 
+  namespace: team
+  datatype: TeamFolderPermanentlyDeleteError
+---
+
+import Endpoint from '../../components/Endpoint'
+import stoneTypes from '../../type-lookup/team-team_folder-permanently_delete.js'
+
+<Endpoint endpointProps={{typeInfo: stoneTypes, ...props.pageContext.frontmatter}} />

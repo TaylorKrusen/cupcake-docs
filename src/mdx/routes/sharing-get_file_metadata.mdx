@@ -1,0 +1,34 @@
+---
+name: /get_file_metadata
+route: /sharing/get_file_metadata
+namespace: sharing
+menu: sharing
+description: Returns shared file metadata.
+isDeprecated: False
+urlStructure: https://api.dropbox.com/1/sharing/get_file_metadata
+endpointFormat: None
+isPreview: None
+scope: None
+authentication:
+  - user
+paramType: 
+  namespace: sharing
+  datatype: GetFileMetadataArg
+paramExamples: 
+  - label: default
+    content: {"file": "id:3kmLmQFnf1AAAAAAAAAAAw","actions": []}
+returnType: 
+  namespace: sharing
+  datatype: SharedFileMetadata
+returnExamples: 
+  - label: default
+    content: {"id": "id:3kmLmQFnf1AAAAAAAAAAAw","name": "file.txt","policy": {"acl_update_policy": {".tag": "owner"},"shared_link_policy": {".tag": "anyone"},"member_policy": {".tag": "anyone"},"resolved_member_policy": {".tag": "team"}},"preview_url": "https://www.dropbox.com/scl/fi/fir9vjelf","access_type": {".tag": "viewer"},"owner_display_names": ["Jane Doe"],"owner_team": {"id": "dbtid:AAFdgehTzw7WlXhZJsbGCLePe8RvQGYDr-I","name": "Acme, Inc."},"path_display": "/dir/file.txt","path_lower": "/dir/file.txt","permissions": [],"time_invited": "2016-01-20T00:00:00Z"}
+errorType: 
+  namespace: sharing
+  datatype: GetFileMetadataError
+---
+
+import Endpoint from '../../components/Endpoint'
+import stoneTypes from '../../type-lookup/sharing-get_file_metadata.js'
+
+<Endpoint endpointProps={{typeInfo: stoneTypes, ...props.pageContext.frontmatter}} />

@@ -1,0 +1,40 @@
+---
+name: /templates/list_for_team
+route: /file_properties/templates/list_for_team
+namespace: file_properties
+menu: file_properties
+description: Get the template identifiers for a team. To get the schema of each template use `templates/get_for_team`.
+isDeprecated: False
+urlStructure: https://api.dropbox.com/1/file_properties/templates/list_for_team
+endpointFormat: None
+isPreview: None
+scope: None
+authentication:
+  - user
+paramType: 
+  namespace: Void
+  datatype: Void
+returnType: 
+  namespace: file_properties
+  datatype: ListTemplateResult
+returnExamples: 
+  - label: default
+    content: {"template_ids": ["ptid:1a5n2i6d3OYEAAAAAAAAAYa"]}
+errorType: 
+  namespace: file_properties
+  datatype: TemplateError
+errorExamples: 
+  - label: restricted_content
+    content: {"error_summary": "restricted_content/...","error": {".tag": "restricted_content"}}
+  - label: restricted_content
+    content: {".tag": "restricted_content"}
+  - label: other
+    content: {"error_summary": "other/...","error": {".tag": "other"}}
+  - label: other
+    content: {".tag": "other"}
+---
+
+import Endpoint from '../../components/Endpoint'
+import stoneTypes from '../../type-lookup/file_properties-templates-list_for_team.js'
+
+<Endpoint endpointProps={{typeInfo: stoneTypes, ...props.pageContext.frontmatter}} />

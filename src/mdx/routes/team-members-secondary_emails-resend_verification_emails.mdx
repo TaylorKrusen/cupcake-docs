@@ -1,0 +1,34 @@
+---
+name: /members/secondary_emails/resend_verification_emails
+route: /team/members/secondary_emails/resend_verification_emails
+namespace: team
+menu: team
+description: Resend secondary email verification emails.\nPermission :&nbspTeam member management.
+isDeprecated: False
+urlStructure: https://api.dropbox.com/1/team/members/secondary_emails/resend_verification_emails
+endpointFormat: None
+isPreview: None
+scope: None
+authentication:
+  - user
+paramType: 
+  namespace: team
+  datatype: ResendVerificationEmailArg
+paramExamples: 
+  - label: default
+    content: {"emails_to_resend": [{"user": {".tag": "team_member_id","team_member_id": "dbmid:efgh5678"},"secondary_emails": ["bob2@hotmail.com","bob@inst.gov"]}]}
+returnType: 
+  namespace: team
+  datatype: ResendVerificationEmailResult
+returnExamples: 
+  - label: default
+    content: {"results": [{".tag": "success","user": {".tag": "team_member_id","team_member_id": "dbmid:efgh5678"},"results": [{".tag": "success","success": "alice@example.com"}]}]}
+errorType: 
+  namespace: Void
+  datatype: Void
+---
+
+import Endpoint from '../../components/Endpoint'
+import stoneTypes from '../../type-lookup/team-members-secondary_emails-resend_verification_emails.js'
+
+<Endpoint endpointProps={{typeInfo: stoneTypes, ...props.pageContext.frontmatter}} />

@@ -1,0 +1,49 @@
+---
+name: /members/add/job_status/get
+route: /team/members/add/job_status/get
+namespace: team
+menu: team
+description: Once an async_job_id is returned from `members/add` , use this to poll the status of the asynchronous request.\nPermission :&nbspTeam member management.
+isDeprecated: False
+urlStructure: https://api.dropbox.com/1/team/members/add/job_status/get
+endpointFormat: None
+isPreview: None
+scope: None
+authentication:
+  - user
+paramType: 
+  namespace: async
+  datatype: PollArg
+paramExamples: 
+  - label: default
+    content: {"async_job_id": "34g93hh34h04y384084"}
+returnType: 
+  namespace: team
+  datatype: MembersAddJobStatus
+returnExamples: 
+  - label: default
+    content: {".tag": "complete", "complete": [{".tag": "success", "profile": {"team_member_id": "dbmid:FDFSVF-DFSDF", "email": "tami@seagull.com", "email_verified": false, "status": {".tag": "active"}, "name": {"given_name": "Franz", "surname": "Ferdinand", "familiar_name": "Franz", "display_name": "Franz Ferdinand (Personal)", "abbreviated_name": "FF"}, "membership_type": {".tag": "full"}, "groups": ["g:e2db7665347abcd600000000001a2b3c"], "member_folder_id": "20", "external_id": "244423", "account_id": "dbid:AAH4f99T0taONIb-OurWxbNQ6ywGRopQngc", "secondary_emails": [{"email": "grape@strawberry.com", "is_verified": false}, {"email": "apple@orange.com", "is_verified": true}], "joined_on": "2015-05-12T15:50:38Z", "profile_photo_url": "https://dl-web.dropbox.com/account_photo/get/dbaphid%3AAAHWGmIXV3sUuOmBfTz0wPsiqHUpBWvv3ZA?vers=1556069330102&size=128x128"}, "role": {".tag": "member_only"}}]}
+  - label: in_progress
+    content: {".tag": "in_progress"}
+errorType: 
+  namespace: async
+  datatype: PollError
+errorExamples: 
+  - label: invalid_async_job_id
+    content: {"error_summary": "invalid_async_job_id/...","error": {".tag": "invalid_async_job_id"}}
+  - label: invalid_async_job_id
+    content: {".tag": "invalid_async_job_id"}
+  - label: internal_error
+    content: {"error_summary": "internal_error/...","error": {".tag": "internal_error"}}
+  - label: internal_error
+    content: {".tag": "internal_error"}
+  - label: other
+    content: {"error_summary": "other/...","error": {".tag": "other"}}
+  - label: other
+    content: {".tag": "other"}
+---
+
+import Endpoint from '../../components/Endpoint'
+import stoneTypes from '../../type-lookup/team-members-add-job_status-get.js'
+
+<Endpoint endpointProps={{typeInfo: stoneTypes, ...props.pageContext.frontmatter}} />

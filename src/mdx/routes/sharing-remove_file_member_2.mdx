@@ -1,0 +1,31 @@
+---
+name: /remove_file_member_2
+route: /sharing/remove_file_member_2
+namespace: sharing
+menu: sharing
+description: Removes a specified member from the file.
+isDeprecated: False
+urlStructure: https://api.dropbox.com/1/sharing/remove_file_member_2
+endpointFormat: None
+isPreview: None
+scope: None
+authentication:
+  - user
+paramType: 
+  namespace: sharing
+  datatype: RemoveFileMemberArg
+paramExamples: 
+  - label: default
+    content: {"file": "id:3kmLmQFnf1AAAAAAAAAAAw","member": {".tag": "email","email": "justin@example.com"}}
+returnType: 
+  namespace: sharing
+  datatype: FileMemberRemoveActionResult
+errorType: 
+  namespace: sharing
+  datatype: RemoveFileMemberError
+---
+
+import Endpoint from '../../components/Endpoint'
+import stoneTypes from '../../type-lookup/sharing-remove_file_member_2.js'
+
+<Endpoint endpointProps={{typeInfo: stoneTypes, ...props.pageContext.frontmatter}} />

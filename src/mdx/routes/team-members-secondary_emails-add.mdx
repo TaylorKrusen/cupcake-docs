@@ -1,0 +1,47 @@
+---
+name: /members/secondary_emails/add
+route: /team/members/secondary_emails/add
+namespace: team
+menu: team
+description: Add secondary emails to users.\nPermission :&nbspTeam member management.\nEmails that are on verified domains will be verified automatically. For each email address not on a verified domain a verification email will be sent.
+isDeprecated: False
+urlStructure: https://api.dropbox.com/1/team/members/secondary_emails/add
+endpointFormat: None
+isPreview: None
+scope: None
+authentication:
+  - user
+paramType: 
+  namespace: team
+  datatype: AddSecondaryEmailsArg
+paramExamples: 
+  - label: default
+    content: {"new_secondary_emails": [{"user": {".tag": "team_member_id","team_member_id": "dbmid:efgh5678"},"secondary_emails": ["bob2@hotmail.com","bob@inst.gov"]}]}
+returnType: 
+  namespace: team
+  datatype: AddSecondaryEmailsResult
+returnExamples: 
+  - label: default
+    content: {"results": [{".tag": "success","user": {".tag": "team_member_id","team_member_id": "dbmid:efgh5678"},"results": [{".tag": "success","success": {"email": "apple@orange.com","is_verified": true}},{".tag": "unavailable","unavailable": "alice@example.com"}]},{".tag": "invalid_user","invalid_user": {".tag": "team_member_id","team_member_id": "dbmid:efgh5678"}}]}
+errorType: 
+  namespace: team
+  datatype: AddSecondaryEmailsError
+errorExamples: 
+  - label: secondary_emails_disabled
+    content: {"error_summary": "secondary_emails_disabled/...","error": {".tag": "secondary_emails_disabled"}}
+  - label: secondary_emails_disabled
+    content: {".tag": "secondary_emails_disabled"}
+  - label: too_many_emails
+    content: {"error_summary": "too_many_emails/...","error": {".tag": "too_many_emails"}}
+  - label: too_many_emails
+    content: {".tag": "too_many_emails"}
+  - label: other
+    content: {"error_summary": "other/...","error": {".tag": "other"}}
+  - label: other
+    content: {".tag": "other"}
+---
+
+import Endpoint from '../../components/Endpoint'
+import stoneTypes from '../../type-lookup/team-members-secondary_emails-add.js'
+
+<Endpoint endpointProps={{typeInfo: stoneTypes, ...props.pageContext.frontmatter}} />

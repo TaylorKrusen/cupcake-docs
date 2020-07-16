@@ -1,0 +1,55 @@
+---
+name: /get_folder_metadata
+route: /sharing/get_folder_metadata
+namespace: sharing
+menu: sharing
+description: Returns shared folder metadata by its folder ID.
+isDeprecated: False
+urlStructure: https://api.dropbox.com/1/sharing/get_folder_metadata
+endpointFormat: None
+isPreview: None
+scope: None
+authentication:
+  - user
+paramType: 
+  namespace: sharing
+  datatype: GetMetadataArgs
+paramExamples: 
+  - label: default
+    content: {"shared_folder_id": "84528192421","actions": []}
+returnType: 
+  namespace: sharing
+  datatype: SharedFolderMetadata
+returnExamples: 
+  - label: default
+    content: {"access_type": {".tag": "owner"},"is_inside_team_folder": false,"is_team_folder": false,"name": "dir","policy": {"acl_update_policy": {".tag": "owner"},"shared_link_policy": {".tag": "anyone"},"member_policy": {".tag": "anyone"},"resolved_member_policy": {".tag": "team"}},"preview_url": "https://www.dropbox.com/scl/fo/fir9vjelf","shared_folder_id": "84528192421","time_invited": "2016-01-20T00:00:00Z","path_lower": "/dir","link_metadata": {"audience_options": [{".tag": "public"},{".tag": "team"},{".tag": "members"}],"current_audience": {".tag": "public"},"link_permissions": [{"action": {".tag": "change_audience"},"allow": true}],"password_protected": false,"url": ""},"permissions": [],"access_inheritance": {".tag": "inherit"}}
+errorType: 
+  namespace: sharing
+  datatype: SharedFolderAccessError
+errorExamples: 
+  - label: invalid_id
+    content: {"error_summary": "invalid_id/...","error": {".tag": "invalid_id"}}
+  - label: invalid_id
+    content: {".tag": "invalid_id"}
+  - label: not_a_member
+    content: {"error_summary": "not_a_member/...","error": {".tag": "not_a_member"}}
+  - label: not_a_member
+    content: {".tag": "not_a_member"}
+  - label: email_unverified
+    content: {"error_summary": "email_unverified/...","error": {".tag": "email_unverified"}}
+  - label: email_unverified
+    content: {".tag": "email_unverified"}
+  - label: unmounted
+    content: {"error_summary": "unmounted/...","error": {".tag": "unmounted"}}
+  - label: unmounted
+    content: {".tag": "unmounted"}
+  - label: other
+    content: {"error_summary": "other/...","error": {".tag": "other"}}
+  - label: other
+    content: {".tag": "other"}
+---
+
+import Endpoint from '../../components/Endpoint'
+import stoneTypes from '../../type-lookup/sharing-get_folder_metadata.js'
+
+<Endpoint endpointProps={{typeInfo: stoneTypes, ...props.pageContext.frontmatter}} />

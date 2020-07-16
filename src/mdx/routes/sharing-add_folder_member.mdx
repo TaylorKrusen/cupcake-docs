@@ -1,0 +1,80 @@
+---
+name: /add_folder_member
+route: /sharing/add_folder_member
+namespace: sharing
+menu: sharing
+description: Allows an owner or editor (if the ACL update policy allows) of a shared folder to add another member.\nFor the new member to get access to all the functionality for this folder, you will need to call `mount_folder` on their behalf.
+isDeprecated: False
+urlStructure: https://api.dropbox.com/1/sharing/add_folder_member
+endpointFormat: None
+isPreview: None
+scope: None
+authentication:
+  - user
+paramType: 
+  namespace: sharing
+  datatype: AddFolderMemberArg
+paramExamples: 
+  - label: default
+    content: {"shared_folder_id": "84528192421","members": [{"member": {".tag": "email","email": "justin@example.com"},"access_level": "editor"},{"member": {".tag": "dropbox_id","dropbox_id": "dbid:AAEufNrMPSPe0dMQijRP0N_aZtBJRm26W4Q"},"access_level": "viewer"}],"quiet": false,"custom_message": "Documentation for launch day"}
+returnType: 
+  namespace: Void
+  datatype: Void
+errorType: 
+  namespace: sharing
+  datatype: AddFolderMemberError
+errorExamples: 
+  - label: default
+    content: {"error_summary": "no_permission/...","error": {".tag": "no_permission"}}
+  - label: default
+    content: {".tag": "no_permission"}
+  - label: member
+    content: {"error_summary": "bad_member/invalid_dropbox_id/...","error": {".tag": "bad_member","bad_member": {".tag": "invalid_dropbox_id","invalid_dropbox_id": "dbid:AAEufNrMPSPe0dMQijRP0N_aZtBJRm26W4Q"}}}
+  - label: member
+    content: {".tag": "bad_member", "bad_member": {".tag": "invalid_dropbox_id", "invalid_dropbox_id": "dbid:AAEufNrMPSPe0dMQijRP0N_aZtBJRm26W4Q"}}
+  - label: email_unverified
+    content: {"error_summary": "email_unverified/...","error": {".tag": "email_unverified"}}
+  - label: email_unverified
+    content: {".tag": "email_unverified"}
+  - label: banned_member
+    content: {"error_summary": "banned_member/...","error": {".tag": "banned_member"}}
+  - label: banned_member
+    content: {".tag": "banned_member"}
+  - label: cant_share_outside_team
+    content: {"error_summary": "cant_share_outside_team/...","error": {".tag": "cant_share_outside_team"}}
+  - label: cant_share_outside_team
+    content: {".tag": "cant_share_outside_team"}
+  - label: rate_limit
+    content: {"error_summary": "rate_limit/...","error": {".tag": "rate_limit"}}
+  - label: rate_limit
+    content: {".tag": "rate_limit"}
+  - label: too_many_invitees
+    content: {"error_summary": "too_many_invitees/...","error": {".tag": "too_many_invitees"}}
+  - label: too_many_invitees
+    content: {".tag": "too_many_invitees"}
+  - label: insufficient_plan
+    content: {"error_summary": "insufficient_plan/...","error": {".tag": "insufficient_plan"}}
+  - label: insufficient_plan
+    content: {".tag": "insufficient_plan"}
+  - label: team_folder
+    content: {"error_summary": "team_folder/...","error": {".tag": "team_folder"}}
+  - label: team_folder
+    content: {".tag": "team_folder"}
+  - label: no_permission
+    content: {"error_summary": "no_permission/...","error": {".tag": "no_permission"}}
+  - label: no_permission
+    content: {".tag": "no_permission"}
+  - label: invalid_shared_folder
+    content: {"error_summary": "invalid_shared_folder/...","error": {".tag": "invalid_shared_folder"}}
+  - label: invalid_shared_folder
+    content: {".tag": "invalid_shared_folder"}
+  - label: other
+    content: {"error_summary": "other/...","error": {".tag": "other"}}
+  - label: other
+    content: {".tag": "other"}
+---
+
+import Endpoint from '../../components/Endpoint'
+import stoneTypes from '../../type-lookup/sharing-add_folder_member.js'
+
+<Endpoint endpointProps={{typeInfo: stoneTypes, ...props.pageContext.frontmatter}} />

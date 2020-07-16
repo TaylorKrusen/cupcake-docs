@@ -1,0 +1,47 @@
+---
+name: /set_access_inheritance
+route: /sharing/set_access_inheritance
+namespace: sharing
+menu: sharing
+description: Change the inheritance policy of an existing Shared Folder. Only permitted for shared folders in a shared team root.\nIf a `ShareFolderLaunch.async_job_id` is returned, you'll need to call `check_share_job_status` until the action completes to get the metadata for the folder.
+isDeprecated: False
+urlStructure: https://api.dropbox.com/1/sharing/set_access_inheritance
+endpointFormat: None
+isPreview: None
+scope: None
+authentication:
+  - user
+paramType: 
+  namespace: sharing
+  datatype: SetAccessInheritanceArg
+paramExamples: 
+  - label: default
+    content: {"shared_folder_id": "84528192421","access_inheritance": "inherit"}
+returnType: 
+  namespace: sharing
+  datatype: ShareFolderLaunch
+returnExamples: 
+  - label: default
+    content: {".tag": "complete","access_type": {".tag": "owner"},"is_inside_team_folder": false,"is_team_folder": false,"name": "dir","policy": {"acl_update_policy": {".tag": "owner"},"shared_link_policy": {".tag": "anyone"},"member_policy": {".tag": "anyone"},"resolved_member_policy": {".tag": "team"}},"preview_url": "https://www.dropbox.com/scl/fo/fir9vjelf","shared_folder_id": "84528192421","time_invited": "2016-01-20T00:00:00Z","path_lower": "/dir","link_metadata": {"audience_options": [{".tag": "public"},{".tag": "team"},{".tag": "members"}],"current_audience": {".tag": "public"},"link_permissions": [{"action": {".tag": "change_audience"},"allow": true}],"password_protected": false,"url": ""},"permissions": [],"access_inheritance": {".tag": "inherit"}}
+errorType: 
+  namespace: sharing
+  datatype: SetAccessInheritanceError
+errorExamples: 
+  - label: default
+    content: {"error_summary": "no_permission/...","error": {".tag": "no_permission"}}
+  - label: default
+    content: {".tag": "no_permission"}
+  - label: no_permission
+    content: {"error_summary": "no_permission/...","error": {".tag": "no_permission"}}
+  - label: no_permission
+    content: {".tag": "no_permission"}
+  - label: other
+    content: {"error_summary": "other/...","error": {".tag": "other"}}
+  - label: other
+    content: {".tag": "other"}
+---
+
+import Endpoint from '../../components/Endpoint'
+import stoneTypes from '../../type-lookup/sharing-set_access_inheritance.js'
+
+<Endpoint endpointProps={{typeInfo: stoneTypes, ...props.pageContext.frontmatter}} />

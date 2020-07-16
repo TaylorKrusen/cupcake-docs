@@ -116,7 +116,7 @@ class MdxBackend(CodeBackend):
             self.emit("namespace: {}".format(namespace.name))
             self.emit("menu: {}".format(namespace.name))
             if route.doc:
-                self.emit_raw("description: {}".format(route.doc.replace('\n', '\\n').replace(':val:', '').replace(':field:', '').replace(':route:', '').replace(':type:', '')+"\n"))
+                self.emit_raw("description: {}".format(route.doc.replace('\n', '\\n').replace(': ', ':&nbsp').replace(':val:', '').replace(':field:', '').replace(':route:', '').replace(':type:', '')+"\n"))
             self.emit("isDeprecated: {}".format('True' if route.deprecated else 'False'))
             self.emit("urlStructure: https://{}.dropbox.com/{}/{}/{}".format(route.attrs.get("host", "api"), route.version, namespace.name, route.name ))            
             self.emit("endpointFormat: {}".format(route.attrs.get("style")))
@@ -132,8 +132,8 @@ class MdxBackend(CodeBackend):
             self.emit("---")
             self.emit("")
 
-            self.emit('import Endpoint from \'../components/Endpoint\'')
-            self.emit('import stoneTypes from \'../{}\''.format(js_file_name))
+            self.emit('import Endpoint from \'../../components/Endpoint\'')
+            self.emit('import stoneTypes from \'../../{}\''.format(js_file_name))
             self.emit('')
             
             self.emit('<Endpoint endpointProps={{typeInfo: stoneTypes, ...props.pageContext.frontmatter}} />');
@@ -189,7 +189,7 @@ class MdxBackend(CodeBackend):
 
     # helper to emit either complex name or struct name in routes
     def _generate_route_datatype(self, datatype, section):
-        self.emit("{}Type".format(section))
+        self.emit("{}Type: ".format(section))
 
         nullable = False
         while is_nullable_type(datatype) or is_alias(datatype):
@@ -238,12 +238,12 @@ class MdxBackend(CodeBackend):
                 elif example.label:
                     self.emit("  - label: {}".format(example.label))
 
-                self.emit_raw("    content:" +json.dumps(example_dict, separators=(',', ': ')) + "\n")
+                self.emit_raw("    content: " +json.dumps(example_dict, separators=(',', ': ')) + "\n")
 
             if len(examples) == 1:
                 example = examples.values()[0]
                 self.emit("  - label: default")
-                self.emit_raw("    content:" +json.dumps( example.value, separators=(',', ': ')) + "\n")
+                self.emit_raw("    content: " +json.dumps( example.value, separators=(',', ': ')) + "\n")
 
             elif len(examples) > 1:
                 if example.text:
@@ -251,7 +251,7 @@ class MdxBackend(CodeBackend):
                 elif example.label:
                     self.emit("  - label: {}".format(example.label))
 
-                self.emit_raw("    content:" +json.dumps(example.value) + "\n")
+                self.emit_raw("    content: " +json.dumps(example.value) + "\n")
 
     @staticmethod
     def _error_summary(value):

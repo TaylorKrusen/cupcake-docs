@@ -1,0 +1,32 @@
+---
+name: /team_folder/get_info
+route: /team/team_folder/get_info
+namespace: team
+menu: team
+description: Retrieves metadata for team folders.\nPermission :&nbspTeam member file access.
+isDeprecated: False
+urlStructure: https://api.dropbox.com/1/team/team_folder/get_info
+endpointFormat: None
+isPreview: None
+scope: None
+authentication:
+  - user
+paramType: 
+  namespace: team
+  datatype: TeamFolderIdListArg
+paramExamples: 
+  - label: default
+    content: {"team_folder_ids": ["947182","5819424","852307532"]}
+returnType: 
+  namespace: team
+  datatype: TeamFolderGetInfoItem[]
+returnExamples: 
+errorType: 
+  namespace: Void
+  datatype: Void
+---
+
+import Endpoint from '../../components/Endpoint'
+import stoneTypes from '../../type-lookup/team-team_folder-get_info.js'
+
+<Endpoint endpointProps={{typeInfo: stoneTypes, ...props.pageContext.frontmatter}} />

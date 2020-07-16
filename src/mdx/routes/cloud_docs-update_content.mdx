@@ -1,0 +1,63 @@
+---
+name: /update_content
+route: /cloud_docs/update_content
+namespace: cloud_docs
+menu: cloud_docs
+description: Update the contents of a Cloud Doc. This should be called for files with a max size of 150MB. This route requires Cloud Docs auth. Please make a request to cloud_docs/authorize and supply that token in the Authorization header.
+isDeprecated: False
+urlStructure: https://api.dropbox.com/1/cloud_docs/update_content
+endpointFormat: None
+isPreview: None
+scope: None
+authentication:
+  - user
+paramType: 
+  namespace: cloud_docs
+  datatype: UpdateContentArg
+paramExamples: 
+  - label: default
+    content: {"file_id": "id:pXGlEfaZvvAAAAAAAAAAGw","actor_tokens": ["AAAJagNapzVCQzKrX-LTY7DjVc1itPHiCI6COvcE3BpyN7-sTY1gxcjXY2nST3dONovrmYDdKxVe_TSMA0p8DTYbk2kfkA_1hHIplGxc4glyJwh2nK5NcxxScT8AYLx2cgepxAX2PALm2hwDdcE9P060_iedPWIqqseyFjxo9bMmDWQZFSGAyTlBlvPudGprVhQ="],"additional_contents": []}
+returnType: 
+  namespace: cloud_docs
+  datatype: UpdateContentResult
+returnExamples: 
+  - label: default
+    content: {"version": "1mPVXsONgX_d6QlFqs6gGz3MzGU="}
+errorType: 
+  namespace: cloud_docs
+  datatype: UpdateContentError
+errorExamples: 
+  - label: invalid_doc_id
+    content: {"error_summary": "invalid_doc_id/...","error": {".tag": "invalid_doc_id"}}
+  - label: invalid_doc_id
+    content: {".tag": "invalid_doc_id"}
+  - label: not_found
+    content: {"error_summary": "not_found/...","error": {".tag": "not_found"}}
+  - label: not_found
+    content: {".tag": "not_found"}
+  - label: permission_denied
+    content: {"error_summary": "permission_denied/...","error": {".tag": "permission_denied"}}
+  - label: permission_denied
+    content: {".tag": "permission_denied"}
+  - label: other
+    content: {"error_summary": "other/...","error": {".tag": "other"}}
+  - label: other
+    content: {".tag": "other"}
+  - label: upload_size_too_large
+    content: {"error_summary": "upload_size_too_large/...","error": {".tag": "upload_size_too_large"}}
+  - label: upload_size_too_large
+    content: {".tag": "upload_size_too_large"}
+  - label: conflict
+    content: {"error_summary": "conflict/...","error": {".tag": "conflict"}}
+  - label: conflict
+    content: {".tag": "conflict"}
+  - label: unlocked
+    content: {"error_summary": "unlocked/...","error": {".tag": "unlocked"}}
+  - label: unlocked
+    content: {".tag": "unlocked"}
+---
+
+import Endpoint from '../../components/Endpoint'
+import stoneTypes from '../../type-lookup/cloud_docs-update_content.js'
+
+<Endpoint endpointProps={{typeInfo: stoneTypes, ...props.pageContext.frontmatter}} />

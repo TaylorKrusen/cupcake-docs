@@ -1,0 +1,51 @@
+---
+name: /legal_holds/get_policy
+route: /team/legal_holds/get_policy
+namespace: team
+menu: team
+description: Gets a legal hold by Id. Note:&nbspLegal Holds is a paid add-on. Not all teams have the feature.\nPermission :&nbspTeam member file access.
+isDeprecated: False
+urlStructure: https://api.dropbox.com/1/team/legal_holds/get_policy
+endpointFormat: None
+isPreview: None
+scope: None
+authentication:
+  - user
+paramType: 
+  namespace: team
+  datatype: LegalHoldsGetPolicyArg
+paramExamples: 
+  - label: default
+    content: {"id": "pid_dbhid:abcd1234"}
+returnType: 
+  namespace: team
+  datatype: LegalHoldPolicy
+returnExamples: 
+  - label: default
+    content: {"id": "pid_dbhid:abcd1234","name": "acme cfo policy","members": {"team_member_ids": ["dbmid:efgh5678"],"permanently_deleted_users": 2},"status": {".tag": "active"},"start_date": "2016-01-01T00:00:00Z","activation_time": "2016-01-20T00:00:10Z","end_date": "2017-12-31T00:00:00Z"}
+errorType: 
+  namespace: team
+  datatype: LegalHoldsGetPolicyError
+errorExamples: 
+  - label: unknown_legal_hold_error
+    content: {"error_summary": "unknown_legal_hold_error/...","error": {".tag": "unknown_legal_hold_error"}}
+  - label: unknown_legal_hold_error
+    content: {".tag": "unknown_legal_hold_error"}
+  - label: insufficient_permissions
+    content: {"error_summary": "insufficient_permissions/...","error": {".tag": "insufficient_permissions"}}
+  - label: insufficient_permissions
+    content: {".tag": "insufficient_permissions"}
+  - label: other
+    content: {"error_summary": "other/...","error": {".tag": "other"}}
+  - label: other
+    content: {".tag": "other"}
+  - label: legal_hold_policy_not_found
+    content: {"error_summary": "legal_hold_policy_not_found/...","error": {".tag": "legal_hold_policy_not_found"}}
+  - label: legal_hold_policy_not_found
+    content: {".tag": "legal_hold_policy_not_found"}
+---
+
+import Endpoint from '../../components/Endpoint'
+import stoneTypes from '../../type-lookup/team-legal_holds-get_policy.js'
+
+<Endpoint endpointProps={{typeInfo: stoneTypes, ...props.pageContext.frontmatter}} />

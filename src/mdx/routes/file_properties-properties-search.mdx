@@ -11,19 +11,19 @@ isPreview: None
 scope: None
 authentication:
   - user
-paramType:
+paramType: 
   namespace: file_properties
   datatype: PropertiesSearchArg
 paramExamples: 
   - label: default
     content: {"queries": [{"query": "Confidential","mode": {".tag": "field_name","field_name": "Security"},"logical_operator": "or_operator"}],"template_filter": "filter_none"}
-returnType:
+returnType: 
   namespace: file_properties
   datatype: PropertiesSearchResult
 returnExamples: 
   - label: default
     content: {"matches": [{"id": "id:a4ayc_80_OEAAAAAAAAAXz","path": "/my_awesome/word.docx","is_deleted": false,"property_groups": [{"template_id": "ptid:1a5n2i6d3OYEAAAAAAAAAYa","fields": [{"name": "Security Policy","value": "Confidential"}]}]}]}
-errorType:
+errorType: 
   namespace: file_properties
   datatype: PropertiesSearchError
 ---

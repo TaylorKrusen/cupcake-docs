@@ -1,0 +1,43 @@
+---
+name: /member_space_limits/excluded_users/list/continue
+route: /team/member_space_limits/excluded_users/list/continue
+namespace: team
+menu: team
+description: Continue listing member space limits excluded users.
+isDeprecated: False
+urlStructure: https://api.dropbox.com/1/team/member_space_limits/excluded_users/list/continue
+endpointFormat: None
+isPreview: None
+scope: None
+authentication:
+  - user
+paramType: 
+  namespace: team
+  datatype: ExcludedUsersListContinueArg
+paramExamples: 
+  - label: default
+    content: {"cursor": "ZtkX9_EHj3x7PMkVuFIhwKYXEpwpLwyxp9vMKomUhllil9q7eWiAu"}
+returnType: 
+  namespace: team
+  datatype: ExcludedUsersListResult
+returnExamples: 
+  - label: default
+    content: {"users": [],"has_more": false,"cursor": "ZtkX9_EHj3x7PMkVuFIhwKYXEpwpLwyxp9vMKomUhllil9q7eWiAu"}
+errorType: 
+  namespace: team
+  datatype: ExcludedUsersListContinueError
+errorExamples: 
+  - label: invalid_cursor
+    content: {"error_summary": "invalid_cursor/...","error": {".tag": "invalid_cursor"}}
+  - label: invalid_cursor
+    content: {".tag": "invalid_cursor"}
+  - label: other
+    content: {"error_summary": "other/...","error": {".tag": "other"}}
+  - label: other
+    content: {".tag": "other"}
+---
+
+import Endpoint from '../../components/Endpoint'
+import stoneTypes from '../../type-lookup/team-member_space_limits-excluded_users-list-continue.js'
+
+<Endpoint endpointProps={{typeInfo: stoneTypes, ...props.pageContext.frontmatter}} />

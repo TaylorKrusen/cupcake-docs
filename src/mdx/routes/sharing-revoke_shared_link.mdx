@@ -1,0 +1,52 @@
+---
+name: /revoke_shared_link
+route: /sharing/revoke_shared_link
+namespace: sharing
+menu: sharing
+description: Revoke a shared link.\nNote that even after revoking a shared link to a file, the file may be accessible if there are shared links leading to any of the file parent folders. To list all shared links that enable access to a specific file, you can use the `list_shared_links` with the file as the `ListSharedLinksArg.path` argument.
+isDeprecated: False
+urlStructure: https://api.dropbox.com/1/sharing/revoke_shared_link
+endpointFormat: None
+isPreview: None
+scope: None
+authentication:
+  - user
+paramType: 
+  namespace: sharing
+  datatype: RevokeSharedLinkArg
+paramExamples: 
+  - label: default
+    content: {"url": "https://www.dropbox.com/s/2sn712vy1ovegw8/Prime_Numbers.txt?dl=0"}
+returnType: 
+  namespace: Void
+  datatype: Void
+errorType: 
+  namespace: sharing
+  datatype: RevokeSharedLinkError
+errorExamples: 
+  - label: shared_link_not_found
+    content: {"error_summary": "shared_link_not_found/...","error": {".tag": "shared_link_not_found"}}
+  - label: shared_link_not_found
+    content: {".tag": "shared_link_not_found"}
+  - label: shared_link_access_denied
+    content: {"error_summary": "shared_link_access_denied/...","error": {".tag": "shared_link_access_denied"}}
+  - label: shared_link_access_denied
+    content: {".tag": "shared_link_access_denied"}
+  - label: unsupported_link_type
+    content: {"error_summary": "unsupported_link_type/...","error": {".tag": "unsupported_link_type"}}
+  - label: unsupported_link_type
+    content: {".tag": "unsupported_link_type"}
+  - label: other
+    content: {"error_summary": "other/...","error": {".tag": "other"}}
+  - label: other
+    content: {".tag": "other"}
+  - label: shared_link_malformed
+    content: {"error_summary": "shared_link_malformed/...","error": {".tag": "shared_link_malformed"}}
+  - label: shared_link_malformed
+    content: {".tag": "shared_link_malformed"}
+---
+
+import Endpoint from '../../components/Endpoint'
+import stoneTypes from '../../type-lookup/sharing-revoke_shared_link.js'
+
+<Endpoint endpointProps={{typeInfo: stoneTypes, ...props.pageContext.frontmatter}} />

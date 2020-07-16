@@ -1,0 +1,49 @@
+---
+name: /check_remove_member_job_status
+route: /sharing/check_remove_member_job_status
+namespace: sharing
+menu: sharing
+description: Returns the status of an asynchronous job for sharing a folder.
+isDeprecated: False
+urlStructure: https://api.dropbox.com/1/sharing/check_remove_member_job_status
+endpointFormat: None
+isPreview: None
+scope: None
+authentication:
+  - user
+paramType: 
+  namespace: async
+  datatype: PollArg
+paramExamples: 
+  - label: default
+    content: {"async_job_id": "34g93hh34h04y384084"}
+returnType: 
+  namespace: sharing
+  datatype: RemoveMemberJobStatus
+returnExamples: 
+  - label: default
+    content: {".tag": "complete"}
+  - label: in_progress
+    content: {".tag": "in_progress"}
+errorType: 
+  namespace: async
+  datatype: PollError
+errorExamples: 
+  - label: invalid_async_job_id
+    content: {"error_summary": "invalid_async_job_id/...","error": {".tag": "invalid_async_job_id"}}
+  - label: invalid_async_job_id
+    content: {".tag": "invalid_async_job_id"}
+  - label: internal_error
+    content: {"error_summary": "internal_error/...","error": {".tag": "internal_error"}}
+  - label: internal_error
+    content: {".tag": "internal_error"}
+  - label: other
+    content: {"error_summary": "other/...","error": {".tag": "other"}}
+  - label: other
+    content: {".tag": "other"}
+---
+
+import Endpoint from '../../components/Endpoint'
+import stoneTypes from '../../type-lookup/sharing-check_remove_member_job_status.js'
+
+<Endpoint endpointProps={{typeInfo: stoneTypes, ...props.pageContext.frontmatter}} />

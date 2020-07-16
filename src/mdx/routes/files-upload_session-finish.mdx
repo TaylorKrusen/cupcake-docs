@@ -1,0 +1,49 @@
+---
+name: /upload_session/finish
+route: /files/upload_session/finish
+namespace: files
+menu: files
+description: Finish an upload session and save the uploaded data to the given file path.\nA single request should not upload more than 150 MB. The maximum size of a file one can upload to an upload session is 350 GB.\nCalls to this endpoint will count as data transport calls for any Dropbox Business teams with a limit on the number of data transport calls allowed per month. For more information, see the :link:`Data transport limit page https://www.dropbox.com/developers/reference/data-transport-limit`.
+isDeprecated: False
+urlStructure: https://api.dropbox.com/1/files/upload_session/finish
+endpointFormat: None
+isPreview: None
+scope: None
+authentication:
+  - user
+paramType: 
+  namespace: files
+  datatype: UploadSessionFinishArg
+paramExamples: 
+  - label: default
+    content: {"cursor": {"session_id": "1234faaf0678bcde", "offset": 0}, "commit": {"path": "/Homework/math/Matrices.txt", "mode": "add", "autorename": true, "mute": false, "strict_conflict": false}}
+  - label: update
+    content: {"cursor": {"session_id": "1234faaf0678bcde", "offset": 0}, "commit": {"path": "/Homework/math/Matrices.txt", "mode": {".tag": "update", "update": "a1c10ce0dd78"}, "autorename": false, "mute": false, "property_groups": [{"template_id": "ptid:1a5n2i6d3OYEAAAAAAAAAYa", "fields": [{"name": "Security Policy", "value": "Confidential"}]}], "strict_conflict": false}}
+returnType: 
+  namespace: files
+  datatype: FileMetadata
+returnExamples: 
+  - label: default
+    content: {"name": "Prime_Numbers.txt","id": "id:a4ayc_80_OEAAAAAAAAAXw","client_modified": "2015-05-12T15:50:38Z","server_modified": "2015-05-12T15:50:38Z","rev": "a1c10ce0dd78","size": 7212,"path_lower": "/homework/math/prime_numbers.txt","path_display": "/Homework/math/Prime_Numbers.txt","sharing_info": {"read_only": true,"parent_shared_folder_id": "84528192421","modified_by": "dbid:AAH4f99T0taONIb-OurWxbNQ6ywGRopQngc"},"is_downloadable": true,"property_groups": [{"template_id": "ptid:1a5n2i6d3OYEAAAAAAAAAYa","fields": [{"name": "Security Policy","value": "Confidential"}]}],"has_explicit_shared_members": false,"content_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855","file_lock_info": {"is_lockholder": true,"lockholder_name": "Imaginary User","created": "2015-05-12T15:50:38Z"}}
+errorType: 
+  namespace: files
+  datatype: UploadSessionFinishError
+errorExamples: 
+  - label: too_many_shared_folder_targets
+    content: {"error_summary": "too_many_shared_folder_targets/...","error": {".tag": "too_many_shared_folder_targets"}}
+  - label: too_many_shared_folder_targets
+    content: {".tag": "too_many_shared_folder_targets"}
+  - label: too_many_write_operations
+    content: {"error_summary": "too_many_write_operations/...","error": {".tag": "too_many_write_operations"}}
+  - label: too_many_write_operations
+    content: {".tag": "too_many_write_operations"}
+  - label: other
+    content: {"error_summary": "other/...","error": {".tag": "other"}}
+  - label: other
+    content: {".tag": "other"}
+---
+
+import Endpoint from '../../components/Endpoint'
+import stoneTypes from '../../type-lookup/files-upload_session-finish.js'
+
+<Endpoint endpointProps={{typeInfo: stoneTypes, ...props.pageContext.frontmatter}} />

@@ -1,0 +1,47 @@
+---
+name: /token/from_oauth1
+route: /auth/token/from_oauth1
+namespace: auth
+menu: auth
+description: Creates an OAuth 2.0 access token from the supplied OAuth 1.0 access token.
+isDeprecated: False
+urlStructure: https://api.dropbox.com/1/auth/token/from_oauth1
+endpointFormat: None
+isPreview: None
+scope: None
+authentication:
+  - user
+paramType: 
+  namespace: auth
+  datatype: TokenFromOAuth1Arg
+paramExamples: 
+  - label: default
+    content: {"oauth1_token": "qievr8hamyg6ndck","oauth1_token_secret": "qomoftv0472git7"}
+returnType: 
+  namespace: auth
+  datatype: TokenFromOAuth1Result
+returnExamples: 
+  - label: default
+    content: {"oauth2_token": "9mCrkS7BIdAAAAAAAAAAHHS0TsSnpYvKQVtKdBnN5IuzhYOGblSgTcHgBFKFMmFn"}
+errorType: 
+  namespace: auth
+  datatype: TokenFromOAuth1Error
+errorExamples: 
+  - label: invalid_oauth1_token_info
+    content: {"error_summary": "invalid_oauth1_token_info/...","error": {".tag": "invalid_oauth1_token_info"}}
+  - label: invalid_oauth1_token_info
+    content: {".tag": "invalid_oauth1_token_info"}
+  - label: app_id_mismatch
+    content: {"error_summary": "app_id_mismatch/...","error": {".tag": "app_id_mismatch"}}
+  - label: app_id_mismatch
+    content: {".tag": "app_id_mismatch"}
+  - label: other
+    content: {"error_summary": "other/...","error": {".tag": "other"}}
+  - label: other
+    content: {".tag": "other"}
+---
+
+import Endpoint from '../../components/Endpoint'
+import stoneTypes from '../../type-lookup/auth-token-from_oauth1.js'
+
+<Endpoint endpointProps={{typeInfo: stoneTypes, ...props.pageContext.frontmatter}} />

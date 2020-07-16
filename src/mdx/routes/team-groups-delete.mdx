@@ -1,0 +1,53 @@
+---
+name: /groups/delete
+route: /team/groups/delete
+namespace: team
+menu: team
+description: Deletes a group.\nThe group is deleted immediately. However the revoking of group-owned resources may take additional time. Use the `groups/job_status/get` to determine whether this process has completed.\nPermission :&nbspTeam member management.
+isDeprecated: False
+urlStructure: https://api.dropbox.com/1/team/groups/delete
+endpointFormat: None
+isPreview: None
+scope: None
+authentication:
+  - user
+paramType: 
+  namespace: team
+  datatype: GroupSelector
+paramExamples: 
+  - label: default
+    content: {".tag": "group_id","group_id": "g:e2db7665347abcd600000000001a2b3c"}
+returnType: 
+  namespace: async
+  datatype: LaunchEmptyResult
+returnExamples: 
+  - label: complete
+    content: {".tag": "complete"}
+  - label: async_job_id
+    content: {".tag": "async_job_id", "async_job_id": "34g93hh34h04y384084"}
+errorType: 
+  namespace: team
+  datatype: GroupDeleteError
+errorExamples: 
+  - label: group_not_found
+    content: {"error_summary": "group_not_found/...","error": {".tag": "group_not_found"}}
+  - label: group_not_found
+    content: {".tag": "group_not_found"}
+  - label: other
+    content: {"error_summary": "other/...","error": {".tag": "other"}}
+  - label: other
+    content: {".tag": "other"}
+  - label: system_managed_group_disallowed
+    content: {"error_summary": "system_managed_group_disallowed/...","error": {".tag": "system_managed_group_disallowed"}}
+  - label: system_managed_group_disallowed
+    content: {".tag": "system_managed_group_disallowed"}
+  - label: group_already_deleted
+    content: {"error_summary": "group_already_deleted/...","error": {".tag": "group_already_deleted"}}
+  - label: group_already_deleted
+    content: {".tag": "group_already_deleted"}
+---
+
+import Endpoint from '../../components/Endpoint'
+import stoneTypes from '../../type-lookup/team-groups-delete.js'
+
+<Endpoint endpointProps={{typeInfo: stoneTypes, ...props.pageContext.frontmatter}} />

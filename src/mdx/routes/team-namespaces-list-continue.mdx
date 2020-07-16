@@ -1,0 +1,47 @@
+---
+name: /namespaces/list/continue
+route: /team/namespaces/list/continue
+namespace: team
+menu: team
+description: Once a cursor has been retrieved from `namespaces/list`, use this to paginate through all team-accessible namespaces. Duplicates may occur in the list.
+isDeprecated: False
+urlStructure: https://api.dropbox.com/1/team/namespaces/list/continue
+endpointFormat: None
+isPreview: None
+scope: None
+authentication:
+  - user
+paramType: 
+  namespace: team
+  datatype: TeamNamespacesListContinueArg
+paramExamples: 
+  - label: default
+    content: {"cursor": "ZtkX9_EHj3x7PMkVuFIhwKYXEpwpLwyxp9vMKomUhllil9q7eWiAu"}
+returnType: 
+  namespace: team
+  datatype: TeamNamespacesListResult
+returnExamples: 
+  - label: default
+    content: {"namespaces": [{"name": "Marketing","namespace_id": "123456789","namespace_type": {".tag": "shared_folder"}},{"name": "Franz Ferdinand","namespace_id": "123456789","namespace_type": {".tag": "team_member_folder"},"team_member_id": "dbmid:1234567"}],"cursor": "ZtkX9_EHj3x7PMkVuFIhwKYXEpwpLwyxp9vMKomUhllil9q7eWiAu","has_more": false}
+errorType: 
+  namespace: team
+  datatype: TeamNamespacesListContinueError
+errorExamples: 
+  - label: invalid_arg
+    content: {"error_summary": "invalid_arg/...","error": {".tag": "invalid_arg"}}
+  - label: invalid_arg
+    content: {".tag": "invalid_arg"}
+  - label: other
+    content: {"error_summary": "other/...","error": {".tag": "other"}}
+  - label: other
+    content: {".tag": "other"}
+  - label: invalid_cursor
+    content: {"error_summary": "invalid_cursor/...","error": {".tag": "invalid_cursor"}}
+  - label: invalid_cursor
+    content: {".tag": "invalid_cursor"}
+---
+
+import Endpoint from '../../components/Endpoint'
+import stoneTypes from '../../type-lookup/team-namespaces-list-continue.js'
+
+<Endpoint endpointProps={{typeInfo: stoneTypes, ...props.pageContext.frontmatter}} />

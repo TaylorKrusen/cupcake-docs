@@ -1,0 +1,59 @@
+---
+name: /set_profile_photo
+route: /account/set_profile_photo
+namespace: account
+menu: account
+description: Sets a user's profile photo.
+isDeprecated: False
+urlStructure: https://api.dropbox.com/1/account/set_profile_photo
+endpointFormat: None
+isPreview: None
+scope: None
+authentication:
+  - user
+paramType: 
+  namespace: account
+  datatype: SetProfilePhotoArg
+paramExamples: 
+  - label: default
+    content: {"photo": {".tag": "base64_data","base64_data": "SW1hZ2UgZGF0YSBpbiBiYXNlNjQtZW5jb2RlZCBieXRlcy4gTm90IGEgdmFsaWQgZXhhbXBsZS4="}}
+returnType: 
+  namespace: account
+  datatype: SetProfilePhotoResult
+returnExamples: 
+  - label: default
+    content: {"profile_photo_url": "https://dl-web.dropbox.com/account_photo/get/dbaphid%3AAAHWGmIXV3sUuOmBfTz0wPsiqHUpBWvv3ZA?vers=1556069330102&size=128x128"}
+errorType: 
+  namespace: account
+  datatype: SetProfilePhotoError
+errorExamples: 
+  - label: file_type_error
+    content: {"error_summary": "file_type_error/...","error": {".tag": "file_type_error"}}
+  - label: file_type_error
+    content: {".tag": "file_type_error"}
+  - label: file_size_error
+    content: {"error_summary": "file_size_error/...","error": {".tag": "file_size_error"}}
+  - label: file_size_error
+    content: {".tag": "file_size_error"}
+  - label: dimension_error
+    content: {"error_summary": "dimension_error/...","error": {".tag": "dimension_error"}}
+  - label: dimension_error
+    content: {".tag": "dimension_error"}
+  - label: thumbnail_error
+    content: {"error_summary": "thumbnail_error/...","error": {".tag": "thumbnail_error"}}
+  - label: thumbnail_error
+    content: {".tag": "thumbnail_error"}
+  - label: transient_error
+    content: {"error_summary": "transient_error/...","error": {".tag": "transient_error"}}
+  - label: transient_error
+    content: {".tag": "transient_error"}
+  - label: other
+    content: {"error_summary": "other/...","error": {".tag": "other"}}
+  - label: other
+    content: {".tag": "other"}
+---
+
+import Endpoint from '../../components/Endpoint'
+import stoneTypes from '../../type-lookup/account-set_profile_photo.js'
+
+<Endpoint endpointProps={{typeInfo: stoneTypes, ...props.pageContext.frontmatter}} />

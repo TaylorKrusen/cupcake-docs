@@ -1,0 +1,30 @@
+---
+name: /linked_apps/revoke_linked_app_batch
+route: /team/linked_apps/revoke_linked_app_batch
+namespace: team
+menu: team
+description: Revoke a list of linked applications of the team members.
+isDeprecated: False
+urlStructure: https://api.dropbox.com/1/team/linked_apps/revoke_linked_app_batch
+endpointFormat: None
+isPreview: None
+scope: None
+authentication:
+  - user
+paramType: 
+  namespace: team
+  datatype: RevokeLinkedApiAppBatchArg
+paramExamples: 
+returnType: 
+  namespace: team
+  datatype: RevokeLinkedAppBatchResult
+returnExamples: 
+errorType: 
+  namespace: team
+  datatype: RevokeLinkedAppBatchError
+---
+
+import Endpoint from '../../components/Endpoint'
+import stoneTypes from '../../type-lookup/team-linked_apps-revoke_linked_app_batch.js'
+
+<Endpoint endpointProps={{typeInfo: stoneTypes, ...props.pageContext.frontmatter}} />

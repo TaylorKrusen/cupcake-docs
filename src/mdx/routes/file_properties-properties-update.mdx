@@ -1,0 +1,56 @@
+---
+name: /properties/update
+route: /file_properties/properties/update
+namespace: file_properties
+menu: file_properties
+description: Add, update or remove properties associated with the supplied file and templates. This endpoint should be used instead of `properties/overwrite` when property groups are being updated via a "delta" instead of via a "snapshot" . In other words, this endpoint will not delete any omitted fields from a property group, whereas `properties/overwrite` will delete any fields that are omitted from a property group.
+isDeprecated: False
+urlStructure: https://api.dropbox.com/1/file_properties/properties/update
+endpointFormat: None
+isPreview: None
+scope: None
+authentication:
+  - user
+paramType: 
+  namespace: file_properties
+  datatype: UpdatePropertiesArg
+paramExamples: 
+  - label: default
+    content: {"path": "/my_awesome/word.docx","update_property_groups": [{"template_id": "ptid:1a5n2i6d3OYEAAAAAAAAAYa","add_or_update_fields": [{"name": "Security Policy","value": "Confidential"}],"remove_fields": []}]}
+returnType: 
+  namespace: Void
+  datatype: Void
+errorType: 
+  namespace: file_properties
+  datatype: UpdatePropertiesError
+errorExamples: 
+  - label: restricted_content
+    content: {"error_summary": "restricted_content/...","error": {".tag": "restricted_content"}}
+  - label: restricted_content
+    content: {".tag": "restricted_content"}
+  - label: other
+    content: {"error_summary": "other/...","error": {".tag": "other"}}
+  - label: other
+    content: {".tag": "other"}
+  - label: unsupported_folder
+    content: {"error_summary": "unsupported_folder/...","error": {".tag": "unsupported_folder"}}
+  - label: unsupported_folder
+    content: {".tag": "unsupported_folder"}
+  - label: property_field_too_large
+    content: {"error_summary": "property_field_too_large/...","error": {".tag": "property_field_too_large"}}
+  - label: property_field_too_large
+    content: {".tag": "property_field_too_large"}
+  - label: does_not_fit_template
+    content: {"error_summary": "does_not_fit_template/...","error": {".tag": "does_not_fit_template"}}
+  - label: does_not_fit_template
+    content: {".tag": "does_not_fit_template"}
+  - label: duplicate_property_groups
+    content: {"error_summary": "duplicate_property_groups/...","error": {".tag": "duplicate_property_groups"}}
+  - label: duplicate_property_groups
+    content: {".tag": "duplicate_property_groups"}
+---
+
+import Endpoint from '../../components/Endpoint'
+import stoneTypes from '../../type-lookup/file_properties-properties-update.js'
+
+<Endpoint endpointProps={{typeInfo: stoneTypes, ...props.pageContext.frontmatter}} />

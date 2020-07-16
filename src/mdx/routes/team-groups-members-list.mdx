@@ -1,0 +1,43 @@
+---
+name: /groups/members/list
+route: /team/groups/members/list
+namespace: team
+menu: team
+description: Lists members of a group.\nPermission :&nbspTeam Information.
+isDeprecated: False
+urlStructure: https://api.dropbox.com/1/team/groups/members/list
+endpointFormat: None
+isPreview: None
+scope: None
+authentication:
+  - user
+paramType: 
+  namespace: team
+  datatype: GroupsMembersListArg
+paramExamples: 
+  - label: default
+    content: {"group": {".tag": "group_id","group_id": "g:e2db7665347abcd600000000001a2b3c"},"limit": 100}
+returnType: 
+  namespace: team
+  datatype: GroupsMembersListResult
+returnExamples: 
+  - label: default
+    content: {"members": [],"cursor": "ZtkX9_EHj3x7PMkVuFIhwKYXEpwpLwyxp9vMKomUhllil9q7eWiAu","has_more": false}
+errorType: 
+  namespace: team
+  datatype: GroupSelectorError
+errorExamples: 
+  - label: group_not_found
+    content: {"error_summary": "group_not_found/...","error": {".tag": "group_not_found"}}
+  - label: group_not_found
+    content: {".tag": "group_not_found"}
+  - label: other
+    content: {"error_summary": "other/...","error": {".tag": "other"}}
+  - label: other
+    content: {".tag": "other"}
+---
+
+import Endpoint from '../../components/Endpoint'
+import stoneTypes from '../../type-lookup/team-groups-members-list.js'
+
+<Endpoint endpointProps={{typeInfo: stoneTypes, ...props.pageContext.frontmatter}} />

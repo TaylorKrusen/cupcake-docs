@@ -1,0 +1,39 @@
+---
+name: /linked_apps/list_members_linked_apps
+route: /team/linked_apps/list_members_linked_apps
+namespace: team
+menu: team
+description: List all applications linked to the team members' accounts.\nNote, this endpoint does not list any team-linked applications.
+isDeprecated: False
+urlStructure: https://api.dropbox.com/1/team/linked_apps/list_members_linked_apps
+endpointFormat: None
+isPreview: None
+scope: None
+authentication:
+  - user
+paramType: 
+  namespace: team
+  datatype: ListMembersAppsArg
+paramExamples: 
+returnType: 
+  namespace: team
+  datatype: ListMembersAppsResult
+returnExamples: 
+errorType: 
+  namespace: team
+  datatype: ListMembersAppsError
+errorExamples: 
+  - label: reset
+    content: {"error_summary": "reset/...","error": {".tag": "reset"}}
+  - label: reset
+    content: {".tag": "reset"}
+  - label: other
+    content: {"error_summary": "other/...","error": {".tag": "other"}}
+  - label: other
+    content: {".tag": "other"}
+---
+
+import Endpoint from '../../components/Endpoint'
+import stoneTypes from '../../type-lookup/team-linked_apps-list_members_linked_apps.js'
+
+<Endpoint endpointProps={{typeInfo: stoneTypes, ...props.pageContext.frontmatter}} />

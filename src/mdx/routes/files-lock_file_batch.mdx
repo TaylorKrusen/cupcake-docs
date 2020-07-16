@@ -1,0 +1,63 @@
+---
+name: /lock_file_batch
+route: /files/lock_file_batch
+namespace: files
+menu: files
+description: Lock the files at the given paths. A locked file will be writable only by the lock holder. A successful response indicates that the file has been locked. Returns a list of the locked file paths and their metadata after this operation.
+isDeprecated: False
+urlStructure: https://api.dropbox.com/1/files/lock_file_batch
+endpointFormat: None
+isPreview: None
+scope: None
+authentication:
+  - user
+paramType: 
+  namespace: files
+  datatype: LockFileBatchArg
+paramExamples: 
+  - label: default
+    content: {"entries": [{"path": "/John Doe/sample/test.pdf"}]}
+returnType: 
+  namespace: files
+  datatype: LockFileBatchResult
+returnExamples: 
+  - label: default
+    content: {"entries": [{".tag": "success","metadata": {".tag": "file","name": "Prime_Numbers.txt","id": "id:a4ayc_80_OEAAAAAAAAAXw","client_modified": "2015-05-12T15:50:38Z","server_modified": "2015-05-12T15:50:38Z","rev": "a1c10ce0dd78","size": 7212,"path_lower": "/homework/math/prime_numbers.txt","path_display": "/Homework/math/Prime_Numbers.txt","sharing_info": {"read_only": true,"parent_shared_folder_id": "84528192421","modified_by": "dbid:AAH4f99T0taONIb-OurWxbNQ6ywGRopQngc"},"is_downloadable": true,"property_groups": [{"template_id": "ptid:1a5n2i6d3OYEAAAAAAAAAYa","fields": [{"name": "Security Policy","value": "Confidential"}]}],"has_explicit_shared_members": false,"content_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855","file_lock_info": {"is_lockholder": true,"lockholder_name": "Imaginary User","created": "2015-05-12T15:50:38Z"}},"lock": {"content": {".tag": "single_user","created": "2015-05-12T15:50:38Z","lock_holder_account_id": "dbid:AAH4f99T0taONIb-OurWxbNQ6ywGRopQngc","lock_holder_team_id": "dbtid:1234abcd"}}}]}
+errorType: 
+  namespace: files
+  datatype: LockFileError
+errorExamples: 
+  - label: too_many_write_operations
+    content: {"error_summary": "too_many_write_operations/...","error": {".tag": "too_many_write_operations"}}
+  - label: too_many_write_operations
+    content: {".tag": "too_many_write_operations"}
+  - label: too_many_files
+    content: {"error_summary": "too_many_files/...","error": {".tag": "too_many_files"}}
+  - label: too_many_files
+    content: {".tag": "too_many_files"}
+  - label: no_write_permission
+    content: {"error_summary": "no_write_permission/...","error": {".tag": "no_write_permission"}}
+  - label: no_write_permission
+    content: {".tag": "no_write_permission"}
+  - label: cannot_be_locked
+    content: {"error_summary": "cannot_be_locked/...","error": {".tag": "cannot_be_locked"}}
+  - label: cannot_be_locked
+    content: {".tag": "cannot_be_locked"}
+  - label: file_not_shared
+    content: {"error_summary": "file_not_shared/...","error": {".tag": "file_not_shared"}}
+  - label: file_not_shared
+    content: {".tag": "file_not_shared"}
+  - label: internal_error
+    content: {"error_summary": "internal_error/...","error": {".tag": "internal_error"}}
+  - label: internal_error
+    content: {".tag": "internal_error"}
+  - label: other
+    content: {"error_summary": "other/...","error": {".tag": "other"}}
+  - label: other
+    content: {".tag": "other"}
+---
+
+import Endpoint from '../../components/Endpoint'
+import stoneTypes from '../../type-lookup/files-lock_file_batch.js'
+
+<Endpoint endpointProps={{typeInfo: stoneTypes, ...props.pageContext.frontmatter}} />
