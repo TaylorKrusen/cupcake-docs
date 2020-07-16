@@ -8,6 +8,7 @@ import TypeExplanation from './TypeExplanation';
 import Description from './Description';
 import RowContainer from './RowContainer';
 import VersionDropdown from './VersionDropdown';
+import EndpointFormat from './EndpointFormat';
 
 import '../scss/styles.scss';
 
@@ -20,12 +21,14 @@ export interface EndpointProps {
   isDeprecated: boolean;
   deprecatedBy?: string | null;
   description: string;
-  authTypes: string[];
+  authentication: string[];
   shellExample: string;
   paramType: StoneTypeReference;
   returnType: StoneTypeReference;
   errorType: StoneTypeReference;
   typeInfo: StoneTypeInfoMap;
+  endpointFormat: string;
+  scope: string;
 }
 
 export default function Endpoint(props: {endpointProps: EndpointProps}) {
@@ -36,12 +39,14 @@ export default function Endpoint(props: {endpointProps: EndpointProps}) {
     isDeprecated,
     deprecatedBy,
     description,
-    authTypes,
+    authentication,
     shellExample,
     paramType,
     typeInfo,
     returnType,
     errorType,
+    endpointFormat,
+    scope,
   } = props.endpointProps;
   const url = `https://api.dropboxapi.com/2${route}`;
   return (
@@ -58,10 +63,12 @@ export default function Endpoint(props: {endpointProps: EndpointProps}) {
         <Code>{url}</Code>
       </RowContainer>
       <RowContainer title="Authentication">
-        {authTypes && <AuthTypes authTypes={authTypes} />}
+        {!!authentication && <AuthTypes authTypes={authentication} />}
       </RowContainer>
-      <RowContainer title="Endpoint Format">.</RowContainer>
-      <RowContainer title="Required Scope">.</RowContainer>
+      <RowContainer title="Endpoint Format">
+        <EndpointFormat endpointFormat={endpointFormat} />
+      </RowContainer>
+      <RowContainer title="Required Scope">{scope}</RowContainer>
       <RowContainer title="Example">
         <ShellExample namespace={namespace} endpoint={endpoint} shellExample={shellExample} />
       </RowContainer>

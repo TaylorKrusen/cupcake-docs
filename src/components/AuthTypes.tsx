@@ -11,11 +11,29 @@ function AuthLink(props: {authType: string}) {
   let {authType} = props;
   authType = authTypeMap[authType] || authType;
   if (authType === 'user') {
-    return <Link to="TODO">User</Link>;
+    return (
+      <Link to="https://www.dropbox.com/developers/reference/auth-types#user">
+        User Authentication
+      </Link>
+    );
   } else if (authType === 'app') {
-    return <Link to="TODO">App</Link>;
+    return (
+      <Link to="https://www.dropbox.com/developers/reference/auth-types#app">
+        App Authentication
+      </Link>
+    );
   } else if (authType === 'team') {
-    return <Link to="TODO">Team</Link>;
+    return (
+      <Link to="https://www.dropbox.com/developers/documentation/http/teams#teams-member-file-access">
+        Dropbox-API-Select-Admin (Whole Team)
+      </Link>
+    );
+  } else if (authType === 'team_admin') {
+    return (
+      <Link to="https://www.dropbox.com/developers/documentation/http/teams#teams-member-file-access">
+        Dropbox-API-Select-Admin (Team Admin)
+      </Link>
+    );
   }
   throw new Error('unexpected auth type ' + authType);
 }
