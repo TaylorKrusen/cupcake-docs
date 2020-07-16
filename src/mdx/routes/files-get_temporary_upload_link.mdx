@@ -1,0 +1,34 @@
+---
+name: /get_temporary_upload_link
+route: /files/get_temporary_upload_link
+namespace: files
+menu: files
+description: Get a one-time use temporary upload link to upload a file to a Dropbox location.\n\nThis endpoint acts as a delayed `upload`. The returned temporary upload link may be used to make a POST request with the data to be uploaded. The upload will then be perfomed with the `CommitInfo` previously provided to `get_temporary_upload_link` but evaluated only upon consumption. Hence, errors stemming from invalid `CommitInfo` with respect to the state of the user's Dropbox will only be communicated at consumption time. Additionally, these errors are surfaced as generic HTTP 409 Conflict responses, potentially hiding issue details. The maximum temporary upload link duration is 4 hours. Upon consumption or expiration, a new link will have to be generated. Multiple links may exist for a specific upload path at any given time.\n\nThe POST request on the temporary upload link must have its Content-Type set to "application/octet-stream".\n\nExample temporary upload link consumption request:\n\ncurl -X POST https://content.dropboxapi.com/apitul/1/bNi2uIYF51cVBND\n--header "Content-Type:&nbspapplication/octet-stream"\n--data-binary @local_file.txt\n\nA successful temporary upload link consumption request returns the content hash of the uploaded data in JSON format.\n\nExample succesful temporary upload link consumption response:\n{"content-hash":&nbsp"599d71033d700ac892a0e48fa61b125d2f5994"}\n\nAn unsuccessful temporary upload link consumption request returns any of the following status codes:\n\nHTTP 400 Bad Request:&nbspContent-Type is not one of application/octet-stream and text/plain or request is invalid.\nHTTP 409 Conflict:&nbspThe temporary upload link does not exist or is currently unavailable, the upload failed, or another error happened.\nHTTP 410 Gone:&nbspThe temporary upload link is expired or consumed.\n\nExample unsuccessful temporary upload link consumption response:\nTemporary upload link has been recently consumed.
+isDeprecated: false
+urlStructure: https://api.dropbox.com/1/files/get_temporary_upload_link
+endpointFormat: rpc
+isPreview: false
+scope: files.content.write
+authentication:
+  - user
+paramType: 
+  namespace: files
+  datatype: GetTemporaryUploadLinkArg
+paramExamples: 
+  - label: default
+    content: {"commit_info": {"path": "/Homework/math/Matrices.txt","mode": "add","autorename": true,"mute": false,"strict_conflict": false},"duration": 3600}
+returnType: 
+  namespace: files
+  datatype: GetTemporaryUploadLinkResult
+returnExamples: 
+  - label: default
+    content: {"link": "https://content.dropboxapi.com/apitul/1/bNi2uIYF51cVBND"}
+errorType: 
+  namespace: Void
+  datatype: Void
+---
+
+import Endpoint from '../../components/Endpoint'
+import stoneTypes from '../../type-lookup/files-get_temporary_upload_link.js'
+
+<Endpoint endpointProps={{typeInfo: stoneTypes, ...props.pageContext.frontmatter}} />

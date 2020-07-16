@@ -1,0 +1,52 @@
+---
+name: /get_preview
+route: /files/get_preview
+namespace: files
+menu: files
+description: Get a preview for a file.\nCurrently, PDF previews are generated for files with the following extensions:&nbsp.ai, .doc, .docm, .docx, .eps, .gdoc, .gslides, .odp, .odt, .pps, .ppsm, .ppsx, .ppt, .pptm, .pptx, .rtf.\nHTML previews are generated for files with the following extensions:&nbsp.csv, .ods, .xls, .xlsm, .gsheet, .xlsx.\nOther formats will return an unsupported extension error.
+isDeprecated: false
+urlStructure: https://content.dropbox.com/1/files/get_preview
+endpointFormat: download
+isPreview: false
+scope: files.content.read
+authentication:
+  - user
+  - whole_team
+paramType: 
+  namespace: files
+  datatype: PreviewArg
+paramExamples: 
+  - label: default
+    content: {"path": "/word.docx"}
+  - label: id
+    content: {"path": "id:a4ayc_80_OEAAAAAAAAAYa"}
+  - label: rev
+    content: {"path": "rev:a1c10ce0dd78"}
+returnType: 
+  namespace: files
+  datatype: FileMetadata
+returnExamples: 
+  - label: default
+    content: {"name": "Prime_Numbers.txt","id": "id:a4ayc_80_OEAAAAAAAAAXw","client_modified": "2015-05-12T15:50:38Z","server_modified": "2015-05-12T15:50:38Z","rev": "a1c10ce0dd78","size": 7212,"path_lower": "/homework/math/prime_numbers.txt","path_display": "/Homework/math/Prime_Numbers.txt","sharing_info": {"read_only": true,"parent_shared_folder_id": "84528192421","modified_by": "dbid:AAH4f99T0taONIb-OurWxbNQ6ywGRopQngc"},"is_downloadable": true,"property_groups": [{"template_id": "ptid:1a5n2i6d3OYEAAAAAAAAAYa","fields": [{"name": "Security Policy","value": "Confidential"}]}],"has_explicit_shared_members": false,"content_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855","file_lock_info": {"is_lockholder": true,"lockholder_name": "Imaginary User","created": "2015-05-12T15:50:38Z"}}
+errorType: 
+  namespace: files
+  datatype: PreviewError
+errorExamples: 
+  - label: in_progress
+    content: {"error_summary": "in_progress/...","error": {".tag": "in_progress"}}
+  - label: in_progress
+    content: {".tag": "in_progress"}
+  - label: unsupported_extension
+    content: {"error_summary": "unsupported_extension/...","error": {".tag": "unsupported_extension"}}
+  - label: unsupported_extension
+    content: {".tag": "unsupported_extension"}
+  - label: unsupported_content
+    content: {"error_summary": "unsupported_content/...","error": {".tag": "unsupported_content"}}
+  - label: unsupported_content
+    content: {".tag": "unsupported_content"}
+---
+
+import Endpoint from '../../components/Endpoint'
+import stoneTypes from '../../type-lookup/files-get_preview.js'
+
+<Endpoint endpointProps={{typeInfo: stoneTypes, ...props.pageContext.frontmatter}} />
