@@ -70,30 +70,21 @@ class MdxBackend(CodeBackend):
         if not namespace.routes:
             return
 
-        with self.output_to_relative_path('namespaces/{}.mdx'.format(namespace.name)):
 
-            self.emit('## {}'.format(namespace.name))
-            if namespace.doc:
-                self.emit_raw(namespace.doc.replace('\n', '\n\n').replace(':val:', '').replace(':field:', '').replace(':route:', '').replace(':type:', '')+"\n")
-                self.emit("")
 
-            self.emit('## Routes')
-            self.emit()
+        # Routes within the namespace
+        for route_name in sorted(namespace.routes_by_name):
+            routes = namespace.routes_by_name[route_name]
 
-            # Routes within the namespace
-            for route_name in sorted(namespace.routes_by_name):
-                routes = namespace.routes_by_name[route_name]
+            # Skip if all the route versions are deprecated
+            is_deprecated = all(
+                (route.deprecated for route in routes.at_version.itervalues())
+            )
+            if is_deprecated:
+                continue
 
-                # Skip if all the route versions are deprecated
-                is_deprecated = all(
-                    (route.deprecated for route in routes.at_version.itervalues())
-                )
-                if is_deprecated:
-                    continue
 
-                self.emit('* {}'.format(route_name))
-
-                route_versions.append(routes.at_version)
+            route_versions.append(routes.at_version)
 
         for r in route_versions:
             self._generate_route_versions_markdown(namespace, r)
@@ -143,7 +134,9 @@ class MdxBackend(CodeBackend):
             self.routeTypesDict = {}
             if not is_void_type(route.arg_data_type):
                 self._collect_route_datatypes(route.arg_data_type)
+            if not is_void_type(route.result_data_type):
                 self._collect_route_datatypes(route.result_data_type)
+            if not is_void_type(route.error_data_type):
                 self._collect_route_datatypes(route.error_data_type)
             self.emit_raw(u'export default {}\n'.format(json.dumps(self.routeTypesDict,  sort_keys=True, indent=4, separators=(',', ': '))))
             self.routeTypesDict = {}
