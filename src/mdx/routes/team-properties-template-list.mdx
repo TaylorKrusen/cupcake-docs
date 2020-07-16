@@ -1,0 +1,41 @@
+---
+name: /properties/template/list
+route: /team/properties/template/list
+namespace: team
+version: 1
+menu: Deprecated
+description: Permission :&nbspTeam member file access.
+isDeprecated: true
+urlStructure: https://api.dropbox.com/1/team/properties/template/list
+endpointFormat: rpc
+isPreview: false
+scope: None
+authentication:
+  - team
+paramType: 
+  namespace: Void
+  datatype: Void
+returnType: 
+  namespace: file_properties
+  datatype: ListTemplateResult
+returnExamples: 
+  - label: default
+    content: {"template_ids": ["ptid:1a5n2i6d3OYEAAAAAAAAAYa"]}
+errorType: 
+  namespace: file_properties
+  datatype: TemplateError
+errorExamples: 
+  - label: restricted_content
+    content: {"error_summary": "restricted_content/...","error": {".tag": "restricted_content"}}
+  - label: restricted_content
+    content: {".tag": "restricted_content"}
+  - label: other
+    content: {"error_summary": "other/...","error": {".tag": "other"}}
+  - label: other
+    content: {".tag": "other"}
+---
+
+import Endpoint from '../../components/Endpoint'
+import stoneTypes from '../../type-lookup/team-properties-template-list.js'
+
+<Endpoint endpointProps={{typeInfo: stoneTypes, ...props.pageContext.frontmatter}} />

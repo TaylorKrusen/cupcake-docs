@@ -2,6 +2,7 @@
 name: /create_folder_batch
 route: /files/create_folder_batch
 namespace: files
+version: 1
 menu: files
 description: Create multiple folders at once.\nThis route is asynchronous for large batches, which returns a job ID immediately and runs the create folder batch asynchronously. Otherwise, creates the folders and returns the result synchronously for smaller inputs. You can force asynchronous behaviour by using the `CreateFolderBatchArg.force_async` flag.  Use `create_folder_batch/check` to check the job status.
 isDeprecated: false

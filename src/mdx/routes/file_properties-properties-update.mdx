@@ -2,6 +2,7 @@
 name: /properties/update
 route: /file_properties/properties/update
 namespace: file_properties
+version: 1
 menu: file_properties
 description: Add, update or remove properties associated with the supplied file and templates. This endpoint should be used instead of `properties/overwrite` when property groups are being updated via a "delta" instead of via a "snapshot" . In other words, this endpoint will not delete any omitted fields from a property group, whereas `properties/overwrite` will delete any fields that are omitted from a property group.
 isDeprecated: false

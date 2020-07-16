@@ -1,0 +1,44 @@
+---
+name: /properties/remove
+route: /files/properties/remove
+namespace: files
+version: 1
+menu: Deprecated
+isDeprecated: true
+urlStructure: https://api.dropbox.com/1/files/properties/remove
+endpointFormat: rpc
+isPreview: false
+scope: None
+authentication:
+  - user
+paramType: 
+  namespace: file_properties
+  datatype: RemovePropertiesArg
+paramExamples: 
+  - label: default
+    content: {"path": "/my_awesome/word.docx","property_template_ids": ["ptid:1a5n2i6d3OYEAAAAAAAAAYa"]}
+returnType: 
+  namespace: Void
+  datatype: Void
+errorType: 
+  namespace: file_properties
+  datatype: RemovePropertiesError
+errorExamples: 
+  - label: restricted_content
+    content: {"error_summary": "restricted_content/...","error": {".tag": "restricted_content"}}
+  - label: restricted_content
+    content: {".tag": "restricted_content"}
+  - label: other
+    content: {"error_summary": "other/...","error": {".tag": "other"}}
+  - label: other
+    content: {".tag": "other"}
+  - label: unsupported_folder
+    content: {"error_summary": "unsupported_folder/...","error": {".tag": "unsupported_folder"}}
+  - label: unsupported_folder
+    content: {".tag": "unsupported_folder"}
+---
+
+import Endpoint from '../../components/Endpoint'
+import stoneTypes from '../../type-lookup/files-properties-remove.js'
+
+<Endpoint endpointProps={{typeInfo: stoneTypes, ...props.pageContext.frontmatter}} />

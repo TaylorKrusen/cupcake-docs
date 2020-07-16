@@ -162,101 +162,7 @@ export default {
             ],
             "stone_type": "open_union"
         },
-        "RelocationBatchErrorEntry": {
-            "fields": [
-                {
-                    "description": "User errors that retry won't help.",
-                    "parameter": "relocation_error",
-                    "type": {
-                        "datatype": "RelocationError",
-                        "namespace": "files"
-                    }
-                },
-                {
-                    "description": "Something went wrong with the job on Dropbox's end. You'll need to verify that the action you were taking succeeded, and if not, try again. This should happen very rarely.",
-                    "parameter": "internal_error",
-                    "type": {
-                        "primitive": "Void"
-                    }
-                },
-                {
-                    "description": "There are too many write operations in user's Dropbox. Please retry this request.",
-                    "parameter": "too_many_write_operations",
-                    "type": {
-                        "primitive": "Void"
-                    }
-                },
-                {
-                    "parameter": "other",
-                    "type": {
-                        "primitive": "Void"
-                    }
-                }
-            ],
-            "stone_type": "open_union"
-        },
-        "RelocationBatchResultEntry": {
-            "fields": [
-                {
-                    "parameter": "success",
-                    "type": {
-                        "datatype": "Metadata",
-                        "namespace": "files"
-                    }
-                },
-                {
-                    "parameter": "failure",
-                    "type": {
-                        "datatype": "RelocationBatchErrorEntry",
-                        "namespace": "files"
-                    }
-                },
-                {
-                    "parameter": "other",
-                    "type": {
-                        "primitive": "Void"
-                    }
-                }
-            ],
-            "stone_type": "open_union"
-        },
-        "RelocationBatchV2JobStatus": {
-            "description": "Result returned by :route:`copy_batch/check:2` or :route:`move_batch/check:2` that may either be in progress or completed with result for each entry.",
-            "fields": [
-                {
-                    "description": "The asynchronous job is still in progress.",
-                    "parameter": "in_progress",
-                    "type": {
-                        "primitive": "Void"
-                    }
-                },
-                {
-                    "description": "The copy or move batch job has finished.",
-                    "parameter": "complete",
-                    "type": {
-                        "datatype": "RelocationBatchV2Result",
-                        "namespace": "files"
-                    }
-                }
-            ],
-            "stone_type": "union"
-        },
-        "RelocationBatchV2Result": {
-            "fields": [
-                {
-                    "description": "Each entry in CopyBatchArg.entries or :field:`MoveBatchArg.entries` will appear at the same position inside :field:`RelocationBatchV2Result.entries`.",
-                    "parameter": "entries",
-                    "type": {
-                        "list": {
-                            "datatype": "RelocationBatchResultEntry",
-                            "namespace": "files"
-                        }
-                    }
-                }
-            ],
-            "stone_type": "struct"
-        },
-        "RelocationError": {
+        "RelocationBatchError": {
             "fields": [
                 {
                     "parameter": "from_lookup",
@@ -355,9 +261,71 @@ export default {
                     "type": {
                         "primitive": "Void"
                     }
+                },
+                {
+                    "description": "There are too many write operations in user's Dropbox. Please retry this request.",
+                    "parameter": "too_many_write_operations",
+                    "type": {
+                        "primitive": "Void"
+                    }
                 }
             ],
             "stone_type": "open_union"
+        },
+        "RelocationBatchJobStatus": {
+            "fields": [
+                {
+                    "description": "The asynchronous job is still in progress.",
+                    "parameter": "in_progress",
+                    "type": {
+                        "primitive": "Void"
+                    }
+                },
+                {
+                    "description": "The copy or move batch job has finished.",
+                    "parameter": "complete",
+                    "type": {
+                        "datatype": "RelocationBatchResult",
+                        "namespace": "files"
+                    }
+                },
+                {
+                    "description": "The copy or move batch job has failed with exception.",
+                    "parameter": "failed",
+                    "type": {
+                        "datatype": "RelocationBatchError",
+                        "namespace": "files"
+                    }
+                }
+            ],
+            "stone_type": "union"
+        },
+        "RelocationBatchResult": {
+            "fields": [
+                {
+                    "parameter": "entries",
+                    "type": {
+                        "list": {
+                            "datatype": "RelocationBatchResultData",
+                            "namespace": "files"
+                        }
+                    }
+                }
+            ],
+            "stone_type": "struct"
+        },
+        "RelocationBatchResultData": {
+            "fields": [
+                {
+                    "description": "Metadata of the relocated object.",
+                    "parameter": "metadata",
+                    "type": {
+                        "datatype": "Metadata",
+                        "namespace": "files"
+                    }
+                }
+            ],
+            "stone_type": "struct"
         },
         "WriteConflictError": {
             "fields": [
