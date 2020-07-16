@@ -9,10 +9,16 @@ import Description from './Description';
 import RowContainer from './RowContainer';
 import VersionDropdown from './VersionDropdown';
 import EndpointFormat from './EndpointFormat';
+import Example from './Example';
 
 import '../scss/styles.scss';
 
 import {StoneTypeReference, StoneTypeInfoMap} from '../interfaces/index';
+
+interface Example {
+  label: string;
+  content: any;
+}
 
 export interface EndpointProps {
   namespace: string;
@@ -29,6 +35,9 @@ export interface EndpointProps {
   typeInfo: StoneTypeInfoMap;
   endpointFormat: string;
   scope: string;
+  paramExamples: Example[];
+  returnExamples: Example[];
+  errorExamples: Example[];
 }
 
 export default function Endpoint(props: {endpointProps: EndpointProps}) {
@@ -47,8 +56,22 @@ export default function Endpoint(props: {endpointProps: EndpointProps}) {
     errorType,
     endpointFormat,
     scope,
+    paramExamples,
+    returnExamples,
+    errorExamples,
   } = props.endpointProps;
   const url = `https://api.dropboxapi.com/2${route}`;
+  const renderExamples = function (examples: Example[]) {
+    return examples.map((example, idx) => {
+      return (
+        <Example
+          key={`example-${idx}-${example.label}`}
+          label={example.label}
+          content={example.content}
+        />
+      );
+    });
+  };
   return (
     <>
       {isDeprecated && <DeprecatedWarning deprecatedBy={deprecatedBy || ''} />}
@@ -73,6 +96,7 @@ export default function Endpoint(props: {endpointProps: EndpointProps}) {
         <ShellExample namespace={namespace} endpoint={endpoint} shellExample={shellExample} />
       </RowContainer>
       <RowContainer title="Parameters">
+        {renderExamples(paramExamples)}
         <TypeExplanation
           namespace={paramType.namespace}
           datatype={paramType.datatype}
@@ -80,6 +104,7 @@ export default function Endpoint(props: {endpointProps: EndpointProps}) {
         />
       </RowContainer>
       <RowContainer title="Returns">
+        {renderExamples(returnExamples)}
         <TypeExplanation
           namespace={returnType.namespace}
           datatype={returnType.datatype}
@@ -87,6 +112,7 @@ export default function Endpoint(props: {endpointProps: EndpointProps}) {
         />
       </RowContainer>
       <RowContainer title="Errors">
+        {renderExamples(errorExamples)}
         <TypeExplanation
           namespace={errorType.namespace}
           datatype={errorType.datatype}
