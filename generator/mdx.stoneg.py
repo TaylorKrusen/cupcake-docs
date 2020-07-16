@@ -100,11 +100,15 @@ class MdxBackend(CodeBackend):
             with self.output_to_relative_path(mdx_file_name):
 
                 self.emit("---")
-                self.emit("name: /{}".format(route.name))
-                self.emit("route: /{}/{}".format(namespace.name, route.name))
+                if v > 1:
+                    self.emit("name: /{}-{}".format(route.name, route.version))
+                    self.emit("route: /{}/{}-{}".format(namespace.name, route.name, route.version))
+                else:
+                    self.emit("name: /{}".format(route.name))
+                    self.emit("route: /{}/{}".format(namespace.name, route.name))                    
                 self.emit("namespace: {}".format(namespace.name))
                 self.emit("version: {}".format(route.version))
-                self.emit("menu: {}".format(namespace.name if not route.deprecated else 'Deprecated'))
+                self.emit("menu: {}".format(namespace.name if not route.deprecated else 'deprecated'))
                 if route.doc:
                     self.emit_raw("description: {}".format(route.doc.replace('\n', '\\n').replace(': ', ':&nbsp').replace(':val:', '').replace(':field:', '').replace(':route:', '').replace(':type:', '')+"\n"))
                 self.emit("isDeprecated: {}".format('true' if route.deprecated else 'false'))
