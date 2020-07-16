@@ -4,10 +4,10 @@ route: /sharing/list_shared_links
 namespace: sharing
 menu: sharing
 description: List shared links of this user.\nIf no path is given, returns a list of all shared links for the current user.\nIf a non-empty path is given, returns a list of all shared links that allow access to the given path - direct links to the given path and links to parent folders of the given path. Links to parent folders can be suppressed by setting direct_only to true.
-isDeprecated: False
+isDeprecated: false
 urlStructure: https://api.dropbox.com/1/sharing/list_shared_links
 endpointFormat: rpc
-isPreview: False
+isPreview: false
 scope: sharing.read
 authentication:
   - user

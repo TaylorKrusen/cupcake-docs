@@ -4,10 +4,10 @@ route: /sharing/revoke_shared_link
 namespace: sharing
 menu: sharing
 description: Revoke a shared link.\nNote that even after revoking a shared link to a file, the file may be accessible if there are shared links leading to any of the file parent folders. To list all shared links that enable access to a specific file, you can use the `list_shared_links` with the file as the `ListSharedLinksArg.path` argument.
-isDeprecated: False
+isDeprecated: false
 urlStructure: https://api.dropbox.com/1/sharing/revoke_shared_link
 endpointFormat: rpc
-isPreview: False
+isPreview: false
 scope: sharing.write
 authentication:
   - user
