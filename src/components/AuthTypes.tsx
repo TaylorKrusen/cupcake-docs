@@ -24,6 +24,12 @@ function AuthLink(props: {authType: string}) {
     );
   } else if (authType === 'team') {
     return (
+      <Link to="https://www.dropbox.com/developers/reference/auth-types#team">
+        Team Authentication
+      </Link>
+    );
+  } else if (authType === 'whole_team') {
+    return (
       <Link to="https://www.dropbox.com/developers/documentation/http/teams#teams-member-file-access">
         Dropbox-API-Select-Admin (Whole Team)
       </Link>
