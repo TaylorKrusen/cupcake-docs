@@ -1,0 +1,50 @@
+---
+name: /check_share_job_status
+route: /sharing/check_share_job_status
+namespace: sharing
+menu: sharing
+description: Returns the status of an asynchronous job for sharing a folder.
+isDeprecated: False
+urlStructure: https://api.dropbox.com/1/sharing/check_share_job_status
+endpointFormat: rpc
+isPreview: False
+scope: sharing.write
+authentication:
+  - user
+  - team_admin
+paramType: 
+  namespace: async
+  datatype: PollArg
+paramExamples: 
+  - label: default
+    content: {"async_job_id": "34g93hh34h04y384084"}
+returnType: 
+  namespace: sharing
+  datatype: ShareFolderJobStatus
+returnExamples: 
+  - label: default
+    content: {".tag": "complete", "access_type": {".tag": "owner"}, "is_inside_team_folder": false, "is_team_folder": false, "name": "dir", "policy": {"acl_update_policy": {".tag": "owner"}, "shared_link_policy": {".tag": "anyone"}, "member_policy": {".tag": "anyone"}, "resolved_member_policy": {".tag": "team"}}, "preview_url": "https://www.dropbox.com/scl/fo/fir9vjelf", "shared_folder_id": "84528192421", "time_invited": "2016-01-20T00:00:00Z", "path_lower": "/dir", "link_metadata": {"audience_options": [{".tag": "public"}, {".tag": "team"}, {".tag": "members"}], "current_audience": {".tag": "public"}, "link_permissions": [{"action": {".tag": "change_audience"}, "allow": true}], "password_protected": false, "url": ""}, "permissions": [], "access_inheritance": {".tag": "inherit"}}
+  - label: in_progress
+    content: {".tag": "in_progress"}
+errorType: 
+  namespace: async
+  datatype: PollError
+errorExamples: 
+  - label: invalid_async_job_id
+    content: {"error_summary": "invalid_async_job_id/...","error": {".tag": "invalid_async_job_id"}}
+  - label: invalid_async_job_id
+    content: {".tag": "invalid_async_job_id"}
+  - label: internal_error
+    content: {"error_summary": "internal_error/...","error": {".tag": "internal_error"}}
+  - label: internal_error
+    content: {".tag": "internal_error"}
+  - label: other
+    content: {"error_summary": "other/...","error": {".tag": "other"}}
+  - label: other
+    content: {".tag": "other"}
+---
+
+import Endpoint from '../../components/Endpoint'
+import stoneTypes from '../../type-lookup/sharing-check_share_job_status.js'
+
+<Endpoint endpointProps={{typeInfo: stoneTypes, ...props.pageContext.frontmatter}} />

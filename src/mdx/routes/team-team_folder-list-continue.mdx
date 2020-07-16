@@ -1,0 +1,43 @@
+---
+name: /team_folder/list/continue
+route: /team/team_folder/list/continue
+namespace: team
+menu: team
+description: Once a cursor has been retrieved from `team_folder/list`, use this to paginate through all team folders.\nPermission :&nbspTeam member file access.
+isDeprecated: False
+urlStructure: https://api.dropbox.com/1/team/team_folder/list/continue
+endpointFormat: rpc
+isPreview: False
+scope: team_data.team_space
+authentication:
+  - team
+paramType: 
+  namespace: team
+  datatype: TeamFolderListContinueArg
+paramExamples: 
+  - label: default
+    content: {"cursor": "ZtkX9_EHj3x7PMkVuFIhwKYXEpwpLwyxp9vMKomUhllil9q7eWiAu"}
+returnType: 
+  namespace: team
+  datatype: TeamFolderListResult
+returnExamples: 
+  - label: default
+    content: {"team_folders": [{"team_folder_id": "123456789","name": "Marketing","status": {".tag": "active"},"is_team_shared_dropbox": false,"sync_setting": {".tag": "default"},"content_sync_settings": [{"id": "id:a4ayc_80_OEAAAAAAAAAXw","sync_setting": {".tag": "default"}}]}],"cursor": "ZtkX9_EHj3x7PMkVuFIhwKYXEpwpLwyxp9vMKomUhllil9q7eWiAu","has_more": false}
+errorType: 
+  namespace: team
+  datatype: TeamFolderListContinueError
+errorExamples: 
+  - label: invalid_cursor
+    content: {"error_summary": "invalid_cursor/...","error": {".tag": "invalid_cursor"}}
+  - label: invalid_cursor
+    content: {".tag": "invalid_cursor"}
+  - label: other
+    content: {"error_summary": "other/...","error": {".tag": "other"}}
+  - label: other
+    content: {".tag": "other"}
+---
+
+import Endpoint from '../../components/Endpoint'
+import stoneTypes from '../../type-lookup/team-team_folder-list-continue.js'
+
+<Endpoint endpointProps={{typeInfo: stoneTypes, ...props.pageContext.frontmatter}} />

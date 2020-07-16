@@ -1,0 +1,51 @@
+---
+name: /team_folder/rename
+route: /team/team_folder/rename
+namespace: team
+menu: team
+description: Changes an active team folder's name.\nPermission :&nbspTeam member file access.
+isDeprecated: False
+urlStructure: https://api.dropbox.com/1/team/team_folder/rename
+endpointFormat: rpc
+isPreview: False
+scope: team_data.team_space
+authentication:
+  - team
+paramType: 
+  namespace: team
+  datatype: TeamFolderRenameArg
+paramExamples: 
+  - label: default
+    content: {"team_folder_id": "123456789","name": "Sales"}
+returnType: 
+  namespace: team
+  datatype: TeamFolderMetadata
+returnExamples: 
+  - label: default
+    content: {"team_folder_id": "123456789","name": "Marketing","status": {".tag": "active"},"is_team_shared_dropbox": false,"sync_setting": {".tag": "default"},"content_sync_settings": [{"id": "id:a4ayc_80_OEAAAAAAAAAXw","sync_setting": {".tag": "default"}}]}
+errorType: 
+  namespace: team
+  datatype: TeamFolderRenameError
+errorExamples: 
+  - label: other
+    content: {"error_summary": "other/...","error": {".tag": "other"}}
+  - label: other
+    content: {".tag": "other"}
+  - label: invalid_folder_name
+    content: {"error_summary": "invalid_folder_name/...","error": {".tag": "invalid_folder_name"}}
+  - label: invalid_folder_name
+    content: {".tag": "invalid_folder_name"}
+  - label: folder_name_already_used
+    content: {"error_summary": "folder_name_already_used/...","error": {".tag": "folder_name_already_used"}}
+  - label: folder_name_already_used
+    content: {".tag": "folder_name_already_used"}
+  - label: folder_name_reserved
+    content: {"error_summary": "folder_name_reserved/...","error": {".tag": "folder_name_reserved"}}
+  - label: folder_name_reserved
+    content: {".tag": "folder_name_reserved"}
+---
+
+import Endpoint from '../../components/Endpoint'
+import stoneTypes from '../../type-lookup/team-team_folder-rename.js'
+
+<Endpoint endpointProps={{typeInfo: stoneTypes, ...props.pageContext.frontmatter}} />

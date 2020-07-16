@@ -63,4 +63,4 @@ typings/
 .next
 
 # python stuff
-.pyc
+*.pyc

@@ -1,0 +1,43 @@
+---
+name: /members/list/continue
+route: /team/members/list/continue
+namespace: team
+menu: team
+description: Once a cursor has been retrieved from `members/list`, use this to paginate through all team members.\nPermission :&nbspTeam information.
+isDeprecated: False
+urlStructure: https://api.dropbox.com/1/team/members/list/continue
+endpointFormat: rpc
+isPreview: False
+scope: members.read
+authentication:
+  - team
+paramType: 
+  namespace: team
+  datatype: MembersListContinueArg
+paramExamples: 
+  - label: default
+    content: {"cursor": "ZtkX9_EHj3x7PMkVuFIhwKYXEpwpLwyxp9vMKomUhllil9q7eWiAu"}
+returnType: 
+  namespace: team
+  datatype: MembersListResult
+returnExamples: 
+  - label: default
+    content: {"members": [{"profile": {"team_member_id": "dbmid:FDFSVF-DFSDF","email": "tami@seagull.com","email_verified": false,"status": {".tag": "active"},"name": {"given_name": "Franz","surname": "Ferdinand","familiar_name": "Franz","display_name": "Franz Ferdinand (Personal)","abbreviated_name": "FF"},"membership_type": {".tag": "full"},"groups": ["g:e2db7665347abcd600000000001a2b3c"],"member_folder_id": "20","external_id": "244423","account_id": "dbid:AAH4f99T0taONIb-OurWxbNQ6ywGRopQngc","secondary_emails": [{"email": "grape@strawberry.com","is_verified": false},{"email": "apple@orange.com","is_verified": true}],"joined_on": "2015-05-12T15:50:38Z","profile_photo_url": "https://dl-web.dropbox.com/account_photo/get/dbaphid%3AAAHWGmIXV3sUuOmBfTz0wPsiqHUpBWvv3ZA?vers=1556069330102&size=128x128"},"role": {".tag": "member_only"}}],"cursor": "ZtkX9_EHj3x7PMkVuFIhwKYXEpwpLwyxp9vMKomUhllil9q7eWiAu","has_more": true}
+errorType: 
+  namespace: team
+  datatype: MembersListContinueError
+errorExamples: 
+  - label: invalid_cursor
+    content: {"error_summary": "invalid_cursor/...","error": {".tag": "invalid_cursor"}}
+  - label: invalid_cursor
+    content: {".tag": "invalid_cursor"}
+  - label: other
+    content: {"error_summary": "other/...","error": {".tag": "other"}}
+  - label: other
+    content: {".tag": "other"}
+---
+
+import Endpoint from '../../components/Endpoint'
+import stoneTypes from '../../type-lookup/team-members-list-continue.js'
+
+<Endpoint endpointProps={{typeInfo: stoneTypes, ...props.pageContext.frontmatter}} />

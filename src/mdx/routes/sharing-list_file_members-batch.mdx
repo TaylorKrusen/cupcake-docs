@@ -1,0 +1,45 @@
+---
+name: /list_file_members/batch
+route: /sharing/list_file_members/batch
+namespace: sharing
+menu: sharing
+description: Get members of multiple files at once. The arguments to this route are more limited, and the limit on query result size per file is more strict. To customize the results more, use the individual file endpoint.\nInherited users and groups are not included in the result, and permissions are not returned for this endpoint.
+isDeprecated: False
+urlStructure: https://api.dropbox.com/1/sharing/list_file_members/batch
+endpointFormat: rpc
+isPreview: False
+scope: sharing.read
+authentication:
+  - user
+paramType: 
+  namespace: sharing
+  datatype: ListFileMembersBatchArg
+paramExamples: 
+  - label: default
+    content: {"files": ["id:3kmLmQFnf1AAAAAAAAAAAw","id:VvTaJu2VZzAAAAAAAAAADQ"],"limit": 10}
+returnType: 
+  namespace: sharing
+  datatype: ListFileMembersBatchResult[]
+returnExamples: 
+  - label: default
+    content: {"file": "id:3kmLmQFnf1AAAAAAAAAAAw", "result": {".tag": "result", "members": {"users": [{"access_type": {".tag": "owner"}, "user": {"account_id": "dbid:AAH4f99T0taONIb-OurWxbNQ6ywGRopQngc", "email": "bob@example.com", "display_name": "Robert Smith", "same_team": true, "team_member_id": "dbmid:abcd1234"}, "permissions": [], "is_inherited": false, "time_last_seen": "2016-01-20T00:00:00Z", "platform_type": {".tag": "unknown"}}], "groups": [{"access_type": {".tag": "editor"}, "group": {"group_name": "Test group", "group_id": "g:e2db7665347abcd600000000001a2b3c", "group_management_type": {".tag": "user_managed"}, "group_type": {".tag": "user_managed"}, "is_member": false, "is_owner": false, "same_team": true, "member_count": 10}, "permissions": [], "is_inherited": false}], "invitees": [{"access_type": {".tag": "viewer"}, "invitee": {".tag": "email", "email": "jessica@example.com"}, "permissions": [], "is_inherited": false}]}, "member_count": 3}}
+  - label: member_error
+    content: {"file": "id:3kmLmQFnf1AAAAAAAAAAAw", "result": {".tag": "access_error", "access_error": {".tag": "invalid_file"}}}
+errorType: 
+  namespace: sharing
+  datatype: SharingUserError
+errorExamples: 
+  - label: email_unverified
+    content: {"error_summary": "email_unverified/...","error": {".tag": "email_unverified"}}
+  - label: email_unverified
+    content: {".tag": "email_unverified"}
+  - label: other
+    content: {"error_summary": "other/...","error": {".tag": "other"}}
+  - label: other
+    content: {".tag": "other"}
+---
+
+import Endpoint from '../../components/Endpoint'
+import stoneTypes from '../../type-lookup/sharing-list_file_members-batch.js'
+
+<Endpoint endpointProps={{typeInfo: stoneTypes, ...props.pageContext.frontmatter}} />
