@@ -105,8 +105,6 @@ class MdxBackend(CodeBackend):
     # Generate route MDX files
     def _generate_route_versions_markdown(self, namespace, routes_by_version):
 
-        composites = []
-
         # TODO: how to handle different versions? just use latest for now.
         route = routes_by_version.get(max(routes_by_version.keys()))
         js_file_name = 'type-lookup/{}.js'.format('{}/{}'.format(namespace.name, route.name).replace('/', '-'))
@@ -120,20 +118,20 @@ class MdxBackend(CodeBackend):
             if route.doc:
                 self.emit_raw("description: {}".format(route.doc.replace('\n', '\\n').replace(':val:', '').replace(':field:', '').replace(':route:', '').replace(':type:', '')+"\n"))
             self.emit("isDeprecated: {}".format('True' if route.deprecated else 'False'))
-            self.emit("urlStructure: https://{}.dropbox.com/{}/{}/{}".format(route.attrs.get("host", "api"), route.version, namespace.name, route.name ))
-            
+            self.emit("urlStructure: https://{}.dropbox.com/{}/{}/{}".format(route.attrs.get("host", "api"), route.version, namespace.name, route.name ))            
+            self.emit("endpointFormat: {}".format(route.attrs.get("style")))
+            self.emit("isPreview: {}".format(route.attrs.get("is_preview")))
+            self.emit("scope: {}".format(route.attrs.get("scope")))
+            self.emit("authentication:")
+            self.emit("  - {}".format(route.attrs.get("auth", "user")))
+            if route.attrs.get("select_admin_mode"):
+                self.emit("  - {}".format(route.attrs.get("select_admin_mode")))
             self._generate_route_datatype(route.arg_data_type, PARAMETER)
             self._generate_route_datatype(route.result_data_type, RETURN_VALUE)
             self._generate_route_datatype(route.error_data_type, ERROR)
             self.emit("---")
             self.emit("")
-            
-            # TODO: authentication, scopes, endpoint format, shell example
-            # route.attrs.get("allow_app_folder_app")
-            # route.attrs.get("select_admin_mode")
 
-            # Args, returns, errors
-            # self.emit('import LinkedTypeExplanation from \'../../components/LinkedTypeExplanation\'')
             self.emit('import Endpoint from \'../components/Endpoint\'')
             self.emit('import stoneTypes from \'../{}\''.format(js_file_name))
             self.emit('')
@@ -236,24 +234,24 @@ class MdxBackend(CodeBackend):
                 )
 
                 if example.text:
-                    self.emit("  label: {}".format(example.text))
+                    self.emit("  - label: {}".format(example.text))
                 elif example.label:
-                    self.emit("  label: {}".format(example.label))
+                    self.emit("  - label: {}".format(example.label))
 
-                self.emit_raw("  content:" +json.dumps(example_dict, separators=(',', ': ')) + "\n")
+                self.emit_raw("    content:" +json.dumps(example_dict, separators=(',', ': ')) + "\n")
 
             if len(examples) == 1:
                 example = examples.values()[0]
-                self.emit("  label: default")
-                self.emit_raw("  content:" +json.dumps( example.value, separators=(',', ': ')) + "\n")
+                self.emit("  - label: default")
+                self.emit_raw("    content:" +json.dumps( example.value, separators=(',', ': ')) + "\n")
 
             elif len(examples) > 1:
                 if example.text:
-                    self.emit("  label: {}".format(example.text))
+                    self.emit("  - label: {}".format(example.text))
                 elif example.label:
-                    self.emit("  label: {}".format(example.label))
+                    self.emit("  - label: {}".format(example.label))
 
-                self.emit_raw("  content:" +json.dumps(example.value) + "\n")
+                self.emit_raw("    content:" +json.dumps(example.value) + "\n")
 
     @staticmethod
     def _error_summary(value):
