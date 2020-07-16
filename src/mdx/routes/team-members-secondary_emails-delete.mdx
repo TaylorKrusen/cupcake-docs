@@ -1,0 +1,34 @@
+---
+name: /members/secondary_emails/delete
+route: /team/members/secondary_emails/delete
+namespace: team
+menu: team
+description: Delete secondary emails from users\nPermission :&nbspTeam member management.\nUsers will be notified of deletions of verified secondary emails at both the secondary email and their primary email.
+isDeprecated: False
+urlStructure: https://api.dropbox.com/1/team/members/secondary_emails/delete
+endpointFormat: rpc
+isPreview: False
+scope: members.write
+authentication:
+  - team
+paramType: 
+  namespace: team
+  datatype: DeleteSecondaryEmailsArg
+paramExamples: 
+  - label: default
+    content: {"emails_to_delete": [{"user": {".tag": "team_member_id","team_member_id": "dbmid:efgh5678"},"secondary_emails": ["bob2@hotmail.com","bob@inst.gov"]}]}
+returnType: 
+  namespace: team
+  datatype: DeleteSecondaryEmailsResult
+returnExamples: 
+  - label: default
+    content: {"results": [{".tag": "success","user": {".tag": "team_member_id","team_member_id": "dbmid:efgh5678"},"results": [{".tag": "success","success": "alice@example.com"},{".tag": "not_found","not_found": "alic@example.com"}]}]}
+errorType: 
+  namespace: Void
+  datatype: Void
+---
+
+import Endpoint from '../../components/Endpoint'
+import stoneTypes from '../../type-lookup/team-members-secondary_emails-delete.js'
+
+<Endpoint endpointProps={{typeInfo: stoneTypes, ...props.pageContext.frontmatter}} />

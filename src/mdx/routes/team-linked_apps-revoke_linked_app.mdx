@@ -1,0 +1,46 @@
+---
+name: /linked_apps/revoke_linked_app
+route: /team/linked_apps/revoke_linked_app
+namespace: team
+menu: team
+description: Revoke a linked application of the team member.
+isDeprecated: False
+urlStructure: https://api.dropbox.com/1/team/linked_apps/revoke_linked_app
+endpointFormat: rpc
+isPreview: False
+scope: sessions.modify
+authentication:
+  - team
+paramType: 
+  namespace: team
+  datatype: RevokeLinkedApiAppArg
+paramExamples: 
+returnType: 
+  namespace: Void
+  datatype: Void
+errorType: 
+  namespace: team
+  datatype: RevokeLinkedAppError
+errorExamples: 
+  - label: app_not_found
+    content: {"error_summary": "app_not_found/...","error": {".tag": "app_not_found"}}
+  - label: app_not_found
+    content: {".tag": "app_not_found"}
+  - label: member_not_found
+    content: {"error_summary": "member_not_found/...","error": {".tag": "member_not_found"}}
+  - label: member_not_found
+    content: {".tag": "member_not_found"}
+  - label: app_folder_removal_not_supported
+    content: {"error_summary": "app_folder_removal_not_supported/...","error": {".tag": "app_folder_removal_not_supported"}}
+  - label: app_folder_removal_not_supported
+    content: {".tag": "app_folder_removal_not_supported"}
+  - label: other
+    content: {"error_summary": "other/...","error": {".tag": "other"}}
+  - label: other
+    content: {".tag": "other"}
+---
+
+import Endpoint from '../../components/Endpoint'
+import stoneTypes from '../../type-lookup/team-linked_apps-revoke_linked_app.js'
+
+<Endpoint endpointProps={{typeInfo: stoneTypes, ...props.pageContext.frontmatter}} />

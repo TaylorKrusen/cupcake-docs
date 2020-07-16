@@ -1,0 +1,101 @@
+---
+name: /members/move_former_member_files
+route: /team/members/move_former_member_files
+namespace: team
+menu: team
+description: Moves removed member's files to a different member. This endpoint initiates an asynchronous job. To obtain the final result of the job, the client should periodically poll `members/move_former_member_files/job_status/check`.\nPermission :&nbspTeam member management.
+isDeprecated: False
+urlStructure: https://api.dropbox.com/1/team/members/move_former_member_files
+endpointFormat: rpc
+isPreview: False
+scope: members.write
+authentication:
+  - team
+paramType: 
+  namespace: team
+  datatype: MembersDataTransferArg
+paramExamples: 
+  - label: default
+    content: {"user": {".tag": "team_member_id","team_member_id": "dbmid:efgh5678"},"transfer_dest_id": {".tag": "team_member_id","team_member_id": "dbmid:efgh5678"},"transfer_admin_id": {".tag": "team_member_id","team_member_id": "dbmid:efgh5678"}}
+returnType: 
+  namespace: async
+  datatype: LaunchEmptyResult
+returnExamples: 
+  - label: complete
+    content: {".tag": "complete"}
+  - label: async_job_id
+    content: {".tag": "async_job_id", "async_job_id": "34g93hh34h04y384084"}
+errorType: 
+  namespace: team
+  datatype: MembersTransferFormerMembersFilesError
+errorExamples: 
+  - label: user_not_found
+    content: {"error_summary": "user_not_found/...","error": {".tag": "user_not_found"}}
+  - label: user_not_found
+    content: {".tag": "user_not_found"}
+  - label: user_not_in_team
+    content: {"error_summary": "user_not_in_team/...","error": {".tag": "user_not_in_team"}}
+  - label: user_not_in_team
+    content: {".tag": "user_not_in_team"}
+  - label: other
+    content: {"error_summary": "other/...","error": {".tag": "other"}}
+  - label: other
+    content: {".tag": "other"}
+  - label: removed_and_transfer_dest_should_differ
+    content: {"error_summary": "removed_and_transfer_dest_should_differ/...","error": {".tag": "removed_and_transfer_dest_should_differ"}}
+  - label: removed_and_transfer_dest_should_differ
+    content: {".tag": "removed_and_transfer_dest_should_differ"}
+  - label: removed_and_transfer_admin_should_differ
+    content: {"error_summary": "removed_and_transfer_admin_should_differ/...","error": {".tag": "removed_and_transfer_admin_should_differ"}}
+  - label: removed_and_transfer_admin_should_differ
+    content: {".tag": "removed_and_transfer_admin_should_differ"}
+  - label: transfer_dest_user_not_found
+    content: {"error_summary": "transfer_dest_user_not_found/...","error": {".tag": "transfer_dest_user_not_found"}}
+  - label: transfer_dest_user_not_found
+    content: {".tag": "transfer_dest_user_not_found"}
+  - label: transfer_dest_user_not_in_team
+    content: {"error_summary": "transfer_dest_user_not_in_team/...","error": {".tag": "transfer_dest_user_not_in_team"}}
+  - label: transfer_dest_user_not_in_team
+    content: {".tag": "transfer_dest_user_not_in_team"}
+  - label: transfer_admin_user_not_in_team
+    content: {"error_summary": "transfer_admin_user_not_in_team/...","error": {".tag": "transfer_admin_user_not_in_team"}}
+  - label: transfer_admin_user_not_in_team
+    content: {".tag": "transfer_admin_user_not_in_team"}
+  - label: transfer_admin_user_not_found
+    content: {"error_summary": "transfer_admin_user_not_found/...","error": {".tag": "transfer_admin_user_not_found"}}
+  - label: transfer_admin_user_not_found
+    content: {".tag": "transfer_admin_user_not_found"}
+  - label: unspecified_transfer_admin_id
+    content: {"error_summary": "unspecified_transfer_admin_id/...","error": {".tag": "unspecified_transfer_admin_id"}}
+  - label: unspecified_transfer_admin_id
+    content: {".tag": "unspecified_transfer_admin_id"}
+  - label: transfer_admin_is_not_admin
+    content: {"error_summary": "transfer_admin_is_not_admin/...","error": {".tag": "transfer_admin_is_not_admin"}}
+  - label: transfer_admin_is_not_admin
+    content: {".tag": "transfer_admin_is_not_admin"}
+  - label: recipient_not_verified
+    content: {"error_summary": "recipient_not_verified/...","error": {".tag": "recipient_not_verified"}}
+  - label: recipient_not_verified
+    content: {".tag": "recipient_not_verified"}
+  - label: user_data_is_being_transferred
+    content: {"error_summary": "user_data_is_being_transferred/...","error": {".tag": "user_data_is_being_transferred"}}
+  - label: user_data_is_being_transferred
+    content: {".tag": "user_data_is_being_transferred"}
+  - label: user_not_removed
+    content: {"error_summary": "user_not_removed/...","error": {".tag": "user_not_removed"}}
+  - label: user_not_removed
+    content: {".tag": "user_not_removed"}
+  - label: user_data_cannot_be_transferred
+    content: {"error_summary": "user_data_cannot_be_transferred/...","error": {".tag": "user_data_cannot_be_transferred"}}
+  - label: user_data_cannot_be_transferred
+    content: {".tag": "user_data_cannot_be_transferred"}
+  - label: user_data_already_transferred
+    content: {"error_summary": "user_data_already_transferred/...","error": {".tag": "user_data_already_transferred"}}
+  - label: user_data_already_transferred
+    content: {".tag": "user_data_already_transferred"}
+---
+
+import Endpoint from '../../components/Endpoint'
+import stoneTypes from '../../type-lookup/team-members-move_former_member_files.js'
+
+<Endpoint endpointProps={{typeInfo: stoneTypes, ...props.pageContext.frontmatter}} />

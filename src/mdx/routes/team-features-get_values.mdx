@@ -1,0 +1,43 @@
+---
+name: /features/get_values
+route: /team/features/get_values
+namespace: team
+menu: team
+description: Get the values for one or more featues. This route allows you to check your account's capability for what feature you can access or what value you have for certain features.\nPermission :&nbspTeam information.
+isDeprecated: False
+urlStructure: https://api.dropbox.com/1/team/features/get_values
+endpointFormat: rpc
+isPreview: False
+scope: team_info.read
+authentication:
+  - team
+paramType: 
+  namespace: team
+  datatype: FeaturesGetValuesBatchArg
+paramExamples: 
+  - label: default
+    content: {"features": [{".tag": "upload_api_rate_limit"},{".tag": "has_team_shared_dropbox"}]}
+returnType: 
+  namespace: team
+  datatype: FeaturesGetValuesBatchResult
+returnExamples: 
+  - label: default
+    content: {"values": [{".tag": "upload_api_rate_limit","upload_api_rate_limit": {".tag": "limit","limit": 25000}},{".tag": "has_team_shared_dropbox","has_team_shared_dropbox": {".tag": "has_team_shared_dropbox","has_team_shared_dropbox": false}}]}
+errorType: 
+  namespace: team
+  datatype: FeaturesGetValuesBatchError
+errorExamples: 
+  - label: empty_features_list
+    content: {"error_summary": "empty_features_list/...","error": {".tag": "empty_features_list"}}
+  - label: empty_features_list
+    content: {".tag": "empty_features_list"}
+  - label: other
+    content: {"error_summary": "other/...","error": {".tag": "other"}}
+  - label: other
+    content: {".tag": "other"}
+---
+
+import Endpoint from '../../components/Endpoint'
+import stoneTypes from '../../type-lookup/team-features-get_values.js'
+
+<Endpoint endpointProps={{typeInfo: stoneTypes, ...props.pageContext.frontmatter}} />

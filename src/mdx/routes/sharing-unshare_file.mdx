@@ -1,0 +1,41 @@
+---
+name: /unshare_file
+route: /sharing/unshare_file
+namespace: sharing
+menu: sharing
+description: Remove all members from this file. Does not remove inherited members.
+isDeprecated: False
+urlStructure: https://api.dropbox.com/1/sharing/unshare_file
+endpointFormat: rpc
+isPreview: False
+scope: sharing.write
+authentication:
+  - user
+  - team_admin
+paramType: 
+  namespace: sharing
+  datatype: UnshareFileArg
+paramExamples: 
+  - label: default
+    content: {"file": "id:3kmLmQFnf1AAAAAAAAAAAw"}
+returnType: 
+  namespace: Void
+  datatype: Void
+errorType: 
+  namespace: sharing
+  datatype: UnshareFileError
+errorExamples: 
+  - label: default
+    content: {"error_summary": "user_error/email_unverified/...","error": {".tag": "user_error","user_error": {".tag": "email_unverified"}}}
+  - label: default
+    content: {".tag": "user_error", "user_error": {".tag": "email_unverified"}}
+  - label: other
+    content: {"error_summary": "other/...","error": {".tag": "other"}}
+  - label: other
+    content: {".tag": "other"}
+---
+
+import Endpoint from '../../components/Endpoint'
+import stoneTypes from '../../type-lookup/sharing-unshare_file.js'
+
+<Endpoint endpointProps={{typeInfo: stoneTypes, ...props.pageContext.frontmatter}} />

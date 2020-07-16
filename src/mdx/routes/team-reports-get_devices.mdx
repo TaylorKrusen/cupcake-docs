@@ -1,0 +1,30 @@
+---
+name: /reports/get_devices
+route: /team/reports/get_devices
+namespace: team
+menu: team
+description: Retrieves reporting data about a team's linked devices.
+isDeprecated: False
+urlStructure: https://api.dropbox.com/1/team/reports/get_devices
+endpointFormat: rpc
+isPreview: False
+scope: team_info.read
+authentication:
+  - team
+paramType: 
+  namespace: team
+  datatype: DateRange
+paramExamples: 
+returnType: 
+  namespace: team
+  datatype: GetDevicesReport
+returnExamples: 
+errorType: 
+  namespace: team
+  datatype: DateRangeError
+---
+
+import Endpoint from '../../components/Endpoint'
+import stoneTypes from '../../type-lookup/team-reports-get_devices.js'
+
+<Endpoint endpointProps={{typeInfo: stoneTypes, ...props.pageContext.frontmatter}} />
