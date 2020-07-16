@@ -8,5 +8,18 @@ module.exports = {
         { name: "Introduction", menu: []},
         { name: "User Endpoints", menu: []},
         { name: "Business Endpoints", menu: []}
-    ]
+    ],
+    themeConfig: {
+      colors: {
+          modes: {
+              dark: {
+                  sidebar: {
+                      navGroup: '#FFFFFF',
+                      tocLink: '#F5F6F7',
+                      tocLinkActive: '#FFFFFF',
+                  }
+              }
+          }
+      },
+    },
 }
