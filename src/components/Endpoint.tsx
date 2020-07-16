@@ -83,7 +83,7 @@ export default function Endpoint(props: {endpointProps: EndpointProps}) {
         <VersionDropdown versions={[1]} selected={1} />
       </RowContainer>
       <RowContainer title="Description">
-        <Description>{description}</Description>
+        <Description description={description} />
       </RowContainer>
       <RowContainer title="URL Structure">
         <Code>{url}</Code>
