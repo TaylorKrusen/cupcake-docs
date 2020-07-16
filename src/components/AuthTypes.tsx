@@ -40,6 +40,12 @@ function AuthLink(props: {authType: string}) {
         Dropbox-API-Select-Admin (Team Admin)
       </Link>
     );
+  } else if (authType === 'noauth') {
+    return (
+      <Link to="https://www.dropbox.com/developers/reference/auth-types#noauth">
+        No Authentication
+      </Link>
+    );
   }
   throw new Error('unexpected auth type ' + authType);
 }
