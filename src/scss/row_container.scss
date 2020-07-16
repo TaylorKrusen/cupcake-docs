@@ -1,0 +1,24 @@
+.row-container {
+  display: flex;
+  align-items: flex-start;
+  padding: 12px 0;
+
+  .row-title {
+    min-width: 150px;
+  }
+
+  .row-content {
+    flex-grow: 1;
+    overflow: scroll;
+
+    .code-block {
+      background-color: black;
+      color: white;
+      border-radius: 0;
+      overflow: auto;
+      margin-top: 0;
+      margin-bottom: 0;
+      padding: 8px;
+    }
+  }
+}
