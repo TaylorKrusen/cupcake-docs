@@ -1,0 +1,56 @@
+---
+name: /legal_holds/release_policy
+route: /team/legal_holds/release_policy
+namespace: team
+menu: team
+description: Releases a legal hold by Id. Note:&nbspLegal Holds is a paid add-on. Not all teams have the feature.\nPermission :&nbspTeam member file access.
+isDeprecated: False
+urlStructure: https://api.dropbox.com/1/team/legal_holds/release_policy
+endpointFormat: rpc
+isPreview: False
+scope: team_data.member
+authentication:
+  - team
+paramType: 
+  namespace: team
+  datatype: LegalHoldsPolicyReleaseArg
+paramExamples: 
+  - label: default
+    content: {"id": "pid_dbhid:abcd1234"}
+returnType: 
+  namespace: Void
+  datatype: Void
+errorType: 
+  namespace: team
+  datatype: LegalHoldsPolicyReleaseError
+errorExamples: 
+  - label: unknown_legal_hold_error
+    content: {"error_summary": "unknown_legal_hold_error/...","error": {".tag": "unknown_legal_hold_error"}}
+  - label: unknown_legal_hold_error
+    content: {".tag": "unknown_legal_hold_error"}
+  - label: insufficient_permissions
+    content: {"error_summary": "insufficient_permissions/...","error": {".tag": "insufficient_permissions"}}
+  - label: insufficient_permissions
+    content: {".tag": "insufficient_permissions"}
+  - label: other
+    content: {"error_summary": "other/...","error": {".tag": "other"}}
+  - label: other
+    content: {".tag": "other"}
+  - label: legal_hold_performing_another_operation
+    content: {"error_summary": "legal_hold_performing_another_operation/...","error": {".tag": "legal_hold_performing_another_operation"}}
+  - label: legal_hold_performing_another_operation
+    content: {".tag": "legal_hold_performing_another_operation"}
+  - label: legal_hold_already_releasing
+    content: {"error_summary": "legal_hold_already_releasing/...","error": {".tag": "legal_hold_already_releasing"}}
+  - label: legal_hold_already_releasing
+    content: {".tag": "legal_hold_already_releasing"}
+  - label: legal_hold_policy_not_found
+    content: {"error_summary": "legal_hold_policy_not_found/...","error": {".tag": "legal_hold_policy_not_found"}}
+  - label: legal_hold_policy_not_found
+    content: {".tag": "legal_hold_policy_not_found"}
+---
+
+import Endpoint from '../../components/Endpoint'
+import stoneTypes from '../../type-lookup/team-legal_holds-release_policy.js'
+
+<Endpoint endpointProps={{typeInfo: stoneTypes, ...props.pageContext.frontmatter}} />

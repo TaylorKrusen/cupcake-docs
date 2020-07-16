@@ -1,0 +1,34 @@
+---
+name: /user
+route: /check/user
+namespace: check
+menu: check
+description: This endpoint performs User Authentication, validating the supplied access token, and returns the supplied string, to allow you to test your code and connection to the Dropbox API. It has no other effect. If you receive an HTTP 200 response with the supplied query, it indicates at least part of the Dropbox API infrastructure is working and that the access token is valid.
+isDeprecated: False
+urlStructure: https://api.dropbox.com/1/check/user
+endpointFormat: rpc
+isPreview: True
+scope: None
+authentication:
+  - user
+paramType: 
+  namespace: check
+  datatype: EchoArg
+paramExamples: 
+  - label: default
+    content: {"query": "foo"}
+returnType: 
+  namespace: check
+  datatype: EchoResult
+returnExamples: 
+  - label: default
+    content: {"result": "foo"}
+errorType: 
+  namespace: Void
+  datatype: Void
+---
+
+import Endpoint from '../../components/Endpoint'
+import stoneTypes from '../../type-lookup/check-user.js'
+
+<Endpoint endpointProps={{typeInfo: stoneTypes, ...props.pageContext.frontmatter}} />

@@ -1,0 +1,43 @@
+---
+name: /list_folders/continue
+route: /sharing/list_folders/continue
+namespace: sharing
+menu: sharing
+description: Once a cursor has been retrieved from `list_folders`, use this to paginate through all shared folders. The cursor must come from a previous call to `list_folders` or `list_folders/continue`.
+isDeprecated: False
+urlStructure: https://api.dropbox.com/1/sharing/list_folders/continue
+endpointFormat: rpc
+isPreview: False
+scope: sharing.read
+authentication:
+  - user
+paramType: 
+  namespace: sharing
+  datatype: ListFoldersContinueArg
+paramExamples: 
+  - label: default
+    content: {"cursor": "ZtkX9_EHj3x7PMkVuFIhwKYXEpwpLwyxp9vMKomUhllil9q7eWiAu"}
+returnType: 
+  namespace: sharing
+  datatype: ListFoldersResult
+returnExamples: 
+  - label: default
+    content: {"entries": [{"access_type": {".tag": "owner"},"is_inside_team_folder": false,"is_team_folder": false,"name": "dir","policy": {"acl_update_policy": {".tag": "owner"},"shared_link_policy": {".tag": "anyone"},"member_policy": {".tag": "anyone"},"resolved_member_policy": {".tag": "team"}},"preview_url": "https://www.dropbox.com/scl/fo/fir9vjelf","shared_folder_id": "84528192421","time_invited": "2016-01-20T00:00:00Z","path_lower": "/dir","link_metadata": {"audience_options": [{".tag": "public"},{".tag": "team"},{".tag": "members"}],"current_audience": {".tag": "public"},"link_permissions": [{"action": {".tag": "change_audience"},"allow": true}],"password_protected": false,"url": ""},"permissions": [],"access_inheritance": {".tag": "inherit"}}],"cursor": "ZtkX9_EHj3x7PMkVuFIhwKYXEpwpLwyxp9vMKomUhllil9q7eWiAu"}
+errorType: 
+  namespace: sharing
+  datatype: ListFoldersContinueError
+errorExamples: 
+  - label: invalid_cursor
+    content: {"error_summary": "invalid_cursor/...","error": {".tag": "invalid_cursor"}}
+  - label: invalid_cursor
+    content: {".tag": "invalid_cursor"}
+  - label: other
+    content: {"error_summary": "other/...","error": {".tag": "other"}}
+  - label: other
+    content: {".tag": "other"}
+---
+
+import Endpoint from '../../components/Endpoint'
+import stoneTypes from '../../type-lookup/sharing-list_folders-continue.js'
+
+<Endpoint endpointProps={{typeInfo: stoneTypes, ...props.pageContext.frontmatter}} />

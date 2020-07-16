@@ -1,0 +1,55 @@
+---
+name: /mount_folder
+route: /sharing/mount_folder
+namespace: sharing
+menu: sharing
+description: The current user mounts the designated folder.\nMount a shared folder for a user after they have been added as a member. Once mounted, the shared folder will appear in their Dropbox.
+isDeprecated: False
+urlStructure: https://api.dropbox.com/1/sharing/mount_folder
+endpointFormat: rpc
+isPreview: False
+scope: sharing.write
+authentication:
+  - user
+paramType: 
+  namespace: sharing
+  datatype: MountFolderArg
+paramExamples: 
+  - label: default
+    content: {"shared_folder_id": "84528192421"}
+returnType: 
+  namespace: sharing
+  datatype: SharedFolderMetadata
+returnExamples: 
+  - label: default
+    content: {"access_type": {".tag": "owner"},"is_inside_team_folder": false,"is_team_folder": false,"name": "dir","policy": {"acl_update_policy": {".tag": "owner"},"shared_link_policy": {".tag": "anyone"},"member_policy": {".tag": "anyone"},"resolved_member_policy": {".tag": "team"}},"preview_url": "https://www.dropbox.com/scl/fo/fir9vjelf","shared_folder_id": "84528192421","time_invited": "2016-01-20T00:00:00Z","path_lower": "/dir","link_metadata": {"audience_options": [{".tag": "public"},{".tag": "team"},{".tag": "members"}],"current_audience": {".tag": "public"},"link_permissions": [{"action": {".tag": "change_audience"},"allow": true}],"password_protected": false,"url": ""},"permissions": [],"access_inheritance": {".tag": "inherit"}}
+errorType: 
+  namespace: sharing
+  datatype: MountFolderError
+errorExamples: 
+  - label: inside_shared_folder
+    content: {"error_summary": "inside_shared_folder/...","error": {".tag": "inside_shared_folder"}}
+  - label: inside_shared_folder
+    content: {".tag": "inside_shared_folder"}
+  - label: already_mounted
+    content: {"error_summary": "already_mounted/...","error": {".tag": "already_mounted"}}
+  - label: already_mounted
+    content: {".tag": "already_mounted"}
+  - label: no_permission
+    content: {"error_summary": "no_permission/...","error": {".tag": "no_permission"}}
+  - label: no_permission
+    content: {".tag": "no_permission"}
+  - label: not_mountable
+    content: {"error_summary": "not_mountable/...","error": {".tag": "not_mountable"}}
+  - label: not_mountable
+    content: {".tag": "not_mountable"}
+  - label: other
+    content: {"error_summary": "other/...","error": {".tag": "other"}}
+  - label: other
+    content: {".tag": "other"}
+---
+
+import Endpoint from '../../components/Endpoint'
+import stoneTypes from '../../type-lookup/sharing-mount_folder.js'
+
+<Endpoint endpointProps={{typeInfo: stoneTypes, ...props.pageContext.frontmatter}} />
