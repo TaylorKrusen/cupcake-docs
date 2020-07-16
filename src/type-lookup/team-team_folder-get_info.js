@@ -1,1 +1,0 @@
-export default {"team": {"TeamFolderIdListArg": {"stone_type": "struct", "fields": [{"parameter": "team_folder_ids", "type": {"list": {"primitive": "String"}}, "description": "The list of team folder IDs."}]}}}
