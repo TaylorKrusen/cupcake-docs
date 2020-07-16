@@ -109,10 +109,23 @@ export default function TypeExplanation({namespace, datatype, typeInfo}: TypeExp
   if (namespace == 'Void') {
     return <div>Nothing</div>;
   }
+  let isList = false;
+  if (datatype.endsWith('[]')) {
+    isList = true;
+    datatype = datatype.substring(0, datatype.length - 2);
+  }
   const info = typeInfo[namespace][datatype];
   const {stone_type, fields, description} = info;
   return (
     <>
+      {isList && (
+        <div>
+          <i>
+            This route returns a list. This means the route can accept a homogenous list of the
+            following types:
+          </i>
+        </div>
+      )}
       <div>
         {datatype} <i>({stoneTypeName[stone_type]})</i>
       </div>
