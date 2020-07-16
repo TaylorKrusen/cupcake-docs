@@ -3,19 +3,12 @@ import {useState, useCallback, useMemo} from 'react';
 import NestingTypeBox from './NestingTypeBox';
 
 import {StoneType, StoneTypeField, StoneTypeInfoMap} from '../interfaces/index';
+import '../scss/type_explanation.scss';
 
 const stoneTypeDescription = {
   struct: 'Struct',
   union: 'Union',
   open_union: 'Open Union',
-};
-
-const fieldRowHeaderStyle = {
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'space-between',
-  padding: '10px',
-  margin: '0',
 };
 
 type ResolvedType = {
@@ -66,28 +59,27 @@ function recursivelyResolveType(type: StoneType): ResolvedType {
 type FieldRowProps = {
   field: StoneTypeField;
   typeInfo: StoneTypeInfoMap;
+  expandedByDefault: boolean;
 };
-function FieldRow({field, typeInfo}: FieldRowProps) {
+function FieldRow({field, typeInfo, expandedByDefault}: FieldRowProps) {
   const {parameter, description, type} = field;
   const typeData = useMemo(() => recursivelyResolveType(type), [type]);
   const {optional, name} = typeData;
-  const [expanded, setExpanded] = useState(true);
+  const [expanded, setExpanded] = useState(expandedByDefault);
   const toggleExpanded = useCallback((e) => setExpanded((s) => !s), [setExpanded]);
-
+  const parameterClassNames = typeData.terminal ? 'parameter-type' : 'parameter-type nested';
   return (
-    <>
+    <div className="field-row">
       <div>
-        <div
-          style={{
-            ...fieldRowHeaderStyle,
-            backgroundColor: optional ? 'lightsteelblue' : 'lightblue',
-          }}
-          onClick={typeData.terminal ? () => {} : toggleExpanded}
-        >
-          <pre style={{margin: '0'}}>{parameter}</pre>
-          <i>{name}</i>
+        <div>
+          <div>
+            <span className="parameter-name">{parameter}</span>
+            <span className={parameterClassNames} onClick={toggleExpanded}>
+              {name}
+            </span>
+            <span className="parameter-description">{description}</span>
+          </div>
         </div>
-        <span>{description}</span>
       </div>
       {typeData.terminal ? null : (
         <NestingTypeBox visible={expanded}>
@@ -98,14 +90,9 @@ function FieldRow({field, typeInfo}: FieldRowProps) {
           />
         </NestingTypeBox>
       )}
-    </>
+    </div>
   );
 }
-
-const typeExplanationListStyle = {
-  listStyleType: 'none',
-  padding: '0',
-};
 
 type TypeExplainationProps = {
   namespace: string;
@@ -118,14 +105,14 @@ export default function TypeExplanation({namespace, datatype, typeInfo}: TypeExp
   const {stone_type, fields, description} = info;
   return (
     <>
-      <p>
+      <div>
         {datatype} <i>({stoneTypeDescription[stone_type]})</i>
-      </p>
+      </div>
       {description && <p>{description}</p>}
-      <ul style={typeExplanationListStyle}>
+      <ul className="type-explanation-list">
         {fields.map((field, idx) => (
           <li key={`TypeExplanation-${idx}`}>
-            <FieldRow field={field} typeInfo={typeInfo} />
+            <FieldRow field={field} typeInfo={typeInfo} expandedByDefault={false} />
           </li>
         ))}
       </ul>

@@ -1,5 +1,4 @@
 import React from 'react';
-import {useComponents} from 'docz';
 
 import DeprecatedWarning from './DeprecatedWarning';
 import AuthTypes from './AuthTypes';
@@ -7,6 +6,8 @@ import ShellExample from './ShellExample';
 import Code from './Code';
 import TypeExplanation from './TypeExplanation';
 import Description from './Description';
+import RowContainer from './RowContainer';
+import VersionDropdown from './VersionDropdown';
 
 import '../scss/styles.scss';
 
@@ -42,45 +43,57 @@ export default function Endpoint(props: {endpointProps: EndpointProps}) {
     returnType,
     errorType,
   } = props.endpointProps;
-  const components = useComponents();
   const url = `https://api.dropboxapi.com/2${route}`;
   return (
     <>
       {isDeprecated && <DeprecatedWarning deprecatedBy={deprecatedBy || ''} />}
       <h1>{route}</h1>
-      <Description>{description}</Description>
-      <components.h3>Authentication</components.h3>
-      <p>{authTypes && <AuthTypes authTypes={authTypes} />}</p>
-      <components.h3>URL Structure</components.h3>
-      <Code>{url}</Code>
-      <components.h3>Example</components.h3>
-      <ShellExample namespace={namespace} endpoint={endpoint} shellExample={shellExample} />
-      <components.h3>Parameters</components.h3>
-      <TypeExplanation
-        namespace={paramType.namespace}
-        datatype={paramType.datatype}
-        typeInfo={typeInfo}
-      />
-      <components.h3>Returns</components.h3>
-      {!!returnType ? (
-        <TypeExplanation
-          namespace={returnType.namespace}
-          datatype={returnType.datatype}
-          typeInfo={typeInfo}
-        />
-      ) : (
-        <p>Nothing</p>
-      )}
-      <components.h3>Errors</components.h3>
-      {!!errorType ? (
+      <RowContainer title="Version">
+        <VersionDropdown versions={[1]} selected={1} />
+      </RowContainer>
+      <RowContainer title="Description">
+        <Description>{description}</Description>
+      </RowContainer>
+      <RowContainer title="URL Structure">
+        <Code>{url}</Code>
+      </RowContainer>
+      <RowContainer title="Authentication">
+        {authTypes && <AuthTypes authTypes={authTypes} />}
+      </RowContainer>
+      <RowContainer title="Endpoint Format">.</RowContainer>
+      <RowContainer title="Required Scope">.</RowContainer>
+      <RowContainer title="Example">
+        <ShellExample namespace={namespace} endpoint={endpoint} shellExample={shellExample} />
+      </RowContainer>
+      <RowContainer title="Parameters">
         <TypeExplanation
           namespace={paramType.namespace}
           datatype={paramType.datatype}
           typeInfo={typeInfo}
         />
-      ) : (
-        <p>Nothing</p>
-      )}
+      </RowContainer>
+      <RowContainer title="Returns">
+        {!!returnType ? (
+          <TypeExplanation
+            namespace={returnType.namespace}
+            datatype={returnType.datatype}
+            typeInfo={typeInfo}
+          />
+        ) : (
+          <div>Nothing</div>
+        )}
+      </RowContainer>
+      <RowContainer title="Errors">
+        {!!errorType ? (
+          <TypeExplanation
+            namespace={errorType.namespace}
+            datatype={errorType.datatype}
+            typeInfo={typeInfo}
+          />
+        ) : (
+          <div>Nothing</div>
+        )}
+      </RowContainer>
     </>
   );
 }

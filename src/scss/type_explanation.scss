@@ -1,0 +1,41 @@
+.nesting-type-box {
+  border: 1px solid lightgray;
+  border-radius: 1px;
+  padding: 10px;
+  margin: 10px 0;
+
+  &.hidden {
+    display: none;
+  }
+}
+
+.type-explanation-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.field-row {
+  padding: 5px 0;
+  font-size: 18px;
+
+  .parameter-name {
+    font-weight: 700;
+    font-family: monospace;
+  }
+
+  .parameter-type {
+    font-weight: 100;
+    font-style: italic;
+    padding-left: 10px;
+
+    &.nested {
+      color: #0B5FFF;
+      cursor: pointer;
+    }
+  }
+
+  .parameter-description {
+    padding-left: 10px;
+  }
+}
