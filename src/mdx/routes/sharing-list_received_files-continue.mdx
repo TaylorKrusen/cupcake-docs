@@ -1,0 +1,43 @@
+---
+name: /list_received_files/continue
+route: /sharing/list_received_files/continue
+namespace: sharing
+menu: sharing
+description: Get more results with a cursor from `list_received_files`.
+isDeprecated: False
+urlStructure: https://api.dropbox.com/1/sharing/list_received_files/continue
+endpointFormat: rpc
+isPreview: False
+scope: sharing.read
+authentication:
+  - user
+paramType: 
+  namespace: sharing
+  datatype: ListFilesContinueArg
+paramExamples: 
+  - label: default
+    content: {"cursor": "AzJJbGlzdF90eXBdofe9c3RPbGlzdGFyZ3NfYnlfZ2lkMRhcbric7Rdog9emfGRlc2MCRWxpbWl0BGRId"}
+returnType: 
+  namespace: sharing
+  datatype: ListFilesResult
+returnExamples: 
+  - label: default
+    content: {"entries": [{"id": "id:3kmLmQFnf1AAAAAAAAAAAw","name": "file.txt","policy": {"acl_update_policy": {".tag": "owner"},"shared_link_policy": {".tag": "anyone"},"member_policy": {".tag": "anyone"},"resolved_member_policy": {".tag": "team"}},"preview_url": "https://www.dropbox.com/scl/fi/fir9vjelf","access_type": {".tag": "viewer"},"owner_display_names": ["Jane Doe"],"owner_team": {"id": "dbtid:AAFdgehTzw7WlXhZJsbGCLePe8RvQGYDr-I","name": "Acme, Inc."},"path_display": "/dir/file.txt","path_lower": "/dir/file.txt","permissions": [],"time_invited": "2016-01-20T00:00:00Z"}],"cursor": "AzJJbGlzdF90eXBdofe9c3RPbGlzdGFyZ3NfYnlfZ2lkMRhcbric7Rdog9cmV2aXNpb24H3Qf6o1fkHxQ"}
+errorType: 
+  namespace: sharing
+  datatype: ListFilesContinueError
+errorExamples: 
+  - label: invalid_cursor
+    content: {"error_summary": "invalid_cursor/...","error": {".tag": "invalid_cursor"}}
+  - label: invalid_cursor
+    content: {".tag": "invalid_cursor"}
+  - label: other
+    content: {"error_summary": "other/...","error": {".tag": "other"}}
+  - label: other
+    content: {".tag": "other"}
+---
+
+import Endpoint from '../../components/Endpoint'
+import stoneTypes from '../../type-lookup/sharing-list_received_files-continue.js'
+
+<Endpoint endpointProps={{typeInfo: stoneTypes, ...props.pageContext.frontmatter}} />

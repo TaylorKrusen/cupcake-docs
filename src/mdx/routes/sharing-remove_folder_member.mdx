@@ -1,0 +1,60 @@
+---
+name: /remove_folder_member
+route: /sharing/remove_folder_member
+namespace: sharing
+menu: sharing
+description: Allows an owner or editor (if the ACL update policy allows) of a shared folder to remove another member.
+isDeprecated: False
+urlStructure: https://api.dropbox.com/1/sharing/remove_folder_member
+endpointFormat: rpc
+isPreview: False
+scope: sharing.write
+authentication:
+  - user
+  - team_admin
+paramType: 
+  namespace: sharing
+  datatype: RemoveFolderMemberArg
+paramExamples: 
+  - label: default
+    content: {"shared_folder_id": "84528192421","member": {".tag": "email","email": "justin@example.com"},"leave_a_copy": false}
+returnType: 
+  namespace: async
+  datatype: LaunchResultBase
+returnExamples: 
+  - label: default
+    content: {".tag": "async_job_id","async_job_id": "34g93hh34h04y384084"}
+errorType: 
+  namespace: sharing
+  datatype: RemoveFolderMemberError
+errorExamples: 
+  - label: folder_owner
+    content: {"error_summary": "folder_owner/...","error": {".tag": "folder_owner"}}
+  - label: folder_owner
+    content: {".tag": "folder_owner"}
+  - label: group_access
+    content: {"error_summary": "group_access/...","error": {".tag": "group_access"}}
+  - label: group_access
+    content: {".tag": "group_access"}
+  - label: team_folder
+    content: {"error_summary": "team_folder/...","error": {".tag": "team_folder"}}
+  - label: team_folder
+    content: {".tag": "team_folder"}
+  - label: no_permission
+    content: {"error_summary": "no_permission/...","error": {".tag": "no_permission"}}
+  - label: no_permission
+    content: {".tag": "no_permission"}
+  - label: too_many_files
+    content: {"error_summary": "too_many_files/...","error": {".tag": "too_many_files"}}
+  - label: too_many_files
+    content: {".tag": "too_many_files"}
+  - label: other
+    content: {"error_summary": "other/...","error": {".tag": "other"}}
+  - label: other
+    content: {".tag": "other"}
+---
+
+import Endpoint from '../../components/Endpoint'
+import stoneTypes from '../../type-lookup/sharing-remove_folder_member.js'
+
+<Endpoint endpointProps={{typeInfo: stoneTypes, ...props.pageContext.frontmatter}} />

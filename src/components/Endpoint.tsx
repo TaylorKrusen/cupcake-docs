@@ -73,26 +73,18 @@ export default function Endpoint(props: {endpointProps: EndpointProps}) {
         />
       </RowContainer>
       <RowContainer title="Returns">
-        {!!returnType ? (
-          <TypeExplanation
-            namespace={returnType.namespace}
-            datatype={returnType.datatype}
-            typeInfo={typeInfo}
-          />
-        ) : (
-          <div>Nothing</div>
-        )}
+        <TypeExplanation
+          namespace={returnType.namespace}
+          datatype={returnType.datatype}
+          typeInfo={typeInfo}
+        />
       </RowContainer>
       <RowContainer title="Errors">
-        {!!errorType ? (
-          <TypeExplanation
-            namespace={errorType.namespace}
-            datatype={errorType.datatype}
-            typeInfo={typeInfo}
-          />
-        ) : (
-          <div>Nothing</div>
-        )}
+        <TypeExplanation
+          namespace={errorType.namespace}
+          datatype={errorType.datatype}
+          typeInfo={typeInfo}
+        />
       </RowContainer>
     </>
   );

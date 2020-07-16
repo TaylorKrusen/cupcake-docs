@@ -5,10 +5,15 @@ import NestingTypeBox from './NestingTypeBox';
 import {StoneType, StoneTypeField, StoneTypeInfoMap} from '../interfaces/index';
 import '../scss/type_explanation.scss';
 
-const stoneTypeDescription = {
+const stoneTypeName = {
   struct: 'Struct',
   union: 'Union',
   open_union: 'Open Union',
+};
+const stoneTypeDescription = {
+  union: 'The value will be one of the following datatypes:',
+  open_union:
+    'The value will be one of the following datatypes. New values may be introduced as our API evolves.',
 };
 
 type ResolvedType = {
@@ -101,14 +106,18 @@ type TypeExplainationProps = {
 };
 
 export default function TypeExplanation({namespace, datatype, typeInfo}: TypeExplainationProps) {
+  if (namespace == 'Void') {
+    return <div>Nothing</div>;
+  }
   const info = typeInfo[namespace][datatype];
   const {stone_type, fields, description} = info;
   return (
     <>
       <div>
-        {datatype} <i>({stoneTypeDescription[stone_type]})</i>
+        {datatype} <i>({stoneTypeName[stone_type]})</i>
       </div>
       {description && <p>{description}</p>}
+      {stone_type != 'struct' && <div>{stoneTypeDescription[stone_type]}</div>}
       <ul className="type-explanation-list">
         {fields.map((field, idx) => (
           <li key={`TypeExplanation-${idx}`}>
