@@ -1,0 +1,146 @@
+---
+name: team introduction
+menu: Business Endpoints
+---
+# Dropbox Business API
+The Dropbox Business API allows apps to manage the user lifecycle for a [Dropbox Business account](https://www.dropbox.com/business) and perform API actions on all members of a team. It also gives apps programmatic access to Dropbox Business admin functionality.
+
+## Permissions
+#### Scopes
+Scopes control the level of access your app has into user and team data. After creating your app in the [App Console](https://www.dropbox.com/developers/apps), you can select your apps scopes on the Permissions tab. You can read more about scopes in the [OAuth Guide](https://www.dropbox.com/lp/developers/reference/oauth-guide).
+
+#### Access types
+[For new apps, we recommend using scopes.]
+
+There are four different access types of Dropbox Business API permissions.
+
+* *Team information* – Information about the team and aggregate usage data
+* *Team auditing* – Team information, plus the team's detailed activity log
+* *Team member file access* – Team information and auditing, plus the ability to [perform any action as any team member](https://www.dropbox.com/developers/documentation/http/teams#teams-member-file-access)
+* *Team member management* – Team information, plus the ability to add, edit, and delete team members
+
+## Creating an application
+To create a Dropbox Business app, visit the [app creation page](https://www.dropbox.com/developers/apps/create).
+
+## Testing your application
+To test an app that calls the Dropbox Business API endpoints, you can request a free Dropbox Business Development Account [here](https://docs.google.com/forms/d/e/1FAIpQLSfkzPmp9srHG9jwE3Uc0bFOwknN-rrLQWr1mf_3FGl86ydCiQ/viewform?entry.1304485640=Developer). This will allow you to test your app using a standard Dropbox Business team. Development accounts are granted on a by-request basis and are contingent on additional terms and conditions outlined in the request form.
+
+## Linking to a team
+Developers will need to direct a Dropbox Business team administrator through the [standard OAuth 2.0 flow](https://www.dropbox.com/lp/developers/reference/oauth-guide) to install their application on a Dropbox Business team. The OAuth response/redirect will include an additional `team_id` field that can be used to uniquely identify a team.
+
+Dropbox Business API OAuth tokens can enable extensive access to team data, so *it is your responsibility to properly secure them server-side*. They should never be cached in insecure environments or downloaded to client devices.
+
+## Member file access
+A Dropbox Business app can make calls to the [Dropbox API](https://www.dropbox.com/developers/documentation/http/teams#documentation) for any member of the Dropbox Business team. Your app must have Team member file access permission.
+
+To make calls on a member's behalf, use the OAuth token granted to the app by the team. Specify the `member_id` of the user that the app wants to act on using a custom HTTP header called `Dropbox-API-Select-User`.
+
+Notes:
+
+* This feature is currently limited to only team members in the "active", "suspended", and "invited" states.
+* A common use case for Team member file access is scanning through member Dropbox accounts. The recommended approach for this is repeated calls to [/files/list_folder/continue](https://www.dropbox.com/developers/documentation/http/documentation#files-list_folder-continue).
+
+An additional error may occur when using `Dropbox-API-Select-User`:
+
+* *401* Member ID doesn't exist on the team.
+
+An alternative and advanced method for Business API apps to access and perform operations on team-owned content is to use the `Dropbox-API-Select-Admin` HTTP header instead of `Dropbox-API-Select-User`.
+
+There are a several key differences between the two:
+
+First, both headers specify the `member_id` of a team member in their values, but for `Dropbox-API-Select-Admin` this must refer to a team admin rather than an arbitrary member.
+
+Second, `Dropbox-API-Select-User` allows access to and operations on content that currently exists in the "selected" team member's Dropbox. This includes their private files and folders as well as contents of any shared or team folders they not only have access to but also have added to their Dropbox (i.e. "mounted" in API terms).
+
+In contrast, `Dropbox-API-Select-Admin` allows access to and operations on any team-owned content, including unmounted content. This includes any team member's private files and folders as well as contents of any shared folders owned by a member of the team and team folders. In particular, the team admin being impersonated doesn't have to have the target content in their Dropbox and doesn't have to be in the membership of any shared or team folders the content might reside in.
+
+Specifically, there are two different modes for `Dropbox-API-Select-Admin` header:
+
+* *Whole Team* The endpoint can access content of team folders as well as team member's private files.
+* *Team Admin* The endpoint can access content of team folders but not team member's private files.
+
+The supported `Dropbox-API-Select-Admin` mode for each API endpoint is documented under Authentication section.
+
+In general, *Whole Team* is supported by read-only endpoints in order to simplify referring to and traversing team-owned content. Conversely, *Team Admin* is supported by mutable calls in order to perform particular actions an administrator (rather than user) - which may be a required permission for some operations within team spaces.
+
+Since traditional logical paths in Dropbox must refer to mounted content, the endpoints that support the `Dropbox-API-Select-Admin` header accept namespace-relative paths. These take the format of `ns:<namespace_id><namespace_path>`, where `<namespace_id>` is the `shared_folder_id` or `team_folder_id` of the shared folder or the team folder containing the file or folder, respectively, and `<namespace_path>` is the logical path to the content relative to its shared folder or team folder container. See our [namespace guide](https://www.dropbox.com/developers/reference/namespace-guide) for more information.
+
+Note that not all User API endpoints support the `Dropbox-API-Select-Admin` header. Check the API docs for a list of endpoints that do.
+
+## Webhooks
+Dropbox Business API apps that have specified a webhook URL in the [App Console](https://www.dropbox.com/developers/apps) will receive change notifications for the team. There are two classes of change notifications, each associated with different permissions.
+
+### Team member file access notifications
+
+Two types of apps will receive per-user webhook notifications from all members of the team. The webhook notification contains a list of all `member_id`s that have changes within their account. This is similar to the [Dropbox API webhooks](https://www.dropbox.com/developers/webhooks) behavior.
+
+* Apps with the Team member file access permission
+* Scoped apps whose link to the team contains `team_member.data` and `files.metadata.read` scope. See more info about OAuth2 scopes [here](https://www.dropbox.com/lp/developers/reference/oauth-guide.html).
+
+For Team member file access notifications, your endpoint will receive JSON with the following format:
+```JSON
+{
+  "list_folder": {
+    "teams": {
+      "team_id1": [
+        "member_id1",
+        "member_id2",
+        ...
+      ],
+      "team_id2": [
+        "member_id1",
+        "member_id2",
+        ...
+      ],
+      ...
+    }
+  },
+  "delta": {
+    "teams": {
+      "team_id1": [
+        "member_id1",
+        "member_id2",
+        ...
+      ],
+      "team_id2": [
+        "member_id1",
+        "member_id2",
+        ...
+      ],
+      ...
+    }
+  }
+}
+```
+Note that a single change to a file in a shared folder will trigger a webhook for each user that the folder is shared with (and will also show up in the /list_folder entries for each account). You may want to track these occurrences to avoid re-processing the same file multiple times. One possible method would be to track a combination of the (unique) shared folder ID, file path, and rev for a file to identify if it is the same as a previously-processed change. Files outside a shared folder don't have this concern.
+
+### Team change notifications
+This type of notification will be triggered in the following cases:
+
+* User is invited to team
+* User joins team (transitions from "invited" to "active" status)
+* User is removed from team
+* User's profile or permissions are updated
+
+There are also two types of apps that are eligible for team change notifications
+
+* Apps with Team member management or Team member file access permissions will receive webhook notifications for changes to the team membership.
+* Scoped apps whose link to the team contains `members.read scope`. See more info about OAuth2 scopes [here](https://www.dropbox.com/lp/developers/reference/oauth-guide.html).
+
+For Team change notifications, your endpoint will receive JSON with the following format:
+```JSON
+{
+  "team_events": [
+    {
+      "event": "member_info_change",
+      "team_id": "team_id1",
+      "member_ids": [
+        "member_id1",
+        "member_id2",
+        ...
+      ]
+    },
+    ...
+  ]
+}
+```

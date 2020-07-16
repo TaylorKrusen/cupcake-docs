@@ -1,0 +1,51 @@
+---
+name: introduction
+menu: introduction
+---
+# Dropbox API v2
+The Dropbox API allows developers to work with files in Dropbox, including advanced functionality like full-text search, thumbnails, and sharing. The [Dropbox API explorer](https://dropbox.github.io/dropbox-api-v2-explorer/) is the easiest way to get started making API calls.
+
+## Request and response formats
+In general, the Dropbox API uses HTTP POST requests with JSON arguments and JSON responses. Request authentication is via OAuth 2.0 using the `Authorization` request header or `authorization` URL parameter.
+
+The `.tag` field in an object identifies the subtype of a struct or selected member of a union.
+
+When specifying a `Void` member of a union, you may supply just the member string in place of the entire tagged union object. For example, when supplying a `WriteMode`, you can supply just `"mode": "add"` instead of `"mode": {".tag": "add"}}`. This shorthand is not allowed for non-`Void` members. For example, the following is not allowed for a `WriteMode`, as `update` is not a Void member: `"mode": "update"`.
+
+### RPC endpoints
+These endpoints accept arguments as JSON in the request body and return results as JSON in the response body. RPC endpoints are on the `api.dropboxapi.com` domain.
+
+### Content-upload endpoints
+These endpoints accept file content in the request body, so their arguments are instead passed as JSON in the `Dropbox-API-Arg` request header or `arg` URL parameter. These endpoints are on the `content.dropboxapi.com` domain.
+
+### Content-download endpoints
+As with content-upload endpoints, arguments are passed in the `Dropbox-API-Arg` request header or `arg` URL parameter. The response body contains file content, so the result will appear as JSON in the `Dropbox-API-Result` response header. These endpoints are also on the `content.dropboxapi.com` domain.
+
+These endpoints also support HTTP GET along with `ETag`-based caching (`If-None-Match`) and HTTP range requests.
+
+For information on how to properly encode the JSON, see the JSON encoding page.
+
+### Browser-based JavaScript and CORS pre-flight requests
+When browser-based JavaScript code makes a cross-site HTTP request, the browser must sometimes send a "pre-flight" check to make sure the server allows cross-site requests. You can avoid the extra round-trip by ensuring your request meets the CORS definition of a "simple cross-site request".
+
+* Use URL parameters `arg` and `authorization` instead of HTTP headers `Dropbox-API-Arg` and `Authorization`.
+* Set the `Content-Type` to "text/plain; charset=dropbox-cors-hack" instead of "application/json" or "application/octet-stream".
+* Always set the URL parameter `reject_cors_preflight=true`. This makes it easier to catch cases where your code is unintentionally triggering a pre-flight check.
+
+### Date format
+All dates in the API use UTC and are strings in the ISO 8601 "combined date and time representation" format:
+`2015-05-15T15:50:38Z`
+
+### Path formats
+Paths are relative to an application's root (either an app folder or the root of a user's Dropbox, depending on the app's [access type](https://www.dropbox.com/developers/reference/developer-guide#app-permissions)). The empty string ("") represents the root folder. All other paths must start with a slash (e.g. "`/hello/world.txt`"). Paths may not end with a slash or whitespace. For other path restrictions, refer to the [help center](https://www.dropbox.com/help/syncing-uploads/files-not-syncing).
+
+Every file and folder in Dropbox also has an ID (e.g. "`id:abc123xyz`") that can be obtained from any endpoint that returns metadata. These IDs are case-sensitive, so they should always be stored with their case preserved, and always compared in a case-sensitive manner. Some endpoints, as noted in the individual endpoint documentation below, can accept IDs in addition to normal paths. A path relative to a folder's ID can be constructed by using a slash (e.g. "`id:abc123xyz/hello.txt`").
+
+For endpoints that accept performing actions on behalf of a team administrator using the [`Dropbox-API-Select-Admin` header](https://www.dropbox.com/developers/documentation/http/teams#teams-member-file-access), files may be referenced using a namespace-relative path (e.g. "`ns:123456/cupcake.png`"). In this case, the namespace ID, "`123456`", would be the `shared_folder_id` or `team_folder_id` of the shared folder or the team folder containing the file or folder, and the path, "`/cupcake.png`", would be the logical path to the content relative to its shared folder or team folder container.
+
+### Path case insensitivity
+Like in Dropbox itself, paths in the Dropbox API are case-insensitive, meaning that /A/B/c.txt is the same file as /a/b/C.txt and is the same file as /a/B/c.txt.
+
+This can cause problems for apps that store file metadata from users in case-sensitive databases (such as SQLite or Postgres). Case insensitive collations should be used when storing Dropbox path metadata in such databases. Alternatively, developers need to make sure their query operators are explicitly case insensitive.
+
+Also, while Dropbox is case-insensitive, it makes efforts to be case-preserving. `Metadata.name` will contain the correct case. `Metadata.path_display` usually will contain the correct case, but sometimes only in the last path component. If your app needs the correct case for all path components, it can get it from the `Metadata.name` or last path component of each relevant `Metadata.path_display` entry.
