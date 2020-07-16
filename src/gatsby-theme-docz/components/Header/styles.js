@@ -16,10 +16,8 @@ export const innerContainer = {
 }
 
 export const headerLink = {
-  lineHeight: 0,
   marginRight: '34px',
   fontSize: '18px',
-  fontDecoration: 'none',
   color: 'black',
   ':hover': {
     opacity: 0.5,

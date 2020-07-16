@@ -54,7 +54,7 @@ export const Header = () => {
           )}
           {site.siteMetadata.headerLinks.map((headerLink) => (
             <a href={headerLink.link} sx={{textDecoration: 'none'}}>
-              <h4 sx={styles.headerLink}>{headerLink.text}</h4>
+              <span sx={styles.headerLink}>{headerLink.text}</span>
             </a>
           ))}
           <button sx={styles.headerButton} onClick={toggleColorMode}>
