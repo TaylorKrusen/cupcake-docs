@@ -16,7 +16,7 @@ export const innerContainer: SystemStyleObject = {
   padding: '18px',
 };
 
-export const headerLink = {
+export const headerLink: SystemStyleObject = {
   marginRight: '34px',
   fontSize: '18px',
   color: 'black',
@@ -24,6 +24,22 @@ export const headerLink = {
     opacity: 0.5,
   },
 };
+
+export const headerBoxButton: SystemStyleObject = {
+  border: '1.2px #CED4DE solid',
+  padding: '0 18px',
+  marginRight: '34px',
+  backgroundColor: 'transparent',
+  lineHeight: 2,
+  fontSize: '14px',
+  textDecoration: 'none',
+  color: 'black',
+  ':hover': {
+    cursor: 'pointer',
+    backgroundColor: '#eaeaea',
+    borderColor: 'gray',
+  },
+}
 
 export const headerButton: SystemStyleObject = {
   ...mixins.centerAlign,

@@ -3,7 +3,7 @@ import {jsx, Box, Flex, useColorMode} from 'theme-ui';
 import {useConfig, useCurrentDoc} from 'docz';
 import { useStaticQuery, graphql } from 'gatsby';
 
-import {wrapper, innerContainer, headerLink, headerButton, editButton} from './styles';
+import {wrapper, innerContainer, headerLink, headerBoxButton, headerButton, editButton} from './styles';
 import {Edit, Sun, Github} from 'gatsby-theme-docz/src/components/Icons';
 import {Logo} from '../Logo';
 
@@ -51,6 +51,9 @@ export const Header = () => {
               <span sx={headerLink}>{link.text}</span>
             </a>
           ))}
+          <a sx={headerBoxButton} href="https://www.dropbox.com/developers/apps">
+            App console
+          </a>
           <button sx={headerButton} onClick={toggleColorMode}>
             <Sun size={15} />
           </button>
