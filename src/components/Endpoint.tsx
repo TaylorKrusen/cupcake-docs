@@ -10,8 +10,7 @@ import RowContainer from './RowContainer';
 import VersionDropdown from './VersionDropdown';
 import EndpointFormat from './EndpointFormat';
 import Example from './Example';
-
-import '../scss/styles.scss';
+import Warning from './Warning';
 
 import {StoneTypeReference, StoneTypeInfoMap} from '../interfaces/index';
 
@@ -25,6 +24,7 @@ export interface EndpointProps {
   endpoint: string;
   route: string;
   isDeprecated: boolean;
+  isPreview: boolean;
   deprecatedBy?: string | null;
   description: string;
   authentication: string[];
@@ -46,6 +46,7 @@ export default function Endpoint(props: {endpointProps: EndpointProps}) {
     endpoint,
     route,
     isDeprecated,
+    isPreview,
     deprecatedBy,
     description,
     authentication,
@@ -78,6 +79,7 @@ export default function Endpoint(props: {endpointProps: EndpointProps}) {
   return (
     <>
       {isDeprecated && <DeprecatedWarning deprecatedBy={deprecatedBy || ''} />}
+      {isPreview && <Warning>PREVIEW - may change or disappear without notice</Warning>}
       <h1>{route}</h1>
       <RowContainer title="Version">
         <VersionDropdown versions={[1]} selected={1} />
