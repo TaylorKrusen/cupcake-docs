@@ -8,5 +8,7 @@ module.exports = {
         { name: "Introduction", menu: []},
         { name: "User Endpoints", menu: []},
         { name: "Business Endpoints", menu: []}
-    ]
+    ],
+    "dest": "/cupcake-docs",
+    "base": "/cupcake-docs"
 }

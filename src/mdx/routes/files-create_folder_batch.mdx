@@ -1,0 +1,39 @@
+---
+name: /create_folder_batch
+route: /files/create_folder_batch
+namespace: files
+menu: files
+description: Create multiple folders at once.\nThis route is asynchronous for large batches, which returns a job ID immediately and runs the create folder batch asynchronously. Otherwise, creates the folders and returns the result synchronously for smaller inputs. You can force asynchronous behaviour by using the `CreateFolderBatchArg.force_async` flag.  Use `create_folder_batch/check` to check the job status.
+isDeprecated: false
+urlStructure: https://api.dropbox.com/1/files/create_folder_batch
+endpointFormat: rpc
+isPreview: false
+scope: files.content.write
+authentication:
+  - user
+  - team_admin
+paramType: 
+  namespace: files
+  datatype: CreateFolderBatchArg
+paramExamples: 
+  - label: default
+    content: {"paths": ["/Homework/math"],"autorename": false,"force_async": false}
+returnType: 
+  namespace: files
+  datatype: CreateFolderBatchLaunch
+returnExamples: 
+  - label: complete
+    content: {".tag": "complete", "entries": [{".tag": "success", "metadata": {"name": "math", "id": "id:a4ayc_80_OEAAAAAAAAAXz", "path_lower": "/homework/math", "path_display": "/Homework/math", "sharing_info": {"read_only": false, "parent_shared_folder_id": "84528192421", "traverse_only": false, "no_access": false}, "property_groups": [{"template_id": "ptid:1a5n2i6d3OYEAAAAAAAAAYa", "fields": [{"name": "Security Policy", "value": "Confidential"}]}]}}]}
+  - label: async_job_id
+    content: {".tag": "async_job_id", "async_job_id": "34g93hh34h04y384084"}
+  - label: other
+    content: {".tag": "other"}
+errorType: 
+  namespace: Void
+  datatype: Void
+---
+
+import Endpoint from '../../components/Endpoint'
+import stoneTypes from '../../type-lookup/files-create_folder_batch.js'
+
+<Endpoint endpointProps={{typeInfo: stoneTypes, ...props.pageContext.frontmatter}} />
