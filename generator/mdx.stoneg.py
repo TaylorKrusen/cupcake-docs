@@ -75,15 +75,6 @@ class MdxBackend(CodeBackend):
         # Routes within the namespace
         for route_name in sorted(namespace.routes_by_name):
             routes = namespace.routes_by_name[route_name]
-
-            # Skip if all the route versions are deprecated
-            is_deprecated = all(
-                (route.deprecated for route in routes.at_version.itervalues())
-            )
-            if is_deprecated:
-                continue
-
-
             route_versions.append(routes.at_version)
 
         for r in route_versions:
@@ -95,51 +86,60 @@ class MdxBackend(CodeBackend):
 
     # Generate route MDX files
     def _generate_route_versions_markdown(self, namespace, routes_by_version):
-
-        # TODO: how to handle different versions? just use latest for now.
-        route = routes_by_version.get(max(routes_by_version.keys()))
-        js_file_name = 'type-lookup/{}.js'.format('{}/{}'.format(namespace.name, route.name).replace('/', '-'))
-        with self.output_to_relative_path('mdx/routes/{}.mdx'.format('{}/{}'.format(namespace.name, route.name).replace('/', '-'))):
-
-            self.emit("---")
-            self.emit("name: /{}".format(route.name))
-            self.emit("route: /{}/{}".format(namespace.name, route.name))
-            self.emit("namespace: {}".format(namespace.name))
-            self.emit("menu: {}".format(namespace.name if not route.deprecated else 'Deprecated'))
-            if route.doc:
-                self.emit_raw("description: {}".format(route.doc.replace('\n', '\\n').replace(': ', ':&nbsp').replace(':val:', '').replace(':field:', '').replace(':route:', '').replace(':type:', '')+"\n"))
-            self.emit("isDeprecated: {}".format('true' if route.deprecated else 'false'))
-            self.emit("urlStructure: https://{}.dropbox.com/{}/{}/{}".format(route.attrs.get("host", "api"), route.version, namespace.name, route.name ))            
-            self.emit("endpointFormat: {}".format(route.attrs.get("style")))
-            self.emit("isPreview: {}".format('true' if route.attrs.get("is_preview") else 'false'))
-            self.emit("scope: {}".format(route.attrs.get("scope")))
-            self.emit("authentication:")
-            self.emit("  - {}".format(route.attrs.get("auth", "user")))
-            if route.attrs.get("select_admin_mode"):
-                self.emit("  - {}".format(route.attrs.get("select_admin_mode")))
-            self._generate_route_datatype(route.arg_data_type, PARAMETER)
-            self._generate_route_datatype(route.result_data_type, RETURN_VALUE)
-            self._generate_route_datatype(route.error_data_type, ERROR)
-            self.emit("---")
-            self.emit("")
-
-            self.emit('import Endpoint from \'../../components/Endpoint\'')
-            self.emit('import stoneTypes from \'../../{}\''.format(js_file_name))
-            self.emit('')
-            
-            self.emit('<Endpoint endpointProps={{typeInfo: stoneTypes, ...props.pageContext.frontmatter}} />');
         
-        # scan through datatypes to create a JSON file of all types and nested types in the route
-        with self.output_to_relative_path(js_file_name):
-            self.routeTypesDict = {}
-            if not is_void_type(route.arg_data_type):
-                self._collect_route_datatypes(route.arg_data_type)
-            if not is_void_type(route.result_data_type):
-                self._collect_route_datatypes(route.result_data_type)
-            if not is_void_type(route.error_data_type):
-                self._collect_route_datatypes(route.error_data_type)
-            self.emit_raw(u'export default {}\n'.format(json.dumps(self.routeTypesDict,  sort_keys=True, indent=4, separators=(',', ': '))))
-            self.routeTypesDict = {}
+        for v in routes_by_version:
+            route = routes_by_version.get(v)
+
+            js_file_name = 'type-lookup/{}.js'.format('{}/{}'.format(namespace.name, route.name).replace('/', '-'))
+            mdx_file_name = 'mdx/routes/{}.mdx'.format('{}/{}'.format(namespace.name, route.name).replace('/', '-'))
+            
+            if v > 1:
+                js_file_name = 'type-lookup/{}.js'.format('{}/{}-{}'.format(namespace.name, route.name, route.version).replace('/', '-'))
+                mdx_file_name = 'mdx/routes/{}.mdx'.format('{}/{}-{}'.format(namespace.name, route.name, route.version).replace('/', '-'))
+            
+            with self.output_to_relative_path(mdx_file_name):
+
+                self.emit("---")
+                self.emit("name: /{}".format(route.name))
+                self.emit("route: /{}/{}".format(namespace.name, route.name))
+                self.emit("namespace: {}".format(namespace.name))
+                self.emit("version: {}".format(route.version))
+                self.emit("menu: {}".format(namespace.name if not route.deprecated else 'Deprecated'))
+                if route.doc:
+                    self.emit_raw("description: {}".format(route.doc.replace('\n', '\\n').replace(': ', ':&nbsp').replace(':val:', '').replace(':field:', '').replace(':route:', '').replace(':type:', '')+"\n"))
+                self.emit("isDeprecated: {}".format('true' if route.deprecated else 'false'))
+                self.emit("urlStructure: https://{}.dropbox.com/{}/{}/{}".format(route.attrs.get("host", "api"), route.version, namespace.name, route.name ))            
+                self.emit("endpointFormat: {}".format(route.attrs.get("style")))
+                self.emit("isPreview: {}".format('true' if route.attrs.get("is_preview") else 'false'))
+                self.emit("scope: {}".format(route.attrs.get("scope")))
+                self.emit("authentication:")
+                for a in route.attrs.get("auth", "user").split(", "):
+                    self.emit("  - {}".format(a))
+                if route.attrs.get("select_admin_mode"):
+                    self.emit("  - {}".format(route.attrs.get("select_admin_mode")))
+                self._generate_route_datatype(route.arg_data_type, PARAMETER)
+                self._generate_route_datatype(route.result_data_type, RETURN_VALUE)
+                self._generate_route_datatype(route.error_data_type, ERROR)
+                self.emit("---")
+                self.emit("")
+
+                self.emit('import Endpoint from \'../../components/Endpoint\'')
+                self.emit('import stoneTypes from \'../../{}\''.format(js_file_name))
+                self.emit('')
+            
+                self.emit('<Endpoint endpointProps={{typeInfo: stoneTypes, ...props.pageContext.frontmatter}} />');
+        
+            # scan through datatypes to create a JSON file of all types and nested types in the route
+            with self.output_to_relative_path(js_file_name):
+                self.routeTypesDict = {}
+                if not is_void_type(route.arg_data_type):
+                    self._collect_route_datatypes(route.arg_data_type)
+                if not is_void_type(route.result_data_type):
+                    self._collect_route_datatypes(route.result_data_type)
+                if not is_void_type(route.error_data_type):
+                    self._collect_route_datatypes(route.error_data_type)
+                self.emit_raw(u'export default {}\n'.format(json.dumps(self.routeTypesDict,  sort_keys=True, indent=4, separators=(',', ': '))))
+                self.routeTypesDict = {}
 
     def _collect_route_datatypes(self, datatype):
         if is_void_type(datatype):

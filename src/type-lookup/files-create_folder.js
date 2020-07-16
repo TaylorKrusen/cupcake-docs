@@ -76,19 +76,6 @@ export default {
             ],
             "stone_type": "union"
         },
-        "CreateFolderResult": {
-            "fields": [
-                {
-                    "description": "Metadata of the created folder.",
-                    "parameter": "metadata",
-                    "type": {
-                        "datatype": "FolderMetadata",
-                        "namespace": "files"
-                    }
-                }
-            ],
-            "stone_type": "struct"
-        },
         "FolderMetadata": {
             "fields": [
                 {

@@ -2,6 +2,7 @@
 name: /properties/overwrite
 route: /file_properties/properties/overwrite
 namespace: file_properties
+version: 1
 menu: file_properties
 description: Overwrite property groups associated with a file. This endpoint should be used instead of `properties/update` when property groups are being updated via a "snapshot" instead of via a "delta". In other words, this endpoint will delete all omitted fields from a property group, whereas `properties/update` will only delete fields that are explicitly marked for deletion.
 isDeprecated: false

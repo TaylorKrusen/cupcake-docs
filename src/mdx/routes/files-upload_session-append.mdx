@@ -2,10 +2,11 @@
 name: /upload_session/append
 route: /files/upload_session/append
 namespace: files
-menu: files
-description: Append more data to an upload session.\nWhen the parameter close is set, this call will close the session.\nA single request should not upload more than 150 MB. The maximum size of a file one can upload to an upload session is 350 GB.\nCalls to this endpoint will count as data transport calls for any Dropbox Business teams with a limit on the number of data transport calls allowed per month. For more information, see the :link:`Data transport limit page https://www.dropbox.com/developers/reference/data-transport-limit`.
-isDeprecated: false
-urlStructure: https://content.dropbox.com/2/files/upload_session/append
+version: 1
+menu: Deprecated
+description: Append more data to an upload session.\nA single request should not upload more than 150 MB. The maximum size of a file one can upload to an upload session is 350 GB.\nCalls to this endpoint will count as data transport calls for any Dropbox Business teams with a limit on the number of data transport calls allowed per month. For more information, see the :link:`Data transport limit page https://www.dropbox.com/developers/reference/data-transport-limit`.
+isDeprecated: true
+urlStructure: https://content.dropbox.com/1/files/upload_session/append
 endpointFormat: upload
 isPreview: false
 scope: files.content.write
@@ -14,10 +15,10 @@ authentication:
   - team_admin
 paramType: 
   namespace: files
-  datatype: UploadSessionAppendArg
+  datatype: UploadSessionCursor
 paramExamples: 
   - label: default
-    content: {"cursor": {"session_id": "1234faaf0678bcde","offset": 0},"close": false}
+    content: {"session_id": "1234faaf0678bcde","offset": 0}
 returnType: 
   namespace: Void
   datatype: Void

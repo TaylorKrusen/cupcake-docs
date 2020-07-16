@@ -60,19 +60,6 @@ export default {
             ],
             "stone_type": "open_union"
         },
-        "DeleteResult": {
-            "fields": [
-                {
-                    "description": "Metadata of the deleted object.",
-                    "parameter": "metadata",
-                    "type": {
-                        "datatype": "Metadata",
-                        "namespace": "files"
-                    }
-                }
-            ],
-            "stone_type": "struct"
-        },
         "LookupError": {
             "fields": [
                 {

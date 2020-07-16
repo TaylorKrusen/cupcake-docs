@@ -1,0 +1,40 @@
+---
+name: /properties/template/list
+route: /files/properties/template/list
+namespace: files
+version: 1
+menu: Deprecated
+isDeprecated: true
+urlStructure: https://api.dropbox.com/1/files/properties/template/list
+endpointFormat: rpc
+isPreview: false
+scope: None
+authentication:
+  - user
+paramType: 
+  namespace: Void
+  datatype: Void
+returnType: 
+  namespace: file_properties
+  datatype: ListTemplateResult
+returnExamples: 
+  - label: default
+    content: {"template_ids": ["ptid:1a5n2i6d3OYEAAAAAAAAAYa"]}
+errorType: 
+  namespace: file_properties
+  datatype: TemplateError
+errorExamples: 
+  - label: restricted_content
+    content: {"error_summary": "restricted_content/...","error": {".tag": "restricted_content"}}
+  - label: restricted_content
+    content: {".tag": "restricted_content"}
+  - label: other
+    content: {"error_summary": "other/...","error": {".tag": "other"}}
+  - label: other
+    content: {".tag": "other"}
+---
+
+import Endpoint from '../../components/Endpoint'
+import stoneTypes from '../../type-lookup/files-properties-template-list.js'
+
+<Endpoint endpointProps={{typeInfo: stoneTypes, ...props.pageContext.frontmatter}} />

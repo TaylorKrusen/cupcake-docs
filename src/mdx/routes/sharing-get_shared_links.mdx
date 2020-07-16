@@ -1,0 +1,37 @@
+---
+name: /get_shared_links
+route: /sharing/get_shared_links
+namespace: sharing
+version: 1
+menu: Deprecated
+description: Returns a list of `LinkMetadata` objects for this user, including collection links.\nIf no path is given, returns a list of all shared links for the current user, including collection links, up to a maximum of 1000 links.\nIf a non-empty path is given, returns a list of all shared links that allow access to the given path.  Collection links are never returned in this case.\nNote that the url field in the response is never the shortened URL.
+isDeprecated: true
+urlStructure: https://api.dropbox.com/1/sharing/get_shared_links
+endpointFormat: rpc
+isPreview: false
+scope: None
+authentication:
+  - user
+paramType: 
+  namespace: sharing
+  datatype: GetSharedLinksArg
+paramExamples: 
+  - label: Get all links, including collection links.
+    content: {"path": ""}
+  - label: Get links giving access to /Homework/Math.
+    content: {"path": "/Homework/Math"}
+returnType: 
+  namespace: sharing
+  datatype: GetSharedLinksResult
+returnExamples: 
+  - label: default
+    content: {"links": [{".tag": "path","url": "https://www.dropbox.com/s/2sn712vy1ovegw8/Prime_Numbers.txt?dl=0","visibility": {".tag": "public"},"path": "/Homework/Math/Prime_Numbers.txt"}]}
+errorType: 
+  namespace: sharing
+  datatype: GetSharedLinksError
+---
+
+import Endpoint from '../../components/Endpoint'
+import stoneTypes from '../../type-lookup/sharing-get_shared_links.js'
+
+<Endpoint endpointProps={{typeInfo: stoneTypes, ...props.pageContext.frontmatter}} />

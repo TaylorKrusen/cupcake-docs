@@ -1,0 +1,49 @@
+---
+name: /delete
+route: /files/delete
+namespace: files
+version: 2
+menu: files
+description: Delete the file or folder at a given path.\nIf the path is a folder, all its contents will be deleted too.\nA successful response indicates that the file or folder was deleted. The returned metadata will be the corresponding `FileMetadata` or `FolderMetadata` for the item at time of deletion, and not a `DeletedMetadata` object.
+isDeprecated: false
+urlStructure: https://api.dropbox.com/2/files/delete
+endpointFormat: rpc
+isPreview: false
+scope: files.content.write
+authentication:
+  - user
+  - team_admin
+paramType: 
+  namespace: files
+  datatype: DeleteArg
+paramExamples: 
+  - label: default
+    content: {"path": "/Homework/math/Prime_Numbers.txt"}
+returnType: 
+  namespace: files
+  datatype: DeleteResult
+returnExamples: 
+  - label: default
+    content: {"metadata": {".tag": "file","name": "Prime_Numbers.txt","id": "id:a4ayc_80_OEAAAAAAAAAXw","client_modified": "2015-05-12T15:50:38Z","server_modified": "2015-05-12T15:50:38Z","rev": "a1c10ce0dd78","size": 7212,"path_lower": "/homework/math/prime_numbers.txt","path_display": "/Homework/math/Prime_Numbers.txt","sharing_info": {"read_only": true,"parent_shared_folder_id": "84528192421","modified_by": "dbid:AAH4f99T0taONIb-OurWxbNQ6ywGRopQngc"},"is_downloadable": true,"property_groups": [{"template_id": "ptid:1a5n2i6d3OYEAAAAAAAAAYa","fields": [{"name": "Security Policy","value": "Confidential"}]}],"has_explicit_shared_members": false,"content_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855","file_lock_info": {"is_lockholder": true,"lockholder_name": "Imaginary User","created": "2015-05-12T15:50:38Z"}}}
+errorType: 
+  namespace: files
+  datatype: DeleteError
+errorExamples: 
+  - label: too_many_write_operations
+    content: {"error_summary": "too_many_write_operations/...","error": {".tag": "too_many_write_operations"}}
+  - label: too_many_write_operations
+    content: {".tag": "too_many_write_operations"}
+  - label: too_many_files
+    content: {"error_summary": "too_many_files/...","error": {".tag": "too_many_files"}}
+  - label: too_many_files
+    content: {".tag": "too_many_files"}
+  - label: other
+    content: {"error_summary": "other/...","error": {".tag": "other"}}
+  - label: other
+    content: {".tag": "other"}
+---
+
+import Endpoint from '../../components/Endpoint'
+import stoneTypes from '../../type-lookup/files-delete-2.js'
+
+<Endpoint endpointProps={{typeInfo: stoneTypes, ...props.pageContext.frontmatter}} />

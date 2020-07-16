@@ -1,0 +1,60 @@
+---
+name: /properties/template/add
+route: /team/properties/template/add
+namespace: team
+version: 1
+menu: Deprecated
+description: Permission :&nbspTeam member file access.
+isDeprecated: true
+urlStructure: https://api.dropbox.com/1/team/properties/template/add
+endpointFormat: rpc
+isPreview: false
+scope: None
+authentication:
+  - team
+paramType: 
+  namespace: file_properties
+  datatype: AddTemplateArg
+paramExamples: 
+  - label: default
+    content: {"name": "Security","description": "These properties describe how confidential this file or folder is.","fields": [{"name": "Security Policy","description": "This is the security policy of the file or folder described.\nPolicies can be Confidential, Public or Internal.","type": "string"}]}
+returnType: 
+  namespace: file_properties
+  datatype: AddTemplateResult
+returnExamples: 
+  - label: default
+    content: {"template_id": "ptid:1a5n2i6d3OYEAAAAAAAAAYa"}
+errorType: 
+  namespace: file_properties
+  datatype: ModifyTemplateError
+errorExamples: 
+  - label: restricted_content
+    content: {"error_summary": "restricted_content/...","error": {".tag": "restricted_content"}}
+  - label: restricted_content
+    content: {".tag": "restricted_content"}
+  - label: other
+    content: {"error_summary": "other/...","error": {".tag": "other"}}
+  - label: other
+    content: {".tag": "other"}
+  - label: conflicting_property_names
+    content: {"error_summary": "conflicting_property_names/...","error": {".tag": "conflicting_property_names"}}
+  - label: conflicting_property_names
+    content: {".tag": "conflicting_property_names"}
+  - label: too_many_properties
+    content: {"error_summary": "too_many_properties/...","error": {".tag": "too_many_properties"}}
+  - label: too_many_properties
+    content: {".tag": "too_many_properties"}
+  - label: too_many_templates
+    content: {"error_summary": "too_many_templates/...","error": {".tag": "too_many_templates"}}
+  - label: too_many_templates
+    content: {".tag": "too_many_templates"}
+  - label: template_attribute_too_large
+    content: {"error_summary": "template_attribute_too_large/...","error": {".tag": "template_attribute_too_large"}}
+  - label: template_attribute_too_large
+    content: {".tag": "template_attribute_too_large"}
+---
+
+import Endpoint from '../../components/Endpoint'
+import stoneTypes from '../../type-lookup/team-properties-template-add.js'
+
+<Endpoint endpointProps={{typeInfo: stoneTypes, ...props.pageContext.frontmatter}} />

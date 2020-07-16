@@ -1,0 +1,48 @@
+---
+name: /change_file_member_access
+route: /sharing/change_file_member_access
+namespace: sharing
+version: 1
+menu: Deprecated
+description: Identical to update_file_member but with less information returned.
+isDeprecated: true
+urlStructure: https://api.dropbox.com/1/sharing/change_file_member_access
+endpointFormat: rpc
+isPreview: false
+scope: None
+authentication:
+  - user
+paramType: 
+  namespace: sharing
+  datatype: ChangeFileMemberAccessArgs
+paramExamples: 
+  - label: default
+    content: {"file": "id:3kmLmQFnf1AAAAAAAAAAAw","member": {".tag": "email","email": "justin@example.com"},"access_level": "viewer"}
+returnType: 
+  namespace: sharing
+  datatype: FileMemberActionResult
+returnExamples: 
+  - label: default
+    content: {"member": {".tag": "email","email": "justin@example.com"},"result": {".tag": "success"}}
+errorType: 
+  namespace: sharing
+  datatype: FileMemberActionError
+errorExamples: 
+  - label: invalid_member
+    content: {"error_summary": "invalid_member/...","error": {".tag": "invalid_member"}}
+  - label: invalid_member
+    content: {".tag": "invalid_member"}
+  - label: no_permission
+    content: {"error_summary": "no_permission/...","error": {".tag": "no_permission"}}
+  - label: no_permission
+    content: {".tag": "no_permission"}
+  - label: other
+    content: {"error_summary": "other/...","error": {".tag": "other"}}
+  - label: other
+    content: {".tag": "other"}
+---
+
+import Endpoint from '../../components/Endpoint'
+import stoneTypes from '../../type-lookup/sharing-change_file_member_access.js'
+
+<Endpoint endpointProps={{typeInfo: stoneTypes, ...props.pageContext.frontmatter}} />

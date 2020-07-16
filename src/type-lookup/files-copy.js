@@ -264,19 +264,6 @@ export default {
             ],
             "stone_type": "open_union"
         },
-        "RelocationResult": {
-            "fields": [
-                {
-                    "description": "Metadata of the relocated object.",
-                    "parameter": "metadata",
-                    "type": {
-                        "datatype": "Metadata",
-                        "namespace": "files"
-                    }
-                }
-            ],
-            "stone_type": "struct"
-        },
         "WriteConflictError": {
             "fields": [
                 {

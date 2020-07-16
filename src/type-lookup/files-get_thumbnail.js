@@ -450,122 +450,6 @@ export default {
             "stone_type": "struct",
             "todo": true
         },
-        "MinimalFileLinkMetadata": {
-            "fields": [
-                {
-                    "description": "URL of the shared link.",
-                    "parameter": "url",
-                    "type": {
-                        "primitive": "String"
-                    }
-                },
-                {
-                    "description": "A unique identifier for the current revision of a file. This field is the same rev as elsewhere in the API and can be used to detect changes and avoid conflicts.",
-                    "parameter": "rev",
-                    "type": {
-                        "primitive": "String"
-                    }
-                },
-                {
-                    "description": "Unique identifier for the linked file.",
-                    "parameter": "id",
-                    "type": {
-                        "optional": {
-                            "primitive": "String"
-                        }
-                    }
-                },
-                {
-                    "description": "Full path in the user's Dropbox. This always starts with a slash. This field will only be present only if the linked file is in the authenticated user's Dropbox.",
-                    "parameter": "path",
-                    "type": {
-                        "optional": {
-                            "primitive": "String"
-                        }
-                    }
-                }
-            ],
-            "stone_type": "struct"
-        },
-        "PathOrLink": {
-            "fields": [
-                {
-                    "parameter": "path",
-                    "type": {
-                        "primitive": "String"
-                    }
-                },
-                {
-                    "parameter": "link",
-                    "type": {
-                        "datatype": "SharedLinkFileInfo",
-                        "namespace": "files"
-                    }
-                },
-                {
-                    "parameter": "other",
-                    "type": {
-                        "primitive": "Void"
-                    }
-                }
-            ],
-            "stone_type": "open_union"
-        },
-        "PreviewResult": {
-            "fields": [
-                {
-                    "description": "Metadata corresponding to the file received as an argument. Will be populated if the endpoint is called with a path (ReadPath).",
-                    "parameter": "file_metadata",
-                    "type": {
-                        "optional": {
-                            "datatype": "FileMetadata",
-                            "namespace": "files"
-                        }
-                    }
-                },
-                {
-                    "description": "Minimal metadata corresponding to the file received as an argument. Will be populated if the endpoint is called using a shared link (SharedLinkFileInfo).",
-                    "parameter": "link_metadata",
-                    "type": {
-                        "optional": {
-                            "datatype": "MinimalFileLinkMetadata",
-                            "namespace": "files"
-                        }
-                    }
-                }
-            ],
-            "stone_type": "struct"
-        },
-        "SharedLinkFileInfo": {
-            "fields": [
-                {
-                    "description": "The shared link corresponding to either a file or shared link to a folder. If it is for a folder shared link, we use the path param to determine for which file in the folder the view is for.",
-                    "parameter": "url",
-                    "type": {
-                        "primitive": "String"
-                    }
-                },
-                {
-                    "description": "The path corresponding to a file in a shared link to a folder. Required for shared links to folders.",
-                    "parameter": "path",
-                    "type": {
-                        "optional": {
-                            "primitive": "String"
-                        }
-                    }
-                },
-                {
-                    "description": "Password for the shared link. Required for password-protected shared links to files  unless it can be read from a cookie.",
-                    "parameter": "password",
-                    "type": {
-                        "optional": {
-                            "primitive": "String"
-                        }
-                    }
-                }
-            ],
-            "stone_type": "struct"
-        },
         "SymlinkInfo": {
             "fields": [
                 {
@@ -577,6 +461,76 @@ export default {
                 }
             ],
             "stone_type": "struct"
+        },
+        "ThumbnailArg": {
+            "fields": [
+                {
+                    "description": "The path to the image file you want to thumbnail.",
+                    "parameter": "path",
+                    "type": {
+                        "primitive": "String"
+                    }
+                },
+                {
+                    "description": "The format for the thumbnail image, jpeg (default) or png. For  images that are photos, jpeg should be preferred, while png is  better for screenshots and digital arts.",
+                    "parameter": "format",
+                    "type": {
+                        "datatype": "ThumbnailFormat",
+                        "namespace": "files"
+                    }
+                },
+                {
+                    "description": "The size for the thumbnail image.",
+                    "parameter": "size",
+                    "type": {
+                        "datatype": "ThumbnailSize",
+                        "namespace": "files"
+                    }
+                },
+                {
+                    "description": "How to resize and crop the image to achieve the desired size.",
+                    "parameter": "mode",
+                    "type": {
+                        "datatype": "ThumbnailMode",
+                        "namespace": "files"
+                    }
+                }
+            ],
+            "stone_type": "struct"
+        },
+        "ThumbnailError": {
+            "fields": [
+                {
+                    "description": "An error occurs when downloading metadata for the image.",
+                    "parameter": "path",
+                    "type": {
+                        "datatype": "LookupError",
+                        "namespace": "files"
+                    }
+                },
+                {
+                    "description": "The file extension doesn't allow conversion to a thumbnail.",
+                    "parameter": "unsupported_extension",
+                    "type": {
+                        "primitive": "Void"
+                    }
+                },
+                {
+                    "description": "The image cannot be converted to a thumbnail.",
+                    "parameter": "unsupported_image",
+                    "type": {
+                        "primitive": "Void"
+                    }
+                },
+                {
+                    "description": "An error occurs during thumbnail conversion.",
+                    "parameter": "conversion_error",
+                    "type": {
+                        "primitive": "Void"
+                    }
+                }
+            ],
+            "stone_type": "union"
         },
         "ThumbnailFormat": {
             "fields": [
@@ -688,97 +642,6 @@ export default {
                 }
             ],
             "stone_type": "union"
-        },
-        "ThumbnailV2Arg": {
-            "fields": [
-                {
-                    "description": "Information specifying which file to preview. This could be a path to a file, a shared link pointing to a file, or a shared link pointing to a folder, with a relative path.",
-                    "parameter": "resource",
-                    "type": {
-                        "datatype": "PathOrLink",
-                        "namespace": "files"
-                    }
-                },
-                {
-                    "description": "The format for the thumbnail image, jpeg (default) or png. For  images that are photos, jpeg should be preferred, while png is  better for screenshots and digital arts.",
-                    "parameter": "format",
-                    "type": {
-                        "datatype": "ThumbnailFormat",
-                        "namespace": "files"
-                    }
-                },
-                {
-                    "description": "The size for the thumbnail image.",
-                    "parameter": "size",
-                    "type": {
-                        "datatype": "ThumbnailSize",
-                        "namespace": "files"
-                    }
-                },
-                {
-                    "description": "How to resize and crop the image to achieve the desired size.",
-                    "parameter": "mode",
-                    "type": {
-                        "datatype": "ThumbnailMode",
-                        "namespace": "files"
-                    }
-                }
-            ],
-            "stone_type": "struct"
-        },
-        "ThumbnailV2Error": {
-            "fields": [
-                {
-                    "description": "An error occurred when downloading metadata for the image.",
-                    "parameter": "path",
-                    "type": {
-                        "datatype": "LookupError",
-                        "namespace": "files"
-                    }
-                },
-                {
-                    "description": "The file extension doesn't allow conversion to a thumbnail.",
-                    "parameter": "unsupported_extension",
-                    "type": {
-                        "primitive": "Void"
-                    }
-                },
-                {
-                    "description": "The image cannot be converted to a thumbnail.",
-                    "parameter": "unsupported_image",
-                    "type": {
-                        "primitive": "Void"
-                    }
-                },
-                {
-                    "description": "An error occurred during thumbnail conversion.",
-                    "parameter": "conversion_error",
-                    "type": {
-                        "primitive": "Void"
-                    }
-                },
-                {
-                    "description": "Access to this shared link is forbidden.",
-                    "parameter": "access_denied",
-                    "type": {
-                        "primitive": "Void"
-                    }
-                },
-                {
-                    "description": "The shared link does not exist.",
-                    "parameter": "not_found",
-                    "type": {
-                        "primitive": "Void"
-                    }
-                },
-                {
-                    "parameter": "other",
-                    "type": {
-                        "primitive": "Void"
-                    }
-                }
-            ],
-            "stone_type": "open_union"
         }
     }
 }

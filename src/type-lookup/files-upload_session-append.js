@@ -1,25 +1,5 @@
 export default {
     "files": {
-        "UploadSessionAppendArg": {
-            "fields": [
-                {
-                    "description": "Contains the upload session ID and the offset.",
-                    "parameter": "cursor",
-                    "type": {
-                        "datatype": "UploadSessionCursor",
-                        "namespace": "files"
-                    }
-                },
-                {
-                    "description": "If true, the current session will be closed, at which point you won't be able to call :route:`upload_session/append:2` anymore with the current session.",
-                    "parameter": "close",
-                    "type": {
-                        "primitive": "Boolean"
-                    }
-                }
-            ],
-            "stone_type": "struct"
-        },
         "UploadSessionCursor": {
             "fields": [
                 {

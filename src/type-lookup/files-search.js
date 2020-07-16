@@ -1,128 +1,5 @@
 export default {
     "files": {
-        "FileCategory": {
-            "fields": [
-                {
-                    "description": "jpg, png, gif, and more.",
-                    "parameter": "image",
-                    "type": {
-                        "primitive": "Void"
-                    }
-                },
-                {
-                    "description": "doc, docx, txt, and more.",
-                    "parameter": "document",
-                    "type": {
-                        "primitive": "Void"
-                    }
-                },
-                {
-                    "description": "pdf.",
-                    "parameter": "pdf",
-                    "type": {
-                        "primitive": "Void"
-                    }
-                },
-                {
-                    "description": "xlsx, xls, csv, and more.",
-                    "parameter": "spreadsheet",
-                    "type": {
-                        "primitive": "Void"
-                    }
-                },
-                {
-                    "description": "ppt, pptx, key, and more.",
-                    "parameter": "presentation",
-                    "type": {
-                        "primitive": "Void"
-                    }
-                },
-                {
-                    "description": "mp3, wav, mid, and more.",
-                    "parameter": "audio",
-                    "type": {
-                        "primitive": "Void"
-                    }
-                },
-                {
-                    "description": "mov, wmv, mp4, and more.",
-                    "parameter": "video",
-                    "type": {
-                        "primitive": "Void"
-                    }
-                },
-                {
-                    "description": "dropbox folder.",
-                    "parameter": "folder",
-                    "type": {
-                        "primitive": "Void"
-                    }
-                },
-                {
-                    "description": "dropbox paper doc.",
-                    "parameter": "paper",
-                    "type": {
-                        "primitive": "Void"
-                    }
-                },
-                {
-                    "description": "any file not in one of the categories above.",
-                    "parameter": "others",
-                    "type": {
-                        "primitive": "Void"
-                    }
-                },
-                {
-                    "parameter": "other",
-                    "type": {
-                        "primitive": "Void"
-                    }
-                }
-            ],
-            "stone_type": "open_union"
-        },
-        "FileStatus": {
-            "fields": [
-                {
-                    "parameter": "active",
-                    "type": {
-                        "primitive": "Void"
-                    }
-                },
-                {
-                    "parameter": "deleted",
-                    "type": {
-                        "primitive": "Void"
-                    }
-                },
-                {
-                    "parameter": "other",
-                    "type": {
-                        "primitive": "Void"
-                    }
-                }
-            ],
-            "stone_type": "open_union"
-        },
-        "HighlightSpan": {
-            "fields": [
-                {
-                    "description": "String to be determined whether it should be highlighted or not.",
-                    "parameter": "highlight_str",
-                    "type": {
-                        "primitive": "String"
-                    }
-                },
-                {
-                    "description": "The string should be highlighted or not.",
-                    "parameter": "is_highlighted",
-                    "type": {
-                        "primitive": "Boolean"
-                    }
-                }
-            ],
-            "stone_type": "struct"
-        },
         "LookupError": {
             "fields": [
                 {
@@ -226,24 +103,46 @@ export default {
             "stone_type": "struct",
             "todo": true
         },
-        "MetadataV2": {
-            "description": "Metadata for a file, folder or other resource types.",
+        "SearchArg": {
             "fields": [
                 {
-                    "parameter": "metadata",
+                    "description": "The path in the user's Dropbox to search. Should probably be a folder.",
+                    "parameter": "path",
                     "type": {
-                        "datatype": "Metadata",
-                        "namespace": "files"
+                        "primitive": "String"
                     }
                 },
                 {
-                    "parameter": "other",
+                    "description": "The string to search for. Query string may be rewritten to improve relevance of results. The string is split on spaces into multiple tokens. For file name searching, the last token is used for prefix matching (i.e. \"bat c\" matches \"bat cave\" but not \"batman car\").",
+                    "parameter": "query",
                     "type": {
-                        "primitive": "Void"
+                        "primitive": "String"
+                    }
+                },
+                {
+                    "description": "The starting index within the search results (used for paging).",
+                    "parameter": "start",
+                    "type": {
+                        "primitive": "UInt64"
+                    }
+                },
+                {
+                    "description": "The maximum number of search results to return.",
+                    "parameter": "max_results",
+                    "type": {
+                        "primitive": "UInt64"
+                    }
+                },
+                {
+                    "description": "The search mode (filename, filename_and_content, or deleted_filename). Note that searching file content is only available for Dropbox Business accounts.",
+                    "parameter": "mode",
+                    "type": {
+                        "datatype": "SearchMode",
+                        "namespace": "files"
                     }
                 }
             ],
-            "stone_type": "open_union"
+            "stone_type": "struct"
         },
         "SearchError": {
             "fields": [
@@ -278,167 +177,104 @@ export default {
             ],
             "stone_type": "open_union"
         },
-        "SearchMatchFieldOptions": {
+        "SearchMatch": {
             "fields": [
                 {
-                    "description": "Whether to include highlight span from file title.",
-                    "parameter": "include_highlights",
+                    "description": "The type of the match.",
+                    "parameter": "match_type",
                     "type": {
-                        "primitive": "Boolean"
+                        "datatype": "SearchMatchType",
+                        "namespace": "files"
                     }
-                }
-            ],
-            "stone_type": "struct"
-        },
-        "SearchMatchV2": {
-            "fields": [
+                },
                 {
                     "description": "The metadata for the matched file or folder.",
                     "parameter": "metadata",
                     "type": {
-                        "datatype": "MetadataV2",
+                        "datatype": "Metadata",
                         "namespace": "files"
                     }
-                },
-                {
-                    "description": "The list of HighlightSpan determines which parts of the file title should be highlighted.",
-                    "parameter": "highlight_spans",
-                    "type": {
-                        "optional": {
-                            "list": {
-                                "datatype": "HighlightSpan",
-                                "namespace": "files"
-                            }
-                        }
-                    }
                 }
             ],
             "stone_type": "struct"
         },
-        "SearchOptions": {
+        "SearchMatchType": {
+            "description": "Indicates what type of match was found for a given item.",
             "fields": [
                 {
-                    "description": "Scopes the search to a path in the user's Dropbox. Searches the entire Dropbox if not specified.",
-                    "parameter": "path",
+                    "description": "This item was matched on its file or folder name.",
+                    "parameter": "filename",
                     "type": {
-                        "optional": {
-                            "primitive": "String"
-                        }
+                        "primitive": "Void"
                     }
                 },
                 {
-                    "description": "The maximum number of search results to return.",
-                    "parameter": "max_results",
+                    "description": "This item was matched based on its file contents.",
+                    "parameter": "content",
                     "type": {
-                        "primitive": "UInt64"
+                        "primitive": "Void"
                     }
                 },
                 {
-                    "description": "Restricts search to the given file status.",
-                    "parameter": "file_status",
+                    "description": "This item was matched based on both its contents and its file name.",
+                    "parameter": "both",
                     "type": {
-                        "datatype": "FileStatus",
-                        "namespace": "files"
-                    }
-                },
-                {
-                    "description": "Restricts search to only match on filenames.",
-                    "parameter": "filename_only",
-                    "type": {
-                        "primitive": "Boolean"
-                    }
-                },
-                {
-                    "description": "Restricts search to only the extensions specified. Only supported for active file search.",
-                    "parameter": "file_extensions",
-                    "type": {
-                        "optional": {
-                            "list": {
-                                "primitive": "String"
-                            }
-                        }
-                    }
-                },
-                {
-                    "description": "Restricts search to only the file categories specified. Only supported for active file search.",
-                    "parameter": "file_categories",
-                    "type": {
-                        "optional": {
-                            "list": {
-                                "datatype": "FileCategory",
-                                "namespace": "files"
-                            }
-                        }
+                        "primitive": "Void"
                     }
                 }
             ],
-            "stone_type": "struct"
+            "stone_type": "union"
         },
-        "SearchV2Arg": {
+        "SearchMode": {
             "fields": [
                 {
-                    "description": "The string to search for. May match across multiple fields based on the request arguments. Query string may be rewritten to improve relevance of results.",
-                    "parameter": "query",
+                    "description": "Search file and folder names.",
+                    "parameter": "filename",
                     "type": {
-                        "primitive": "String"
+                        "primitive": "Void"
                     }
                 },
                 {
-                    "description": "Options for more targeted search results.",
-                    "parameter": "options",
+                    "description": "Search file and folder names as well as file contents.",
+                    "parameter": "filename_and_content",
                     "type": {
-                        "optional": {
-                            "datatype": "SearchOptions",
-                            "namespace": "files"
-                        }
+                        "primitive": "Void"
                     }
                 },
                 {
-                    "description": "Options for search results match fields.",
-                    "parameter": "match_field_options",
+                    "description": "Search for deleted file and folder names.",
+                    "parameter": "deleted_filename",
                     "type": {
-                        "optional": {
-                            "datatype": "SearchMatchFieldOptions",
-                            "namespace": "files"
-                        }
-                    }
-                },
-                {
-                    "description": "Deprecated and moved this option to SearchMatchFieldOptions.",
-                    "parameter": "include_highlights",
-                    "type": {
-                        "primitive": "Boolean"
+                        "primitive": "Void"
                     }
                 }
             ],
-            "stone_type": "struct"
+            "stone_type": "union"
         },
-        "SearchV2Result": {
+        "SearchResult": {
             "fields": [
                 {
                     "description": "A list (possibly empty) of matches for the query.",
                     "parameter": "matches",
                     "type": {
                         "list": {
-                            "datatype": "SearchMatchV2",
+                            "datatype": "SearchMatch",
                             "namespace": "files"
                         }
                     }
                 },
                 {
-                    "description": "Used for paging. If true, indicates there is another page of results available that can be fetched by calling :route:`search/continue:2` with the cursor.",
-                    "parameter": "has_more",
+                    "description": "Used for paging. If true, indicates there is another page of results available that can be fetched by calling :route:`search` again.",
+                    "parameter": "more",
                     "type": {
                         "primitive": "Boolean"
                     }
                 },
                 {
-                    "description": "Pass the cursor into :route:`search/continue:2` to fetch the next page of results.",
-                    "parameter": "cursor",
+                    "description": "Used for paging. Value to set the start argument to when calling :route:`search` to fetch the next page of results.",
+                    "parameter": "start",
                     "type": {
-                        "optional": {
-                            "primitive": "String"
-                        }
+                        "primitive": "UInt64"
                     }
                 }
             ],

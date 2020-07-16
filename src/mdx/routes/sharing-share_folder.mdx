@@ -2,6 +2,7 @@
 name: /share_folder
 route: /sharing/share_folder
 namespace: sharing
+version: 1
 menu: sharing
 description: Share a folder with collaborators.\nMost sharing will be completed synchronously. Large folders will be completed asynchronously. To make testing the async case repeatable, set `ShareFolderArg.force_async`.\nIf a `ShareFolderLaunch.async_job_id` is returned, you'll need to call `check_share_job_status` until the action completes to get the metadata for the folder.
 isDeprecated: false

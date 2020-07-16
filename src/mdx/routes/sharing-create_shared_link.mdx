@@ -1,0 +1,36 @@
+---
+name: /create_shared_link
+route: /sharing/create_shared_link
+namespace: sharing
+version: 1
+menu: Deprecated
+description: Create a shared link.\nIf a shared link already exists for the given path, that link is returned.\nNote that in the returned `PathLinkMetadata`, the `PathLinkMetadata.url` field is the shortened URL if `CreateSharedLinkArg.short_url` argument is set to `true`.\nPreviously, it was technically possible to break a shared link by moving or renaming the corresponding file or folder. In the future, this will no longer be the case, so your app shouldn't rely on this behavior. Instead, if your app needs to revoke a shared link, use `revoke_shared_link`.
+isDeprecated: true
+urlStructure: https://api.dropbox.com/1/sharing/create_shared_link
+endpointFormat: rpc
+isPreview: false
+scope: None
+authentication:
+  - user
+  - team_admin
+paramType: 
+  namespace: sharing
+  datatype: CreateSharedLinkArg
+paramExamples: 
+  - label: default
+    content: {"path": "/Homework/Math/Prime_Numbers.txt","short_url": false}
+returnType: 
+  namespace: sharing
+  datatype: PathLinkMetadata
+returnExamples: 
+  - label: default
+    content: {"url": "https://www.dropbox.com/s/2sn712vy1ovegw8/Prime_Numbers.txt?dl=0","visibility": {".tag": "public"},"path": "/Homework/Math/Prime_Numbers.txt"}
+errorType: 
+  namespace: sharing
+  datatype: CreateSharedLinkError
+---
+
+import Endpoint from '../../components/Endpoint'
+import stoneTypes from '../../type-lookup/sharing-create_shared_link.js'
+
+<Endpoint endpointProps={{typeInfo: stoneTypes, ...props.pageContext.frontmatter}} />

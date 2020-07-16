@@ -19,11 +19,13 @@ export const innerContainer: SystemStyleObject = {
 export const headerLink: SystemStyleObject = {
   marginRight: '34px',
   fontSize: '18px',
-  color: 'black',
+  color: 'header.text',
   ':hover': {
     opacity: 0.5,
   },
 };
+
+export const headerLinkDark: SystemStyleObject = {};
 
 export const headerBoxButton: SystemStyleObject = {
   border: '1.2px #CED4DE solid',
@@ -33,13 +35,13 @@ export const headerBoxButton: SystemStyleObject = {
   lineHeight: 2,
   fontSize: '14px',
   textDecoration: 'none',
-  color: 'black',
+  color: 'header.text',
   ':hover': {
     cursor: 'pointer',
     backgroundColor: '#eaeaea',
     borderColor: 'gray',
   },
-}
+};
 
 export const headerButton: SystemStyleObject = {
   ...mixins.centerAlign,
