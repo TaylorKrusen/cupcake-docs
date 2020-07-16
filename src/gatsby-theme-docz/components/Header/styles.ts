@@ -1,20 +1,21 @@
-import * as mixins from '~utils/mixins'
+import * as mixins from 'gatsby-theme-docz/src/utils/mixins';
+import {SystemStyleObject} from '@styled-system/css';
 
-export const wrapper = {
+export const wrapper: SystemStyleObject = {
   bg: 'header.bg',
   position: 'relative',
-  borderBottom: t => `1px solid ${t.colors.border}`,
-}
+  borderBottom: (t: any) => `1px solid ${t.colors.border}`,
+};
 
-export const innerContainer = {
+export const innerContainer: SystemStyleObject = {
   ...mixins.centerAlign,
   px: 4,
   py: '10px',
   position: 'relative',
   justifyContent: 'space-between',
-}
+};
 
-export const headerButton = {
+export const headerButton: SystemStyleObject = {
   ...mixins.centerAlign,
   outline: 'none',
   p: '12px',
@@ -27,9 +28,9 @@ export const headerButton = {
   ':hover': {
     cursor: 'pointer',
   },
-}
+};
 
-export const editButton = {
+export const editButton: SystemStyleObject = {
   ...mixins.centerAlign,
   position: 'absolute',
   bottom: -40,
@@ -39,4 +40,4 @@ export const editButton = {
   fontSize: 1,
   textDecoration: 'none',
   borderRadius: 'radius',
-}
+};

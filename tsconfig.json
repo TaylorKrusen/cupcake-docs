@@ -61,8 +61,8 @@
     // "emitDecoratorMetadata": true,         /* Enables experimental support for emitting type metadata for decorators. */
   },
   "include": [
-    "src/components/**/*.ts",
-    "src/components/**/*.tsx",
-    "src/interfaces/**/*.ts"
+    "src/interfaces/custom.d.ts",
+    "src/**/*.ts",
+    "src/**/*.tsx",
   ]
 }
