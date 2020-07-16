@@ -33,5 +33,21 @@ module.exports = {
         path: `${__dirname}/../src/stone-types/`,
       },
     },
-  ]
+  ],
+  siteMetadata: {
+    headerLinks: [
+      {
+        text: "Documentation",
+        link: "https://www.dropbox.com/developers/documentation",
+      },
+      {
+        text: "Guides",
+        link: "https://www.dropbox.com/developers/reference",
+      },
+      {
+        text: "Community & Support",
+        link: "https://www.dropbox.com/developers/support",
+      }
+    ]
+  }
 }

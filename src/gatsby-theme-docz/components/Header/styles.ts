@@ -13,6 +13,16 @@ export const innerContainer: SystemStyleObject = {
   py: '10px',
   position: 'relative',
   justifyContent: 'space-between',
+  padding: '18px',
+};
+
+export const headerLink = {
+  marginRight: '34px',
+  fontSize: '18px',
+  color: 'black',
+  ':hover': {
+    opacity: 0.5,
+  },
 };
 
 export const headerButton: SystemStyleObject = {
