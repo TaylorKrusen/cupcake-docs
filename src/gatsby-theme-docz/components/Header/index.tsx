@@ -32,7 +32,7 @@ export const Header = () => {
   return (
     <div sx={wrapper}>
       <div sx={innerContainer}>
-        <Logo />
+        <Logo color={colorMode}/>
         <Flex sx={{alignItems: "center"}}>
           {config.repository && (
             <Box sx={{mr: 2}}>
