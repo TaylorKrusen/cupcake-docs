@@ -62,6 +62,9 @@ export default function Endpoint(props: {endpointProps: EndpointProps}) {
   } = props.endpointProps;
   const url = `https://api.dropboxapi.com/2${route}`;
   const renderExamples = function (examples: Example[]) {
+    if (!examples) {
+      return;
+    }
     return examples.map((example, idx) => {
       return (
         <Example
