@@ -6,13 +6,17 @@ version: 1
 menu: deprecated
 description: Returns the status of an asynchronous job for `move_batch:1`. If success, it returns list of results for each entry.
 isDeprecated: true
-urlStructure: https://api.dropbox.com/1/files/move_batch/check
+deprecatedBy: move_batch/check_2
+urlStructure: https://api.dropbox.com/2/files/move_batch/check
 endpointFormat: rpc
 isPreview: false
 scope: files.content.write
 authentication:
   - user
   - team_admin
+shellExample:
+  label: command line example
+  content: curl -X POST https://api.dropboxapi.com/2/files/move_batch/check \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN" \\n    --header "Content-Type: application/json" \\n    --data "{\"async_job_id\": \"34g93hh34h04y384084\"}"
 paramType: 
   namespace: async
   datatype: PollArg

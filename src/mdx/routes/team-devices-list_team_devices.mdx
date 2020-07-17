@@ -6,12 +6,16 @@ version: 1
 menu: deprecated
 description: List all device sessions of a team.\nPermission :&nbspTeam member file access.
 isDeprecated: true
-urlStructure: https://api.dropbox.com/1/team/devices/list_team_devices
+deprecatedBy: devices/list_members_devices
+urlStructure: https://api.dropbox.com/2/team/devices/list_team_devices
 endpointFormat: rpc
 isPreview: false
 scope: None
 authentication:
   - team
+shellExample:
+  label: command line example
+  content: curl -X POST https://api.dropboxapi.com/2/team/devices/list_team_devices \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN" \\n    --header "Content-Type: application/json" \\n    --data "{\"cursor\": \"ZtkX9_EHj3x7PMkVuFIhwKYXEpwpLwyxp9vMKomUhllil9q7eWiAu\",\"include_web_sessions\": true,\"include_desktop_clients\": true,\"include_mobile_clients\": true}"
 paramType: 
   namespace: team
   datatype: ListTeamDevicesArg

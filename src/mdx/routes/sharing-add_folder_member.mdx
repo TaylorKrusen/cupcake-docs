@@ -6,13 +6,16 @@ version: 1
 menu: sharing
 description: Allows an owner or editor (if the ACL update policy allows) of a shared folder to add another member.\nFor the new member to get access to all the functionality for this folder, you will need to call `mount_folder` on their behalf.
 isDeprecated: false
-urlStructure: https://api.dropbox.com/1/sharing/add_folder_member
+urlStructure: https://api.dropbox.com/2/sharing/add_folder_member
 endpointFormat: rpc
 isPreview: false
 scope: sharing.write
 authentication:
   - user
   - team_admin
+shellExample:
+  label: command line example
+  content: curl -X POST https://api.dropboxapi.com/2/sharing/add_folder_member \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN" \\n    --header "Content-Type: application/json" \\n    --data "{\"shared_folder_id\": \"84528192421\",\"members\": [{\"member\": {\".tag\": \"email\",\"email\": \"justin@example.com\"},\"access_level\": \"editor\"},{\"member\": {\".tag\": \"dropbox_id\",\"dropbox_id\": \"dbid:AAEufNrMPSPe0dMQijRP0N_aZtBJRm26W4Q\"},\"access_level\": \"viewer\"}],\"quiet\": false,\"custom_message\": \"Documentation for launch day\"}"
 paramType: 
   namespace: sharing
   datatype: AddFolderMemberArg

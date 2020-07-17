@@ -6,12 +6,15 @@ version: 1
 menu: sharing
 description: Returns shared file metadata.
 isDeprecated: false
-urlStructure: https://api.dropbox.com/1/sharing/get_file_metadata/batch
+urlStructure: https://api.dropbox.com/2/sharing/get_file_metadata/batch
 endpointFormat: rpc
 isPreview: false
 scope: sharing.read
 authentication:
   - user
+shellExample:
+  label: command line example
+  content: curl -X POST https://api.dropboxapi.com/2/sharing/get_file_metadata/batch \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN" \\n    --header "Content-Type: application/json" \\n    --data "{\"files\": [\"id:3kmLmQFnf1AAAAAAAAAAAw\",\"id:VvTaJu2VZzAAAAAAAAAADQ\"],\"actions\": []}"
 paramType: 
   namespace: sharing
   datatype: GetFileMetadataBatchArg

@@ -6,12 +6,15 @@ version: 1
 menu: file_properties
 description: Overwrite property groups associated with a file. This endpoint should be used instead of `properties/update` when property groups are being updated via a "snapshot" instead of via a "delta". In other words, this endpoint will delete all omitted fields from a property group, whereas `properties/update` will only delete fields that are explicitly marked for deletion.
 isDeprecated: false
-urlStructure: https://api.dropbox.com/1/file_properties/properties/overwrite
+urlStructure: https://api.dropbox.com/2/file_properties/properties/overwrite
 endpointFormat: rpc
 isPreview: false
 scope: files.metadata.write
 authentication:
   - user
+shellExample:
+  label: command line example
+  content: curl -X POST https://api.dropboxapi.com/2/file_properties/properties/overwrite \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN" \\n    --header "Content-Type: application/json" \\n    --data "{\"path\": \"/my_awesome/word.docx\",\"property_groups\": [{\"template_id\": \"ptid:1a5n2i6d3OYEAAAAAAAAAYa\",\"fields\": [{\"name\": \"Security Policy\",\"value\": \"Confidential\"}]}]}"
 paramType: 
   namespace: file_properties
   datatype: OverwritePropertyGroupArg

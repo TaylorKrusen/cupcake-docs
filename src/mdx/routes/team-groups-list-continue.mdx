@@ -6,12 +6,15 @@ version: 1
 menu: team
 description: Once a cursor has been retrieved from `groups/list`, use this to paginate through all groups.\nPermission :&nbspTeam Information.
 isDeprecated: false
-urlStructure: https://api.dropbox.com/1/team/groups/list/continue
+urlStructure: https://api.dropbox.com/2/team/groups/list/continue
 endpointFormat: rpc
 isPreview: false
 scope: groups.read
 authentication:
   - team
+shellExample:
+  label: command line example
+  content: curl -X POST https://api.dropboxapi.com/2/team/groups/list/continue \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN" \\n    --header "Content-Type: application/json" \\n    --data "{\"cursor\": \"ZtkX9_EHj3x7PMkVuFIhwKYXEpwpLwyxp9vMKomUhllil9q7eWiAu\"}"
 paramType: 
   namespace: team
   datatype: GroupsListContinueArg

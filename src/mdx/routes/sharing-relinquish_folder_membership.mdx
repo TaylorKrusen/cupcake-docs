@@ -6,12 +6,15 @@ version: 1
 menu: sharing
 description: The current user relinquishes their membership in the designated shared folder and will no longer have access to the folder.  A folder owner cannot relinquish membership in their own folder.\nThis will run synchronously if leave_a_copy is false, and asynchronously if leave_a_copy is true.
 isDeprecated: false
-urlStructure: https://api.dropbox.com/1/sharing/relinquish_folder_membership
+urlStructure: https://api.dropbox.com/2/sharing/relinquish_folder_membership
 endpointFormat: rpc
 isPreview: false
 scope: sharing.write
 authentication:
   - user
+shellExample:
+  label: command line example
+  content: curl -X POST https://api.dropboxapi.com/2/sharing/relinquish_folder_membership \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN" \\n    --header "Content-Type: application/json" \\n    --data "{\"shared_folder_id\": \"84528192421\",\"leave_a_copy\": false}"
 paramType: 
   namespace: sharing
   datatype: RelinquishFolderMembershipArg

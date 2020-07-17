@@ -6,12 +6,15 @@ version: 1
 menu: team
 description: Returns information about multiple team members.\nPermission :&nbspTeam information\nThis endpoint will return `MembersGetInfoItem.id_not_found`, for IDs (or emails) that cannot be matched to a valid team member.
 isDeprecated: false
-urlStructure: https://api.dropbox.com/1/team/members/get_info
+urlStructure: https://api.dropbox.com/2/team/members/get_info
 endpointFormat: rpc
 isPreview: false
 scope: members.read
 authentication:
   - team
+shellExample:
+  label: command line example
+  content: curl -X POST https://api.dropboxapi.com/2/team/members/get_info \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN" \\n    --header "Content-Type: application/json" \\n    --data "{\"members\": [{\".tag\": \"team_member_id\",\"team_member_id\": \"dbmid:efgh5678\"}]}"
 paramType: 
   namespace: team
   datatype: MembersGetInfoArgs

@@ -6,13 +6,16 @@ version: 1
 menu: files
 description: Restore a specific revision of a file to the given path.
 isDeprecated: false
-urlStructure: https://api.dropbox.com/1/files/restore
+urlStructure: https://api.dropbox.com/2/files/restore
 endpointFormat: rpc
 isPreview: false
 scope: files.content.write
 authentication:
   - user
   - team_admin
+shellExample:
+  label: command line example
+  content: curl -X POST https://api.dropboxapi.com/2/files/restore \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN" \\n    --header "Content-Type: application/json" \\n    --data "{\"path\": \"/root/word.docx\",\"rev\": \"a1c10ce0dd78\"}"
 paramType: 
   namespace: files
   datatype: RestoreArg

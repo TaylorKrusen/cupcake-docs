@@ -6,12 +6,15 @@ version: 1
 menu: file_properties
 description: Get the template identifiers for a team. To get the schema of each template use `templates/get_for_user`. This endpoint can't be called on a team member or admin's behalf.
 isDeprecated: false
-urlStructure: https://api.dropbox.com/1/file_properties/templates/list_for_user
+urlStructure: https://api.dropbox.com/2/file_properties/templates/list_for_user
 endpointFormat: rpc
 isPreview: false
 scope: files.metadata.read
 authentication:
   - user
+shellExample:
+  label: command line example
+  content: curl -X POST https://api.dropboxapi.com/2/file_properties/templates/list_for_user \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN"
 paramType: 
   namespace: Void
   datatype: Void

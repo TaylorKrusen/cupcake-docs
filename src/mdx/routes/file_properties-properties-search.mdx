@@ -6,12 +6,15 @@ version: 1
 menu: file_properties
 description: Search across property templates for particular property field values.
 isDeprecated: false
-urlStructure: https://api.dropbox.com/1/file_properties/properties/search
+urlStructure: https://api.dropbox.com/2/file_properties/properties/search
 endpointFormat: rpc
 isPreview: false
 scope: files.metadata.read
 authentication:
   - user
+shellExample:
+  label: command line example
+  content: curl -X POST https://api.dropboxapi.com/2/file_properties/properties/search \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN" \\n    --header "Content-Type: application/json" \\n    --data "{\"queries\": [{\"query\": \"Confidential\",\"mode\": {\".tag\": \"field_name\",\"field_name\": \"Security\"},\"logical_operator\": \"or_operator\"}],\"template_filter\": \"filter_none\"}"
 paramType: 
   namespace: file_properties
   datatype: PropertiesSearchArg

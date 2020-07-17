@@ -6,12 +6,15 @@ version: 1
 menu: team
 description: Retrieves metadata for team folders.\nPermission :&nbspTeam member file access.
 isDeprecated: false
-urlStructure: https://api.dropbox.com/1/team/team_folder/get_info
+urlStructure: https://api.dropbox.com/2/team/team_folder/get_info
 endpointFormat: rpc
 isPreview: false
 scope: team_data.team_space
 authentication:
   - team
+shellExample:
+  label: command line example
+  content: curl -X POST https://api.dropboxapi.com/2/team/team_folder/get_info \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN" \\n    --header "Content-Type: application/json" \\n    --data "{\"team_folder_ids\": [\"947182\",\"5819424\",\"852307532\"]}"
 paramType: 
   namespace: team
   datatype: TeamFolderIdListArg

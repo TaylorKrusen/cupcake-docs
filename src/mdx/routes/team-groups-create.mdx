@@ -6,12 +6,15 @@ version: 1
 menu: team
 description: Creates a new, empty group, with a requested name.\nPermission :&nbspTeam member management.
 isDeprecated: false
-urlStructure: https://api.dropbox.com/1/team/groups/create
+urlStructure: https://api.dropbox.com/2/team/groups/create
 endpointFormat: rpc
 isPreview: false
 scope: groups.write
 authentication:
   - team
+shellExample:
+  label: command line example
+  content: curl -X POST https://api.dropboxapi.com/2/team/groups/create \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN" \\n    --header "Content-Type: application/json" \\n    --data "{\"group_name\": \"Europe sales\",\"add_creator_as_owner\": false,\"group_external_id\": \"group-134\"}"
 paramType: 
   namespace: team
   datatype: GroupCreateArg

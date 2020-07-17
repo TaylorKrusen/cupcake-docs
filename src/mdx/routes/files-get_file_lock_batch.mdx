@@ -6,12 +6,15 @@ version: 1
 menu: files
 description: Return the lock metadata for the given list of paths.
 isDeprecated: false
-urlStructure: https://api.dropbox.com/1/files/get_file_lock_batch
+urlStructure: https://api.dropbox.com/2/files/get_file_lock_batch
 endpointFormat: rpc
 isPreview: false
 scope: files.content.read
 authentication:
   - user
+shellExample:
+  label: command line example
+  content: curl -X POST https://api.dropboxapi.com/2/files/get_file_lock_batch \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN" \\n    --header "Content-Type: application/json" \\n    --data "{\"entries\": [{\"path\": \"/John Doe/sample/test.pdf\"}]}"
 paramType: 
   namespace: files
   datatype: LockFileBatchArg

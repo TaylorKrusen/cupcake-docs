@@ -6,12 +6,15 @@ version: 1
 menu: team
 description: Add secondary emails to users.\nPermission :&nbspTeam member management.\nEmails that are on verified domains will be verified automatically. For each email address not on a verified domain a verification email will be sent.
 isDeprecated: false
-urlStructure: https://api.dropbox.com/1/team/members/secondary_emails/add
+urlStructure: https://api.dropbox.com/2/team/members/secondary_emails/add
 endpointFormat: rpc
 isPreview: false
 scope: members.write
 authentication:
   - team
+shellExample:
+  label: command line example
+  content: curl -X POST https://api.dropboxapi.com/2/team/members/secondary_emails/add \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN" \\n    --header "Content-Type: application/json" \\n    --data "{\"new_secondary_emails\": [{\"user\": {\".tag\": \"team_member_id\",\"team_member_id\": \"dbmid:efgh5678\"},\"secondary_emails\": [\"bob2@hotmail.com\",\"bob@inst.gov\"]}]}"
 paramType: 
   namespace: team
   datatype: AddSecondaryEmailsArg

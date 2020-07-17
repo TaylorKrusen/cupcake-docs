@@ -6,13 +6,16 @@ version: 1
 menu: sharing
 description: Allows an owner or editor of a shared folder to update another member's permissions.
 isDeprecated: false
-urlStructure: https://api.dropbox.com/1/sharing/update_folder_member
+urlStructure: https://api.dropbox.com/2/sharing/update_folder_member
 endpointFormat: rpc
 isPreview: false
 scope: sharing.write
 authentication:
   - user
   - team_admin
+shellExample:
+  label: command line example
+  content: curl -X POST https://api.dropboxapi.com/2/sharing/update_folder_member \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN" \\n    --header "Content-Type: application/json" \\n    --data "{\"shared_folder_id\": \"84528192421\",\"member\": {\".tag\": \"email\",\"email\": \"justin@example.com\"},\"access_level\": \"editor\"}"
 paramType: 
   namespace: sharing
   datatype: UpdateFolderMemberArg

@@ -6,12 +6,15 @@ version: 1
 menu: deprecated
 description: Permission :&nbspTeam member file access.
 isDeprecated: true
-urlStructure: https://api.dropbox.com/1/team/properties/template/list
+urlStructure: https://api.dropbox.com/2/team/properties/template/list
 endpointFormat: rpc
 isPreview: false
 scope: None
 authentication:
   - team
+shellExample:
+  label: command line example
+  content: curl -X POST https://api.dropboxapi.com/2/team/properties/template/list \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN"
 paramType: 
   namespace: Void
   datatype: Void

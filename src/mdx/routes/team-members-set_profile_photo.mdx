@@ -6,12 +6,15 @@ version: 1
 menu: team
 description: Updates a team member's profile photo.\nPermission :&nbspTeam member management.
 isDeprecated: false
-urlStructure: https://api.dropbox.com/1/team/members/set_profile_photo
+urlStructure: https://api.dropbox.com/2/team/members/set_profile_photo
 endpointFormat: rpc
 isPreview: false
 scope: members.write
 authentication:
   - team
+shellExample:
+  label: command line example
+  content: curl -X POST https://api.dropboxapi.com/2/team/members/set_profile_photo \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN" \\n    --header "Content-Type: application/json" \\n    --data "{\"user\": {\".tag\": \"team_member_id\",\"team_member_id\": \"dbmid:efgh5678\"},\"photo\": {\".tag\": \"base64_data\",\"base64_data\": \"SW1hZ2UgZGF0YSBpbiBiYXNlNjQtZW5jb2RlZCBieXRlcy4gTm90IGEgdmFsaWQgZXhhbXBsZS4=\"}}"
 paramType: 
   namespace: team
   datatype: MembersSetProfilePhotoArg

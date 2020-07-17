@@ -6,12 +6,15 @@ version: 1
 menu: sharing
 description: Change the inheritance policy of an existing Shared Folder. Only permitted for shared folders in a shared team root.\nIf a `ShareFolderLaunch.async_job_id` is returned, you'll need to call `check_share_job_status` until the action completes to get the metadata for the folder.
 isDeprecated: false
-urlStructure: https://api.dropbox.com/1/sharing/set_access_inheritance
+urlStructure: https://api.dropbox.com/2/sharing/set_access_inheritance
 endpointFormat: rpc
 isPreview: false
 scope: sharing.write
 authentication:
   - user
+shellExample:
+  label: command line example
+  content: curl -X POST https://api.dropboxapi.com/2/sharing/set_access_inheritance \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN" \\n    --header "Content-Type: application/json" \\n    --data "{\"shared_folder_id\": \"84528192421\",\"access_inheritance\": \"inherit\"}"
 paramType: 
   namespace: sharing
   datatype: SetAccessInheritanceArg

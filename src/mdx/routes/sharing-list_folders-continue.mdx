@@ -6,12 +6,15 @@ version: 1
 menu: sharing
 description: Once a cursor has been retrieved from `list_folders`, use this to paginate through all shared folders. The cursor must come from a previous call to `list_folders` or `list_folders/continue`.
 isDeprecated: false
-urlStructure: https://api.dropbox.com/1/sharing/list_folders/continue
+urlStructure: https://api.dropbox.com/2/sharing/list_folders/continue
 endpointFormat: rpc
 isPreview: false
 scope: sharing.read
 authentication:
   - user
+shellExample:
+  label: command line example
+  content: curl -X POST https://api.dropboxapi.com/2/sharing/list_folders/continue \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN" \\n    --header "Content-Type: application/json" \\n    --data "{\"cursor\": \"ZtkX9_EHj3x7PMkVuFIhwKYXEpwpLwyxp9vMKomUhllil9q7eWiAu\"}"
 paramType: 
   namespace: sharing
   datatype: ListFoldersContinueArg

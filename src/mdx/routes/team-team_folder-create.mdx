@@ -6,12 +6,15 @@ version: 1
 menu: team
 description: Creates a new, active, team folder with no members.\nPermission :&nbspTeam member file access.
 isDeprecated: false
-urlStructure: https://api.dropbox.com/1/team/team_folder/create
+urlStructure: https://api.dropbox.com/2/team/team_folder/create
 endpointFormat: rpc
 isPreview: false
 scope: team_data.team_space
 authentication:
   - team
+shellExample:
+  label: command line example
+  content: curl -X POST https://api.dropboxapi.com/2/team/team_folder/create \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN" \\n    --header "Content-Type: application/json" \\n    --data "{\"name\": \"Marketing\",\"sync_setting\": \"not_synced\"}"
 paramType: 
   namespace: team
   datatype: TeamFolderCreateArg

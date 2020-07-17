@@ -6,13 +6,16 @@ version: 1
 menu: sharing
 description: Returns shared folder membership by its folder ID.
 isDeprecated: false
-urlStructure: https://api.dropbox.com/1/sharing/list_folder_members
+urlStructure: https://api.dropbox.com/2/sharing/list_folder_members
 endpointFormat: rpc
 isPreview: false
 scope: sharing.read
 authentication:
   - user
   - whole_team
+shellExample:
+  label: command line example
+  content: curl -X POST https://api.dropboxapi.com/2/sharing/list_folder_members \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN" \\n    --header "Content-Type: application/json" \\n    --data "{\"shared_folder_id\": \"84528192421\",\"actions\": [],\"limit\": 10}"
 paramType: 
   namespace: sharing
   datatype: ListFolderMembersArgs

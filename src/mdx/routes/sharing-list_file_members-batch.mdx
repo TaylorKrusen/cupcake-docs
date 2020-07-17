@@ -6,12 +6,15 @@ version: 1
 menu: sharing
 description: Get members of multiple files at once. The arguments to this route are more limited, and the limit on query result size per file is more strict. To customize the results more, use the individual file endpoint.\nInherited users and groups are not included in the result, and permissions are not returned for this endpoint.
 isDeprecated: false
-urlStructure: https://api.dropbox.com/1/sharing/list_file_members/batch
+urlStructure: https://api.dropbox.com/2/sharing/list_file_members/batch
 endpointFormat: rpc
 isPreview: false
 scope: sharing.read
 authentication:
   - user
+shellExample:
+  label: command line example
+  content: curl -X POST https://api.dropboxapi.com/2/sharing/list_file_members/batch \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN" \\n    --header "Content-Type: application/json" \\n    --data "{\"files\": [\"id:3kmLmQFnf1AAAAAAAAAAAw\",\"id:VvTaJu2VZzAAAAAAAAAADQ\"],\"limit\": 10}"
 paramType: 
   namespace: sharing
   datatype: ListFileMembersBatchArg

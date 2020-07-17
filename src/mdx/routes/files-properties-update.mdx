@@ -5,12 +5,15 @@ namespace: files
 version: 1
 menu: deprecated
 isDeprecated: true
-urlStructure: https://api.dropbox.com/1/files/properties/update
+urlStructure: https://api.dropbox.com/2/files/properties/update
 endpointFormat: rpc
 isPreview: false
 scope: None
 authentication:
   - user
+shellExample:
+  label: command line example
+  content: curl -X POST https://api.dropboxapi.com/2/files/properties/update \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN" \\n    --header "Content-Type: application/json" \\n    --data "{\"path\": \"/my_awesome/word.docx\",\"update_property_groups\": [{\"template_id\": \"ptid:1a5n2i6d3OYEAAAAAAAAAYa\",\"add_or_update_fields\": [{\"name\": \"Security Policy\",\"value\": \"Confidential\"}],\"remove_fields\": []}]}"
 paramType: 
   namespace: file_properties
   datatype: UpdatePropertiesArg

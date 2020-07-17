@@ -6,12 +6,15 @@ version: 1
 menu: sharing
 description: Return the list of all shared folders the current user has access to.
 isDeprecated: false
-urlStructure: https://api.dropbox.com/1/sharing/list_folders
+urlStructure: https://api.dropbox.com/2/sharing/list_folders
 endpointFormat: rpc
 isPreview: false
 scope: sharing.read
 authentication:
   - user
+shellExample:
+  label: command line example
+  content: curl -X POST https://api.dropboxapi.com/2/sharing/list_folders \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN" \\n    --header "Content-Type: application/json" \\n    --data "{\"limit\": 100,\"actions\": []}"
 paramType: 
   namespace: sharing
   datatype: ListFoldersArgs

@@ -6,12 +6,16 @@ version: 1
 menu: deprecated
 description: Create a new file with the contents provided in the request. Note that this endpoint is part of the properties API alpha and is slightly different from `upload`.\nDo not use this to upload a file larger than 150 MB. Instead, create an upload session with `upload_session/start`.
 isDeprecated: true
-urlStructure: https://content.dropbox.com/1/files/alpha/upload
+deprecatedBy: alpha/upload
+urlStructure: https://content.dropbox.com/2/files/alpha/upload
 endpointFormat: upload
 isPreview: true
 scope: None
 authentication:
   - user
+shellExample:
+  label: command line example
+  content: curl -X POST https://content.dropboxapi.com/2/files/alpha/upload \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN" \\n    --header "Dropbox-API-Arg: {\"path\": \"/Homework/math/Matrices.txt\",\"mode\": \"add\",\"autorename\": true,\"mute\": false,\"strict_conflict\": false}" \\n    --header "Content-Type: application/octet-stream" \\n    --data-binary @local_file.txt
 paramType: 
   namespace: files
   datatype: CommitInfoWithProperties

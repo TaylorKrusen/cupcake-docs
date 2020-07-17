@@ -6,13 +6,16 @@ version: 1
 menu: sharing
 description: Use to obtain the members who have been invited to a file, both inherited and uninherited members.
 isDeprecated: false
-urlStructure: https://api.dropbox.com/1/sharing/list_file_members
+urlStructure: https://api.dropbox.com/2/sharing/list_file_members
 endpointFormat: rpc
 isPreview: false
 scope: sharing.read
 authentication:
   - user
   - team_admin
+shellExample:
+  label: command line example
+  content: curl -X POST https://api.dropboxapi.com/2/sharing/list_file_members \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN" \\n    --header "Content-Type: application/json" \\n    --data "{\"file\": \"id:3kmLmQFnf1AAAAAAAAAAAw\",\"include_inherited\": true,\"limit\": 100}"
 paramType: 
   namespace: sharing
   datatype: ListFileMembersArg

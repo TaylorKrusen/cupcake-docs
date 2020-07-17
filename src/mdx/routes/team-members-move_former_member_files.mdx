@@ -6,12 +6,15 @@ version: 1
 menu: team
 description: Moves removed member's files to a different member. This endpoint initiates an asynchronous job. To obtain the final result of the job, the client should periodically poll `members/move_former_member_files/job_status/check`.\nPermission :&nbspTeam member management.
 isDeprecated: false
-urlStructure: https://api.dropbox.com/1/team/members/move_former_member_files
+urlStructure: https://api.dropbox.com/2/team/members/move_former_member_files
 endpointFormat: rpc
 isPreview: false
 scope: members.write
 authentication:
   - team
+shellExample:
+  label: command line example
+  content: curl -X POST https://api.dropboxapi.com/2/team/members/move_former_member_files \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN" \\n    --header "Content-Type: application/json" \\n    --data "{\"user\": {\".tag\": \"team_member_id\",\"team_member_id\": \"dbmid:efgh5678\"},\"transfer_dest_id\": {\".tag\": \"team_member_id\",\"team_member_id\": \"dbmid:efgh5678\"},\"transfer_admin_id\": {\".tag\": \"team_member_id\",\"team_member_id\": \"dbmid:efgh5678\"}}"
 paramType: 
   namespace: team
   datatype: MembersDataTransferArg

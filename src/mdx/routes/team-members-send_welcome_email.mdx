@@ -6,12 +6,15 @@ version: 1
 menu: team
 description: Sends welcome email to pending team member.\nPermission :&nbspTeam member management\nExactly one of team_member_id, email, or external_id must be provided to identify the user account.\nNo-op if team member is not pending.
 isDeprecated: false
-urlStructure: https://api.dropbox.com/1/team/members/send_welcome_email
+urlStructure: https://api.dropbox.com/2/team/members/send_welcome_email
 endpointFormat: rpc
 isPreview: false
 scope: members.write
 authentication:
   - team
+shellExample:
+  label: command line example
+  content: curl -X POST https://api.dropboxapi.com/2/team/members/send_welcome_email \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN" \\n    --header "Content-Type: application/json" \\n    --data "{\".tag\": \"team_member_id\",\"team_member_id\": \"dbmid:efgh5678\"}"
 paramType: 
   namespace: team
   datatype: UserSelectorArg

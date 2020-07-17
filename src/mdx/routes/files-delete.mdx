@@ -6,13 +6,17 @@ version: 1
 menu: deprecated
 description: Delete the file or folder at a given path.\nIf the path is a folder, all its contents will be deleted too.\nA successful response indicates that the file or folder was deleted. The returned metadata will be the corresponding `FileMetadata` or `FolderMetadata` for the item at time of deletion, and not a `DeletedMetadata` object.
 isDeprecated: true
-urlStructure: https://api.dropbox.com/1/files/delete
+deprecatedBy: delete_2
+urlStructure: https://api.dropbox.com/2/files/delete
 endpointFormat: rpc
 isPreview: false
 scope: files.content.write
 authentication:
   - user
   - team_admin
+shellExample:
+  label: command line example
+  content: curl -X POST https://api.dropboxapi.com/2/files/delete \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN" \\n    --header "Content-Type: application/json" \\n    --data "{\"path\": \"/Homework/math/Prime_Numbers.txt\"}"
 paramType: 
   namespace: files
   datatype: DeleteArg

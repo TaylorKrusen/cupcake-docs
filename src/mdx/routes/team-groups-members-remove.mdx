@@ -6,12 +6,15 @@ version: 1
 menu: team
 description: Removes members from a group.\nThe members are removed immediately. However the revoking of group-owned resources may take additional time. Use the `groups/job_status/get` to determine whether this process has completed.\nThis method permits removing the only owner of a group, even in cases where this is not possible via the web client.\nPermission :&nbspTeam member management.
 isDeprecated: false
-urlStructure: https://api.dropbox.com/1/team/groups/members/remove
+urlStructure: https://api.dropbox.com/2/team/groups/members/remove
 endpointFormat: rpc
 isPreview: false
 scope: groups.write
 authentication:
   - team
+shellExample:
+  label: command line example
+  content: curl -X POST https://api.dropboxapi.com/2/team/groups/members/remove \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN" \\n    --header "Content-Type: application/json" \\n    --data "{\"group\": {\".tag\": \"group_id\",\"group_id\": \"g:e2db7665347abcd600000000001a2b3c\"},\"users\": [{\".tag\": \"team_member_id\",\"team_member_id\": \"dbmid:efgh5678\"}],\"return_members\": true}"
 paramType: 
   namespace: team
   datatype: GroupMembersRemoveArg

@@ -6,12 +6,16 @@ version: 1
 menu: deprecated
 description: Returns the metadata for a file or folder. This is an alpha endpoint compatible with the properties API.\nNote:&nbspMetadata for the root folder is unsupported.
 isDeprecated: true
-urlStructure: https://api.dropbox.com/1/files/alpha/get_metadata
+deprecatedBy: get_metadata
+urlStructure: https://api.dropbox.com/2/files/alpha/get_metadata
 endpointFormat: rpc
 isPreview: true
 scope: None
 authentication:
   - user
+shellExample:
+  label: command line example
+  content: curl -X POST https://api.dropboxapi.com/2/files/alpha/get_metadata \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN" \\n    --header "Content-Type: application/json" \\n    --data "{\"path\": \"/Homework/math\",\"include_media_info\": false,\"include_deleted\": false,\"include_has_explicit_shared_members\": false}"
 paramType: 
   namespace: files
   datatype: AlphaGetMetadataArg

@@ -6,12 +6,15 @@ version: 1
 menu: file_properties
 description: Permanently removes the specified template created from `templates/add_for_user`. All properties associated with the template will also be removed. This action cannot be undone.
 isDeprecated: false
-urlStructure: https://api.dropbox.com/1/file_properties/templates/remove_for_user
+urlStructure: https://api.dropbox.com/2/file_properties/templates/remove_for_user
 endpointFormat: rpc
 isPreview: false
 scope: files.metadata.write
 authentication:
   - user
+shellExample:
+  label: command line example
+  content: curl -X POST https://api.dropboxapi.com/2/file_properties/templates/remove_for_user \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN" \\n    --header "Content-Type: application/json" \\n    --data "{\"template_id\": \"ptid:1a5n2i6d3OYEAAAAAAAAAYa\"}"
 paramType: 
   namespace: file_properties
   datatype: RemoveTemplateArg

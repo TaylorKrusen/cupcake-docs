@@ -6,13 +6,16 @@ version: 1
 menu: files
 description: Returns revisions for files based on a file path or a file id. The file path or file id is identified from the latest file entry at the given file path or id. This end point allows your app to query either by file path or file id by setting the mode parameter appropriately.\nIn the `ListRevisionsMode.path` (default) mode, all revisions at the same file path as the latest file entry are returned. If revisions with the same file id are desired, then mode must be set to `ListRevisionsMode.id`. The `ListRevisionsMode.id` mode is useful to retrieve revisions for a given file across moves or renames.
 isDeprecated: false
-urlStructure: https://api.dropbox.com/1/files/list_revisions
+urlStructure: https://api.dropbox.com/2/files/list_revisions
 endpointFormat: rpc
 isPreview: false
 scope: files.metadata.read
 authentication:
   - user
   - whole_team
+shellExample:
+  label: command line example
+  content: curl -X POST https://api.dropboxapi.com/2/files/list_revisions \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN" \\n    --header "Content-Type: application/json" \\n    --data "{\"path\": \"/root/word.docx\",\"mode\": \"path\",\"limit\": 10}"
 paramType: 
   namespace: files
   datatype: ListRevisionsArg

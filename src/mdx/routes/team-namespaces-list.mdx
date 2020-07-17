@@ -6,12 +6,15 @@ version: 1
 menu: team
 description: Returns a list of all team-accessible namespaces. This list includes team folders, shared folders containing team members, team members' home namespaces, and team members' app folders. Home namespaces and app folders are always owned by this team or members of the team, but shared folders may be owned by other users or other teams. Duplicates may occur in the list.
 isDeprecated: false
-urlStructure: https://api.dropbox.com/1/team/namespaces/list
+urlStructure: https://api.dropbox.com/2/team/namespaces/list
 endpointFormat: rpc
 isPreview: false
 scope: team_data.member
 authentication:
   - team
+shellExample:
+  label: command line example
+  content: curl -X POST https://api.dropboxapi.com/2/team/namespaces/list \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN" \\n    --header "Content-Type: application/json" \\n    --data "{\"limit\": 1}"
 paramType: 
   namespace: team
   datatype: TeamNamespacesListArg

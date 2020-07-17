@@ -6,12 +6,15 @@ version: 1
 menu: team
 description: Set users custom quota. Custom quota has to be at least 15GB. A maximum of 1000 members can be specified in a single call.
 isDeprecated: false
-urlStructure: https://api.dropbox.com/1/team/member_space_limits/set_custom_quota
+urlStructure: https://api.dropbox.com/2/team/member_space_limits/set_custom_quota
 endpointFormat: rpc
 isPreview: false
 scope: members.read
 authentication:
   - team
+shellExample:
+  label: command line example
+  content: curl -X POST https://api.dropboxapi.com/2/team/member_space_limits/set_custom_quota \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN" \\n    --header "Content-Type: application/json" \\n    --data "{\"users_and_quotas\": [{\"user\": {\".tag\": \"team_member_id\",\"team_member_id\": \"dbmid:efgh5678\"},\"quota_gb\": 30}]}"
 paramType: 
   namespace: team
   datatype: SetCustomQuotaArg

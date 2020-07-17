@@ -6,13 +6,16 @@ version: 1
 menu: files
 description: Delete multiple files/folders at once.\nThis route is asynchronous, which returns a job ID immediately and runs the delete batch asynchronously. Use `delete_batch/check` to check the job status.
 isDeprecated: false
-urlStructure: https://api.dropbox.com/1/files/delete_batch
+urlStructure: https://api.dropbox.com/2/files/delete_batch
 endpointFormat: rpc
 isPreview: false
 scope: files.content.write
 authentication:
   - user
   - team_admin
+shellExample:
+  label: command line example
+  content: curl -X POST https://api.dropboxapi.com/2/files/delete_batch \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN" \\n    --header "Content-Type: application/json" \\n    --data "{\"entries\": [{\"path\": \"/Homework/math/Prime_Numbers.txt\"}]}"
 paramType: 
   namespace: files
   datatype: DeleteBatchArg

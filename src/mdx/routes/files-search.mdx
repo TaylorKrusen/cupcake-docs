@@ -6,12 +6,16 @@ version: 1
 menu: deprecated
 description: Searches for files and folders.\nNote:&nbspRecent changes will be reflected in search results within a few seconds and older revisions of existing files may still match your query for up to a few days.
 isDeprecated: true
-urlStructure: https://api.dropbox.com/1/files/search
+deprecatedBy: search_2
+urlStructure: https://api.dropbox.com/2/files/search
 endpointFormat: rpc
 isPreview: false
 scope: files.metadata.read
 authentication:
   - user
+shellExample:
+  label: command line example
+  content: curl -X POST https://api.dropboxapi.com/2/files/search \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN" \\n    --header "Content-Type: application/json" \\n    --data "{\"path\": \"\",\"query\": \"prime numbers\",\"start\": 0,\"max_results\": 100,\"mode\": \"filename\"}"
 paramType: 
   namespace: files
   datatype: SearchArg

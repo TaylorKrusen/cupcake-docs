@@ -6,13 +6,17 @@ version: 1
 menu: deprecated
 description: Identical to remove_file_member_2 but with less information returned.
 isDeprecated: true
-urlStructure: https://api.dropbox.com/1/sharing/remove_file_member
+deprecatedBy: remove_file_member_2
+urlStructure: https://api.dropbox.com/2/sharing/remove_file_member
 endpointFormat: rpc
 isPreview: false
 scope: sharing.write
 authentication:
   - user
   - team_admin
+shellExample:
+  label: command line example
+  content: curl -X POST https://api.dropboxapi.com/2/sharing/remove_file_member \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN" \\n    --header "Content-Type: application/json" \\n    --data "{\"file\": \"id:3kmLmQFnf1AAAAAAAAAAAw\",\"member\": {\".tag\": \"email\",\"email\": \"justin@example.com\"}}"
 paramType: 
   namespace: sharing
   datatype: RemoveFileMemberArg

@@ -6,12 +6,15 @@ version: 1
 menu: file_properties
 description: Once a cursor has been retrieved from `properties/search`, use this to paginate through all search results.
 isDeprecated: false
-urlStructure: https://api.dropbox.com/1/file_properties/properties/search/continue
+urlStructure: https://api.dropbox.com/2/file_properties/properties/search/continue
 endpointFormat: rpc
 isPreview: false
 scope: files.metadata.read
 authentication:
   - user
+shellExample:
+  label: command line example
+  content: curl -X POST https://api.dropboxapi.com/2/file_properties/properties/search/continue \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN" \\n    --header "Content-Type: application/json" \\n    --data "{\"cursor\": \"ZtkX9_EHj3x7PMkVuFIhwKYXEpwpLwyxp9vMKomUhllil9q7eWiAu\"}"
 paramType: 
   namespace: file_properties
   datatype: PropertiesSearchContinueArg

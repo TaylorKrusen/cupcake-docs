@@ -6,13 +6,16 @@ version: 1
 menu: files
 description: Returns the status of an asynchronous job for `upload_session/finish_batch`. If success, it returns list of result for each entry.
 isDeprecated: false
-urlStructure: https://api.dropbox.com/1/files/upload_session/finish_batch/check
+urlStructure: https://api.dropbox.com/2/files/upload_session/finish_batch/check
 endpointFormat: rpc
 isPreview: false
 scope: files.content.write
 authentication:
   - user
   - team_admin
+shellExample:
+  label: command line example
+  content: curl -X POST https://api.dropboxapi.com/2/files/upload_session/finish_batch/check \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN" \\n    --header "Content-Type: application/json" \\n    --data "{\"async_job_id\": \"34g93hh34h04y384084\"}"
 paramType: 
   namespace: async
   datatype: PollArg

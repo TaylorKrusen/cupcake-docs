@@ -6,12 +6,16 @@ version: 1
 menu: deprecated
 description: Identical to update_file_member but with less information returned.
 isDeprecated: true
-urlStructure: https://api.dropbox.com/1/sharing/change_file_member_access
+deprecatedBy: update_file_member
+urlStructure: https://api.dropbox.com/2/sharing/change_file_member_access
 endpointFormat: rpc
 isPreview: false
 scope: None
 authentication:
   - user
+shellExample:
+  label: command line example
+  content: curl -X POST https://api.dropboxapi.com/2/sharing/change_file_member_access \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN" \\n    --header "Content-Type: application/json" \\n    --data "{\"file\": \"id:3kmLmQFnf1AAAAAAAAAAAw\",\"member\": {\".tag\": \"email\",\"email\": \"justin@example.com\"},\"access_level\": \"viewer\"}"
 paramType: 
   namespace: sharing
   datatype: ChangeFileMemberAccessArgs

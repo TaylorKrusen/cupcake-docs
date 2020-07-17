@@ -6,13 +6,16 @@ version: 1
 menu: files
 description: Get a preview for a file.\nCurrently, PDF previews are generated for files with the following extensions:&nbsp.ai, .doc, .docm, .docx, .eps, .gdoc, .gslides, .odp, .odt, .pps, .ppsm, .ppsx, .ppt, .pptm, .pptx, .rtf.\nHTML previews are generated for files with the following extensions:&nbsp.csv, .ods, .xls, .xlsm, .gsheet, .xlsx.\nOther formats will return an unsupported extension error.
 isDeprecated: false
-urlStructure: https://content.dropbox.com/1/files/get_preview
+urlStructure: https://content.dropbox.com/2/files/get_preview
 endpointFormat: download
 isPreview: false
 scope: files.content.read
 authentication:
   - user
   - whole_team
+shellExample:
+  label: command line example
+  content: curl -X POST https://content.dropboxapi.com/2/files/get_preview \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN" \\n    --header "Dropbox-API-Arg: {\"path\": \"/word.docx\"}"
 paramType: 
   namespace: files
   datatype: PreviewArg

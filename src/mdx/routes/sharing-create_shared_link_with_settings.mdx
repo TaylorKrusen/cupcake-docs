@@ -6,13 +6,16 @@ version: 1
 menu: sharing
 description: Create a shared link with custom settings. If no settings are given then the default visibility is `RequestedVisibility.public` (The resolved visibility, though, may depend on other aspects such as team and shared folder settings).
 isDeprecated: false
-urlStructure: https://api.dropbox.com/1/sharing/create_shared_link_with_settings
+urlStructure: https://api.dropbox.com/2/sharing/create_shared_link_with_settings
 endpointFormat: rpc
 isPreview: false
 scope: sharing.write
 authentication:
   - user
   - team_admin
+shellExample:
+  label: command line example
+  content: curl -X POST https://api.dropboxapi.com/2/sharing/create_shared_link_with_settings \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN" \\n    --header "Content-Type: application/json" \\n    --data "{\"path\": \"/Prime_Numbers.txt\",\"settings\": {\"requested_visibility\": \"public\",\"audience\": \"public\",\"access\": \"viewer\"}}"
 paramType: 
   namespace: sharing
   datatype: CreateSharedLinkWithSettingsArg

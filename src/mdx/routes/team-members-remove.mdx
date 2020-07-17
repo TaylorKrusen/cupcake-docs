@@ -6,12 +6,15 @@ version: 1
 menu: team
 description: Removes a member from a team.\nPermission :&nbspTeam member management\nExactly one of team_member_id, email, or external_id must be provided to identify the user account.\nAccounts can be recovered via `members/recover` for a 7 day period or until the account has been permanently deleted or transferred to another account (whichever comes first). Calling `members/add` while a user is still recoverable on your team will return with `MemberAddResult.user_already_on_team`.\nAccounts can have their files transferred via the admin console for a limited time, based on the version history length associated with the team (180 days for most teams).\nThis endpoint may initiate an asynchronous job. To obtain the final result of the job, the client should periodically poll `members/remove/job_status/get`.
 isDeprecated: false
-urlStructure: https://api.dropbox.com/1/team/members/remove
+urlStructure: https://api.dropbox.com/2/team/members/remove
 endpointFormat: rpc
 isPreview: false
 scope: members.delete
 authentication:
   - team
+shellExample:
+  label: command line example
+  content: curl -X POST https://api.dropboxapi.com/2/team/members/remove \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN" \\n    --header "Content-Type: application/json" \\n    --data "{\"user\": {\".tag\": \"team_member_id\",\"team_member_id\": \"dbmid:efgh5678\"},\"wipe_data\": true,\"transfer_dest_id\": {\".tag\": \"team_member_id\",\"team_member_id\": \"dbmid:efgh5678\"},\"transfer_admin_id\": {\".tag\": \"team_member_id\",\"team_member_id\": \"dbmid:efgh5678\"},\"keep_account\": false,\"retain_team_shares\": false}"
 paramType: 
   namespace: team
   datatype: MembersRemoveArg

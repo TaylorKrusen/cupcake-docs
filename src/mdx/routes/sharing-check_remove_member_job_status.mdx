@@ -6,13 +6,16 @@ version: 1
 menu: sharing
 description: Returns the status of an asynchronous job for sharing a folder.
 isDeprecated: false
-urlStructure: https://api.dropbox.com/1/sharing/check_remove_member_job_status
+urlStructure: https://api.dropbox.com/2/sharing/check_remove_member_job_status
 endpointFormat: rpc
 isPreview: false
 scope: sharing.write
 authentication:
   - user
   - team_admin
+shellExample:
+  label: command line example
+  content: curl -X POST https://api.dropboxapi.com/2/sharing/check_remove_member_job_status \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN" \\n    --header "Content-Type: application/json" \\n    --data "{\"async_job_id\": \"34g93hh34h04y384084\"}"
 paramType: 
   namespace: async
   datatype: PollArg

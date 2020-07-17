@@ -6,12 +6,15 @@ version: 1
 menu: team
 description: Creates new legal hold policy. Note:&nbspLegal Holds is a paid add-on. Not all teams have the feature.\nPermission :&nbspTeam member file access.
 isDeprecated: false
-urlStructure: https://api.dropbox.com/1/team/legal_holds/create_policy
+urlStructure: https://api.dropbox.com/2/team/legal_holds/create_policy
 endpointFormat: rpc
 isPreview: false
 scope: team_data.member
 authentication:
   - team
+shellExample:
+  label: command line example
+  content: curl -X POST https://api.dropboxapi.com/2/team/legal_holds/create_policy \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN" \\n    --header "Content-Type: application/json" \\n    --data "{\"name\": \"acme cfo policy\",\"members\": [\"dbmid:FDFSVF-DFSDF\"],\"start_date\": \"2016-01-01T00:00:00Z\",\"end_date\": \"2017-12-31T00:00:00Z\"}"
 paramType: 
   namespace: team
   datatype: LegalHoldsPolicyCreateArg

@@ -6,12 +6,15 @@ version: 1
 menu: auth
 description: Disables the access token used to authenticate the call.
 isDeprecated: false
-urlStructure: https://api.dropbox.com/1/auth/token/revoke
+urlStructure: https://api.dropbox.com/2/auth/token/revoke
 endpointFormat: rpc
 isPreview: false
 scope: None
 authentication:
   - user
+shellExample:
+  label: command line example
+  content: curl -X POST https://api.dropboxapi.com/2/auth/token/revoke \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN"
 paramType: 
   namespace: Void
   datatype: Void

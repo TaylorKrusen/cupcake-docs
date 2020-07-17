@@ -6,12 +6,15 @@ version: 1
 menu: files
 description: Check the status of a `save_url` job.
 isDeprecated: false
-urlStructure: https://api.dropbox.com/1/files/save_url/check_job_status
+urlStructure: https://api.dropbox.com/2/files/save_url/check_job_status
 endpointFormat: rpc
 isPreview: false
 scope: files.content.write
 authentication:
   - user
+shellExample:
+  label: command line example
+  content: curl -X POST https://api.dropboxapi.com/2/files/save_url/check_job_status \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN" \\n    --header "Content-Type: application/json" \\n    --data "{\"async_job_id\": \"34g93hh34h04y384084\"}"
 paramType: 
   namespace: async
   datatype: PollArg

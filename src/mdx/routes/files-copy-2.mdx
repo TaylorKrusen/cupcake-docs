@@ -1,18 +1,21 @@
 ---
-name: /copy-2
-route: /files/copy-2
+name: /copy_2
+route: /files/copy_2
 namespace: files
 version: 2
 menu: files
 description: Copy a file or folder to a different location in the user's Dropbox.\nIf the source path is a folder all its contents will be copied.
 isDeprecated: false
-urlStructure: https://api.dropbox.com/2/files/copy
+urlStructure: https://api.dropbox.com/2/files/copy_2
 endpointFormat: rpc
 isPreview: false
 scope: files.content.write
 authentication:
   - user
   - team_admin
+shellExample:
+  label: command line example
+  content: curl -X POST https://api.dropboxapi.com/2/files/copy_2 \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN" \\n    --header "Content-Type: application/json" \\n    --data "{\"from_path\": \"/Homework/math\",\"to_path\": \"/Homework/algebra\",\"allow_shared_folder\": false,\"autorename\": false,\"allow_ownership_transfer\": false}"
 paramType: 
   namespace: files
   datatype: RelocationArg

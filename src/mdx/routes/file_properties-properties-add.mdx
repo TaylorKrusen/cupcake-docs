@@ -6,12 +6,15 @@ version: 1
 menu: file_properties
 description: Add property groups to a Dropbox file. See `templates/add_for_user` or `templates/add_for_team` to create new templates.
 isDeprecated: false
-urlStructure: https://api.dropbox.com/1/file_properties/properties/add
+urlStructure: https://api.dropbox.com/2/file_properties/properties/add
 endpointFormat: rpc
 isPreview: false
 scope: files.metadata.write
 authentication:
   - user
+shellExample:
+  label: command line example
+  content: curl -X POST https://api.dropboxapi.com/2/file_properties/properties/add \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN" \\n    --header "Content-Type: application/json" \\n    --data "{\"path\": \"/my_awesome/word.docx\",\"property_groups\": [{\"template_id\": \"ptid:1a5n2i6d3OYEAAAAAAAAAYa\",\"fields\": [{\"name\": \"Security Policy\",\"value\": \"Confidential\"}]}]}"
 paramType: 
   namespace: file_properties
   datatype: AddPropertiesArg

@@ -6,12 +6,15 @@ version: 1
 menu: team
 description: List all linked applications of the team member.\nNote, this endpoint does not list any team-linked applications.
 isDeprecated: false
-urlStructure: https://api.dropbox.com/1/team/linked_apps/list_member_linked_apps
+urlStructure: https://api.dropbox.com/2/team/linked_apps/list_member_linked_apps
 endpointFormat: rpc
 isPreview: false
 scope: sessions.list
 authentication:
   - team
+shellExample:
+  label: command line example
+  content: curl -X POST https://api.dropboxapi.com/2/team/linked_apps/list_member_linked_apps \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN" \\n    --header "Content-Type: application/json" \\n    --data "{\"team_member_id\": \"dbmid:AAFdgehTzw7WlXhZJsbGCLePe8RvQGYDr-I\"}"
 paramType: 
   namespace: team
   datatype: ListMemberAppsArg

@@ -6,12 +6,15 @@ version: 1
 menu: team
 description: Adds members to a group.\nThe members are added immediately. However the granting of group-owned resources may take additional time. Use the `groups/job_status/get` to determine whether this process has completed.\nPermission :&nbspTeam member management.
 isDeprecated: false
-urlStructure: https://api.dropbox.com/1/team/groups/members/add
+urlStructure: https://api.dropbox.com/2/team/groups/members/add
 endpointFormat: rpc
 isPreview: false
 scope: groups.write
 authentication:
   - team
+shellExample:
+  label: command line example
+  content: curl -X POST https://api.dropboxapi.com/2/team/groups/members/add \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN" \\n    --header "Content-Type: application/json" \\n    --data "{\"group\": {\".tag\": \"group_id\",\"group_id\": \"g:e2db7665347abcd600000000001a2b3c\"},\"members\": [{\"user\": {\".tag\": \"team_member_id\",\"team_member_id\": \"dbmid:efgh5678\"},\"access_type\": \"member\"}],\"return_members\": true}"
 paramType: 
   namespace: team
   datatype: GroupMembersAddArg

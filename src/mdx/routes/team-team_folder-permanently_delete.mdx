@@ -6,12 +6,15 @@ version: 1
 menu: team
 description: Permanently deletes an archived team folder.\nPermission :&nbspTeam member file access.
 isDeprecated: false
-urlStructure: https://api.dropbox.com/1/team/team_folder/permanently_delete
+urlStructure: https://api.dropbox.com/2/team/team_folder/permanently_delete
 endpointFormat: rpc
 isPreview: false
 scope: team_data.team_space
 authentication:
   - team
+shellExample:
+  label: command line example
+  content: curl -X POST https://api.dropboxapi.com/2/team/team_folder/permanently_delete \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN" \\n    --header "Content-Type: application/json" \\n    --data "{\"team_folder_id\": \"123456789\"}"
 paramType: 
   namespace: team
   datatype: TeamFolderIdArg

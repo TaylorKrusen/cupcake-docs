@@ -6,13 +6,16 @@ version: 1
 menu: files
 description: Get a thumbnail for an image.\nThis method currently supports files with the following file extensions:&nbspjpg, jpeg, png, tiff, tif, gif and bmp. Photos that are larger than 20MB in size won't be converted to a thumbnail.
 isDeprecated: false
-urlStructure: https://content.dropbox.com/1/files/get_thumbnail
+urlStructure: https://content.dropbox.com/2/files/get_thumbnail
 endpointFormat: download
 isPreview: false
 scope: files.content.read
 authentication:
   - user
   - whole_team
+shellExample:
+  label: command line example
+  content: curl -X POST https://content.dropboxapi.com/2/files/get_thumbnail \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN" \\n    --header "Dropbox-API-Arg: {\"path\": \"/image.jpg\",\"format\": \"jpeg\",\"size\": \"w64h64\",\"mode\": \"strict\"}"
 paramType: 
   namespace: files
   datatype: ThumbnailArg
