@@ -20,6 +20,8 @@ module.exports = {
         "team",
         "deprecated"
     ],
+    "dest": "/generated-cupcake-docs",
+    "base": "/cupcake-docs",
     themeConfig: {
       colors: {
           modes: {
