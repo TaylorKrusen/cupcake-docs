@@ -94,15 +94,15 @@ class MdxBackend(CodeBackend):
             mdx_file_name = 'mdx/routes/{}.mdx'.format('{}/{}'.format(namespace.name, route.name).replace('/', '-'))
             
             if v > 1:
-                js_file_name = 'type-lookup/{}.js'.format('{}/{}-{}'.format(namespace.name, route.name, route.version).replace('/', '-'))
-                mdx_file_name = 'mdx/routes/{}.mdx'.format('{}/{}-{}'.format(namespace.name, route.name, route.version).replace('/', '-'))
+                js_file_name = 'type-lookup/{}.js'.format('{}/{}_v{}'.format(namespace.name, route.name, route.version).replace('/', '-'))
+                mdx_file_name = 'mdx/routes/{}.mdx'.format('{}/{}_v{}'.format(namespace.name, route.name, route.version).replace('/', '-'))
             
             with self.output_to_relative_path(mdx_file_name):
 
                 self.emit("---")
                 if v > 1:
-                    self.emit("name: /{}-{}".format(route.name, route.version))
-                    self.emit("route: /{}/{}-{}".format(namespace.name, route.name, route.version))
+                    self.emit("name: /{}_v{}".format(route.name, route.version))
+                    self.emit("route: /{}/{}_v{}".format(namespace.name, route.name, route.version))
                 else:
                     self.emit("name: /{}".format(route.name))
                     self.emit("route: /{}/{}".format(namespace.name, route.name))                    
@@ -112,7 +112,11 @@ class MdxBackend(CodeBackend):
                 if route.doc:
                     self.emit_raw("description: {}".format(route.doc.replace('\n', '\\n').replace(': ', ':&nbsp').replace(':val:', '').replace(':field:', '').replace(':route:', '').replace(':type:', '')+"\n"))
                 self.emit("isDeprecated: {}".format('true' if route.deprecated else 'false'))
-                self.emit("urlStructure: https://{}.dropbox.com/{}/{}/{}".format(route.attrs.get("host", "api"), route.version, namespace.name, route.name ))            
+
+                url = "{}/{}".format(namespace.name, route.name)
+                if route.version > 1:
+                    url += "_v{}".format(route.version)
+                self.emit("urlStructure: https://{}.dropbox.com/2/{}".format(route.attrs.get("host", "api"), url))            
                 self.emit("endpointFormat: {}".format(route.attrs.get("style")))
                 self.emit("isPreview: {}".format('true' if route.attrs.get("is_preview") else 'false'))
                 self.emit("scope: {}".format(route.attrs.get("scope")))

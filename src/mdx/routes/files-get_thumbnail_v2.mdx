@@ -1,12 +1,12 @@
 ---
-name: /get_thumbnail-2
-route: /files/get_thumbnail-2
+name: /get_thumbnail_v2
+route: /files/get_thumbnail_v2
 namespace: files
 version: 2
 menu: files
 description: Get a thumbnail for a file.
 isDeprecated: false
-urlStructure: https://content.dropbox.com/2/files/get_thumbnail
+urlStructure: https://content.dropbox.com/2/files/get_thumbnail_v2
 endpointFormat: download
 isPreview: false
 scope: files.content.read
@@ -57,6 +57,6 @@ errorExamples:
 ---
 
 import Endpoint from '../../components/Endpoint'
-import stoneTypes from '../../type-lookup/files-get_thumbnail-2.js'
+import stoneTypes from '../../type-lookup/files-get_thumbnail_v2.js'
 
 <Endpoint endpointProps={{typeInfo: stoneTypes, ...props.pageContext.frontmatter}} />

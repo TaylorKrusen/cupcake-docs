@@ -1,12 +1,12 @@
 ---
-name: /move_batch-2
-route: /files/move_batch-2
+name: /move_batch_v2
+route: /files/move_batch_v2
 namespace: files
 version: 2
 menu: files
 description: Move multiple files or folders to different locations at once in the user's Dropbox. Note that we do not currently support case-only renaming.\nThis route will replace `move_batch:1`. The main difference is this route will return status for each entry, while `move_batch:1` raises failure if any entry fails.\nThis route will either finish synchronously, or return a job ID and do the async move job in background. Please use `move_batch/check:2` to check the job status.
 isDeprecated: false
-urlStructure: https://api.dropbox.com/2/files/move_batch
+urlStructure: https://api.dropbox.com/2/files/move_batch_v2
 endpointFormat: rpc
 isPreview: false
 scope: files.content.write
@@ -33,6 +33,6 @@ errorType:
 ---
 
 import Endpoint from '../../components/Endpoint'
-import stoneTypes from '../../type-lookup/files-move_batch-2.js'
+import stoneTypes from '../../type-lookup/files-move_batch_v2.js'
 
 <Endpoint endpointProps={{typeInfo: stoneTypes, ...props.pageContext.frontmatter}} />

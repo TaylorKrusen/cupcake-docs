@@ -6,7 +6,7 @@ version: 1
 menu: deprecated
 description: Create a shared link.\nIf a shared link already exists for the given path, that link is returned.\nNote that in the returned `PathLinkMetadata`, the `PathLinkMetadata.url` field is the shortened URL if `CreateSharedLinkArg.short_url` argument is set to `true`.\nPreviously, it was technically possible to break a shared link by moving or renaming the corresponding file or folder. In the future, this will no longer be the case, so your app shouldn't rely on this behavior. Instead, if your app needs to revoke a shared link, use `revoke_shared_link`.
 isDeprecated: true
-urlStructure: https://api.dropbox.com/1/sharing/create_shared_link
+urlStructure: https://api.dropbox.com/2/sharing/create_shared_link
 endpointFormat: rpc
 isPreview: false
 scope: None

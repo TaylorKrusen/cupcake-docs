@@ -1,12 +1,12 @@
 ---
-name: /upload_session/append-2
-route: /files/upload_session/append-2
+name: /upload_session/append_v2
+route: /files/upload_session/append_v2
 namespace: files
 version: 2
 menu: files
 description: Append more data to an upload session.\nWhen the parameter close is set, this call will close the session.\nA single request should not upload more than 150 MB. The maximum size of a file one can upload to an upload session is 350 GB.\nCalls to this endpoint will count as data transport calls for any Dropbox Business teams with a limit on the number of data transport calls allowed per month. For more information, see the :link:`Data transport limit page https://www.dropbox.com/developers/reference/data-transport-limit`.
 isDeprecated: false
-urlStructure: https://content.dropbox.com/2/files/upload_session/append
+urlStructure: https://content.dropbox.com/2/files/upload_session/append_v2
 endpointFormat: upload
 isPreview: false
 scope: files.content.write
@@ -49,6 +49,6 @@ errorExamples:
 ---
 
 import Endpoint from '../../components/Endpoint'
-import stoneTypes from '../../type-lookup/files-upload_session-append-2.js'
+import stoneTypes from '../../type-lookup/files-upload_session-append_v2.js'
 
 <Endpoint endpointProps={{typeInfo: stoneTypes, ...props.pageContext.frontmatter}} />

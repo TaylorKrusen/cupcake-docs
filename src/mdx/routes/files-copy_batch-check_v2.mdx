@@ -1,12 +1,12 @@
 ---
-name: /copy_batch/check-2
-route: /files/copy_batch/check-2
+name: /copy_batch/check_v2
+route: /files/copy_batch/check_v2
 namespace: files
 version: 2
 menu: files
 description: Returns the status of an asynchronous job for `copy_batch:2`. It returns list of results for each entry.
 isDeprecated: false
-urlStructure: https://api.dropbox.com/2/files/copy_batch/check
+urlStructure: https://api.dropbox.com/2/files/copy_batch/check_v2
 endpointFormat: rpc
 isPreview: false
 scope: files.content.write
@@ -46,6 +46,6 @@ errorExamples:
 ---
 
 import Endpoint from '../../components/Endpoint'
-import stoneTypes from '../../type-lookup/files-copy_batch-check-2.js'
+import stoneTypes from '../../type-lookup/files-copy_batch-check_v2.js'
 
 <Endpoint endpointProps={{typeInfo: stoneTypes, ...props.pageContext.frontmatter}} />

@@ -6,7 +6,7 @@ version: 1
 menu: files
 description: A longpoll endpoint to wait for changes on an account. In conjunction with `list_folder/continue`, this call gives you a low-latency way to monitor an account for file changes. The connection will block until there are changes available or a timeout occurs. This endpoint is useful mostly for client-side apps. If you're looking for server-side notifications, check out our :link:`webhooks documentation https://www.dropbox.com/developers/reference/webhooks`.
 isDeprecated: false
-urlStructure: https://notify.dropbox.com/1/files/list_folder/longpoll
+urlStructure: https://notify.dropbox.com/2/files/list_folder/longpoll
 endpointFormat: rpc
 isPreview: false
 scope: files.metadata.read

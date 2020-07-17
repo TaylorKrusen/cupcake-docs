@@ -1,12 +1,12 @@
 ---
-name: /create_folder-2
-route: /files/create_folder-2
+name: /create_folder_v2
+route: /files/create_folder_v2
 namespace: files
 version: 2
 menu: files
 description: Create a folder at a given path.
 isDeprecated: false
-urlStructure: https://api.dropbox.com/2/files/create_folder
+urlStructure: https://api.dropbox.com/2/files/create_folder_v2
 endpointFormat: rpc
 isPreview: false
 scope: files.content.write
@@ -32,6 +32,6 @@ errorExamples:
 ---
 
 import Endpoint from '../../components/Endpoint'
-import stoneTypes from '../../type-lookup/files-create_folder-2.js'
+import stoneTypes from '../../type-lookup/files-create_folder_v2.js'
 
 <Endpoint endpointProps={{typeInfo: stoneTypes, ...props.pageContext.frontmatter}} />

@@ -1,12 +1,12 @@
 ---
-name: /copy-2
-route: /files/copy-2
+name: /copy_v2
+route: /files/copy_v2
 namespace: files
 version: 2
 menu: files
 description: Copy a file or folder to a different location in the user's Dropbox.\nIf the source path is a folder all its contents will be copied.
 isDeprecated: false
-urlStructure: https://api.dropbox.com/2/files/copy
+urlStructure: https://api.dropbox.com/2/files/copy_v2
 endpointFormat: rpc
 isPreview: false
 scope: files.content.write
@@ -72,6 +72,6 @@ errorExamples:
 ---
 
 import Endpoint from '../../components/Endpoint'
-import stoneTypes from '../../type-lookup/files-copy-2.js'
+import stoneTypes from '../../type-lookup/files-copy_v2.js'
 
 <Endpoint endpointProps={{typeInfo: stoneTypes, ...props.pageContext.frontmatter}} />

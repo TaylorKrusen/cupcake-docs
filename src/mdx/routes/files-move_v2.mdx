@@ -1,12 +1,12 @@
 ---
-name: /move-2
-route: /files/move-2
+name: /move_v2
+route: /files/move_v2
 namespace: files
 version: 2
 menu: files
 description: Move a file or folder to a different location in the user's Dropbox.\nIf the source path is a folder all its contents will be moved.\nNote that we do not currently support case-only renaming.
 isDeprecated: false
-urlStructure: https://api.dropbox.com/2/files/move
+urlStructure: https://api.dropbox.com/2/files/move_v2
 endpointFormat: rpc
 isPreview: false
 scope: files.content.write
@@ -72,6 +72,6 @@ errorExamples:
 ---
 
 import Endpoint from '../../components/Endpoint'
-import stoneTypes from '../../type-lookup/files-move-2.js'
+import stoneTypes from '../../type-lookup/files-move_v2.js'
 
 <Endpoint endpointProps={{typeInfo: stoneTypes, ...props.pageContext.frontmatter}} />

@@ -6,7 +6,7 @@ version: 1
 menu: deprecated
 description: Copy multiple files or folders to different locations at once in the user's Dropbox.\nIf `RelocationBatchArg.allow_shared_folder` is false, this route is atomic. If one entry fails, the whole transaction will abort. If `RelocationBatchArg.allow_shared_folder` is true, atomicity is not guaranteed, but it allows you to copy the contents of shared folders to new locations.\nThis route will return job ID immediately and do the async copy job in background. Please use `copy_batch/check:1` to check the job status.
 isDeprecated: true
-urlStructure: https://api.dropbox.com/1/files/copy_batch
+urlStructure: https://api.dropbox.com/2/files/copy_batch
 endpointFormat: rpc
 isPreview: false
 scope: files.content.write

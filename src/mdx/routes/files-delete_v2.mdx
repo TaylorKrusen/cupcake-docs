@@ -1,12 +1,12 @@
 ---
-name: /delete-2
-route: /files/delete-2
+name: /delete_v2
+route: /files/delete_v2
 namespace: files
 version: 2
 menu: files
 description: Delete the file or folder at a given path.\nIf the path is a folder, all its contents will be deleted too.\nA successful response indicates that the file or folder was deleted. The returned metadata will be the corresponding `FileMetadata` or `FolderMetadata` for the item at time of deletion, and not a `DeletedMetadata` object.
 isDeprecated: false
-urlStructure: https://api.dropbox.com/2/files/delete
+urlStructure: https://api.dropbox.com/2/files/delete_v2
 endpointFormat: rpc
 isPreview: false
 scope: files.content.write
@@ -44,6 +44,6 @@ errorExamples:
 ---
 
 import Endpoint from '../../components/Endpoint'
-import stoneTypes from '../../type-lookup/files-delete-2.js'
+import stoneTypes from '../../type-lookup/files-delete_v2.js'
 
 <Endpoint endpointProps={{typeInfo: stoneTypes, ...props.pageContext.frontmatter}} />
