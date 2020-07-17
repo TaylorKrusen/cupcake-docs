@@ -1,0 +1,41 @@
+---
+name: /devices/list_member_devices
+route: /team/devices/list_member_devices
+namespace: team
+menu: team
+description: List all device sessions of a team's member.
+isDeprecated: False
+urlStructure: https://api.dropbox.com/1/team/devices/list_member_devices
+endpointFormat: rpc
+isPreview: False
+scope: sessions.list
+authentication:
+  - team
+paramType
+  namespace: team
+  datatype: ListMemberDevicesArg
+paramExamples: 
+  - label: default
+    content:{"team_member_id": "dbmid:AAFdgehTzw7WlXhZJsbGCLePe8RvQGYDr-I","include_web_sessions": true,"include_desktop_clients": true,"include_mobile_clients": true}
+returnType
+  namespace: team
+  datatype: ListMemberDevicesResult
+returnExamples: 
+errorType
+  namespace: team
+  datatype: ListMemberDevicesError
+errorExamples: 
+  - label: member_not_found
+    content:{"error_summary": "member_not_found/...","error": {".tag": "member_not_found"}}
+  - label: member_not_found
+    content:{".tag": "member_not_found"}
+  - label: other
+    content:{"error_summary": "other/...","error": {".tag": "other"}}
+  - label: other
+    content:{".tag": "other"}
+---
+
+import Endpoint from '../components/Endpoint'
+import stoneTypes from '../type-lookup/team-devices-list_member_devices.js'
+
+<Endpoint endpointProps={{typeInfo: stoneTypes, ...props.pageContext.frontmatter}} />

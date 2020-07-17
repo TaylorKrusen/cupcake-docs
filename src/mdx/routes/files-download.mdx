@@ -13,9 +13,6 @@ scope: files.content.read
 authentication:
   - user
   - whole_team
-shellExample:
-  label: command line example
-  content: curl -X POST https://content.dropboxapi.com/2/files/download \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN" \\n    --header "Dropbox-API-Arg: {\"path\": \"/Homework/math/Prime_Numbers.txt\"}"
 paramType: 
   namespace: files
   datatype: DownloadArg

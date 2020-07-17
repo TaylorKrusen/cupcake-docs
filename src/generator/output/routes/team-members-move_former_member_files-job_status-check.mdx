@@ -1,0 +1,49 @@
+---
+name: /members/move_former_member_files/job_status/check
+route: /team/members/move_former_member_files/job_status/check
+namespace: team
+menu: team
+description: Once an async_job_id is returned from `members/move_former_member_files` , use this to poll the status of the asynchronous request.\nPermission : Team member management.
+isDeprecated: False
+urlStructure: https://api.dropbox.com/1/team/members/move_former_member_files/job_status/check
+endpointFormat: rpc
+isPreview: False
+scope: members.write
+authentication:
+  - team
+paramType
+  namespace: async
+  datatype: PollArg
+paramExamples: 
+  - label: default
+    content:{"async_job_id": "34g93hh34h04y384084"}
+returnType
+  namespace: async
+  datatype: PollEmptyResult
+returnExamples: 
+  - label: complete
+    content:{".tag": "complete"}
+  - label: in_progress
+    content:{".tag": "in_progress"}
+errorType
+  namespace: async
+  datatype: PollError
+errorExamples: 
+  - label: invalid_async_job_id
+    content:{"error_summary": "invalid_async_job_id/...","error": {".tag": "invalid_async_job_id"}}
+  - label: invalid_async_job_id
+    content:{".tag": "invalid_async_job_id"}
+  - label: internal_error
+    content:{"error_summary": "internal_error/...","error": {".tag": "internal_error"}}
+  - label: internal_error
+    content:{".tag": "internal_error"}
+  - label: other
+    content:{"error_summary": "other/...","error": {".tag": "other"}}
+  - label: other
+    content:{".tag": "other"}
+---
+
+import Endpoint from '../components/Endpoint'
+import stoneTypes from '../type-lookup/team-members-move_former_member_files-job_status-check.js'
+
+<Endpoint endpointProps={{typeInfo: stoneTypes, ...props.pageContext.frontmatter}} />

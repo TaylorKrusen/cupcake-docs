@@ -1,0 +1,50 @@
+---
+name: /check_job_status
+route: /sharing/check_job_status
+namespace: sharing
+menu: sharing
+description: Returns the status of an asynchronous job.
+isDeprecated: False
+urlStructure: https://api.dropbox.com/1/sharing/check_job_status
+endpointFormat: rpc
+isPreview: False
+scope: sharing.write
+authentication:
+  - user
+  - team_admin
+paramType
+  namespace: async
+  datatype: PollArg
+paramExamples: 
+  - label: default
+    content:{"async_job_id": "34g93hh34h04y384084"}
+returnType
+  namespace: sharing
+  datatype: JobStatus
+returnExamples: 
+  - label: in_progress
+    content:{".tag": "in_progress"}
+  - label: complete
+    content:{".tag": "complete"}
+errorType
+  namespace: async
+  datatype: PollError
+errorExamples: 
+  - label: invalid_async_job_id
+    content:{"error_summary": "invalid_async_job_id/...","error": {".tag": "invalid_async_job_id"}}
+  - label: invalid_async_job_id
+    content:{".tag": "invalid_async_job_id"}
+  - label: internal_error
+    content:{"error_summary": "internal_error/...","error": {".tag": "internal_error"}}
+  - label: internal_error
+    content:{".tag": "internal_error"}
+  - label: other
+    content:{"error_summary": "other/...","error": {".tag": "other"}}
+  - label: other
+    content:{".tag": "other"}
+---
+
+import Endpoint from '../components/Endpoint'
+import stoneTypes from '../type-lookup/sharing-check_job_status.js'
+
+<Endpoint endpointProps={{typeInfo: stoneTypes, ...props.pageContext.frontmatter}} />

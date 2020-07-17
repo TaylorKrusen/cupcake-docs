@@ -13,9 +13,6 @@ scope: files.permanent_delete
 authentication:
   - user
   - team_admin
-shellExample:
-  label: command line example
-  content: curl -X POST https://api.dropboxapi.com/2/files/permanently_delete \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN" \\n    --header "Content-Type: application/json" \\n    --data "{\"path\": \"/Homework/math/Prime_Numbers.txt\"}"
 paramType: 
   namespace: files
   datatype: DeleteArg

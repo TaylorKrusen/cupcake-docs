@@ -12,9 +12,6 @@ isPreview: false
 scope: files.metadata.write
 authentication:
   - user
-shellExample:
-  label: command line example
-  content: curl -X POST https://api.dropboxapi.com/2/file_properties/templates/add_for_user \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN" \\n    --header "Content-Type: application/json" \\n    --data "{\"name\": \"Security\",\"description\": \"These properties describe how confidential this file or folder is.\",\"fields\": [{\"name\": \"Security Policy\",\"description\": \"This is the security policy of the file or folder described.\nPolicies can be Confidential, Public or Internal.\",\"type\": \"string\"}]}"
 paramType: 
   namespace: file_properties
   datatype: AddTemplateArg

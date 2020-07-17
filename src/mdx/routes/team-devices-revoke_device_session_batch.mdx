@@ -12,9 +12,6 @@ isPreview: false
 scope: sessions.modify
 authentication:
   - team
-shellExample:
-  label: command line example
-  content: curl -X POST https://api.dropboxapi.com/2/team/devices/revoke_device_session_batch \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN" \\n    --header "Content-Type: application/json" \\n    --data "{\"revoke_devices\": [{\".tag\": \"web_session\",\"session_id\": \"1234faaf0678bcde\",\"team_member_id\": \"dbmid:AAHhy7WsR0x-u4ZCqiDl5Fz5zvuL3kmspwU\"}]}"
 paramType: 
   namespace: team
   datatype: RevokeDeviceSessionBatchArg

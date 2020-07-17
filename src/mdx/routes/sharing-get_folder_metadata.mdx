@@ -13,9 +13,6 @@ scope: sharing.read
 authentication:
   - user
   - whole_team
-shellExample:
-  label: command line example
-  content: curl -X POST https://api.dropboxapi.com/2/sharing/get_folder_metadata \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN" \\n    --header "Content-Type: application/json" \\n    --data "{\"shared_folder_id\": \"84528192421\",\"actions\": []}"
 paramType: 
   namespace: sharing
   datatype: GetMetadataArgs

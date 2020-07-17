@@ -12,9 +12,6 @@ isPreview: false
 scope: groups.read
 authentication:
   - team
-shellExample:
-  label: command line example
-  content: curl -X POST https://api.dropboxapi.com/2/team/groups/get_info \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN" \\n    --header "Content-Type: application/json" \\n    --data "{\".tag\": \"group_ids\",\"group_ids\": [\"g:e2db7665347abcd600000000001a2b3c\",\"g:111111147abcd6000000000222222c\"]}"
 paramType: 
   namespace: team
   datatype: GroupsSelector

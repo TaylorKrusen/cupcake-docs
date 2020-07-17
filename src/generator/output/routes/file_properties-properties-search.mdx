@@ -1,0 +1,34 @@
+---
+name: /properties/search
+route: /file_properties/properties/search
+namespace: file_properties
+menu: file_properties
+description: Search across property templates for particular property field values.
+isDeprecated: False
+urlStructure: https://api.dropbox.com/1/file_properties/properties/search
+endpointFormat: rpc
+isPreview: False
+scope: files.metadata.read
+authentication:
+  - user
+paramType
+  namespace: file_properties
+  datatype: PropertiesSearchArg
+paramExamples: 
+  - label: default
+    content:{"queries": [{"query": "Confidential","mode": {".tag": "field_name","field_name": "Security"},"logical_operator": "or_operator"}],"template_filter": "filter_none"}
+returnType
+  namespace: file_properties
+  datatype: PropertiesSearchResult
+returnExamples: 
+  - label: default
+    content:{"matches": [{"id": "id:a4ayc_80_OEAAAAAAAAAXz","path": "/my_awesome/word.docx","is_deleted": false,"property_groups": [{"template_id": "ptid:1a5n2i6d3OYEAAAAAAAAAYa","fields": [{"name": "Security Policy","value": "Confidential"}]}]}]}
+errorType
+  namespace: file_properties
+  datatype: PropertiesSearchError
+---
+
+import Endpoint from '../components/Endpoint'
+import stoneTypes from '../type-lookup/file_properties-properties-search.js'
+
+<Endpoint endpointProps={{typeInfo: stoneTypes, ...props.pageContext.frontmatter}} />

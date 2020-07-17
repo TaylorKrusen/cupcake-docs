@@ -13,9 +13,6 @@ scope: sharing.write
 authentication:
   - user
   - team_admin
-shellExample:
-  label: command line example
-  content: curl -X POST https://api.dropboxapi.com/2/sharing/add_folder_member \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN" \\n    --header "Content-Type: application/json" \\n    --data "{\"shared_folder_id\": \"84528192421\",\"members\": [{\"member\": {\".tag\": \"email\",\"email\": \"justin@example.com\"},\"access_level\": \"editor\"},{\"member\": {\".tag\": \"dropbox_id\",\"dropbox_id\": \"dbid:AAEufNrMPSPe0dMQijRP0N_aZtBJRm26W4Q\"},\"access_level\": \"viewer\"}],\"quiet\": false,\"custom_message\": \"Documentation for launch day\"}"
 paramType: 
   namespace: sharing
   datatype: AddFolderMemberArg

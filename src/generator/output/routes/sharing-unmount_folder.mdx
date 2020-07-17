@@ -1,0 +1,45 @@
+---
+name: /unmount_folder
+route: /sharing/unmount_folder
+namespace: sharing
+menu: sharing
+description: The current user unmounts the designated folder. They can re-mount the folder at a later time using `mount_folder`.
+isDeprecated: False
+urlStructure: https://api.dropbox.com/1/sharing/unmount_folder
+endpointFormat: rpc
+isPreview: False
+scope: sharing.write
+authentication:
+  - user
+  - team_admin
+paramType
+  namespace: sharing
+  datatype: UnmountFolderArg
+paramExamples: 
+  - label: default
+    content:{"shared_folder_id": "84528192421"}
+returnType
+  namespace: Void
+  datatype: Void
+errorType
+  namespace: sharing
+  datatype: UnmountFolderError
+errorExamples: 
+  - label: no_permission
+    content:{"error_summary": "no_permission/...","error": {".tag": "no_permission"}}
+  - label: no_permission
+    content:{".tag": "no_permission"}
+  - label: not_unmountable
+    content:{"error_summary": "not_unmountable/...","error": {".tag": "not_unmountable"}}
+  - label: not_unmountable
+    content:{".tag": "not_unmountable"}
+  - label: other
+    content:{"error_summary": "other/...","error": {".tag": "other"}}
+  - label: other
+    content:{".tag": "other"}
+---
+
+import Endpoint from '../components/Endpoint'
+import stoneTypes from '../type-lookup/sharing-unmount_folder.js'
+
+<Endpoint endpointProps={{typeInfo: stoneTypes, ...props.pageContext.frontmatter}} />

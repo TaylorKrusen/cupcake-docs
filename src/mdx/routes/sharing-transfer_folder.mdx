@@ -13,9 +13,6 @@ scope: sharing.write
 authentication:
   - user
   - team_admin
-shellExample:
-  label: command line example
-  content: curl -X POST https://api.dropboxapi.com/2/sharing/transfer_folder \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN" \\n    --header "Content-Type: application/json" \\n    --data "{\"shared_folder_id\": \"84528192421\",\"to_dropbox_id\": \"dbid:AAEufNrMPSPe0dMQijRP0N_aZtBJRm26W4Q\"}"
 paramType: 
   namespace: sharing
   datatype: TransferFolderArg

@@ -13,9 +13,6 @@ scope: files.content.write
 authentication:
   - user
   - team_admin
-shellExample:
-  label: command line example
-  content: curl -X POST https://api.dropboxapi.com/2/files/delete_batch \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN" \\n    --header "Content-Type: application/json" \\n    --data "{\"entries\": [{\"path\": \"/Homework/math/Prime_Numbers.txt\"}]}"
 paramType: 
   namespace: files
   datatype: DeleteBatchArg

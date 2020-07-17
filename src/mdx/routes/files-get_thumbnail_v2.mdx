@@ -14,9 +14,6 @@ authentication:
   - app
   - user
   - whole_team
-shellExample:
-  label: command line example
-  content: curl -X POST https://content.dropboxapi.com/2/files/get_thumbnail_2 \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN" \\n    --header "Dropbox-API-Arg: {\"resource\": {\".tag\": \"path\",\"path\": \"/a.docx\"},\"format\": \"jpeg\",\"size\": \"w64h64\",\"mode\": \"strict\"}"
 paramType: 
   namespace: files
   datatype: ThumbnailV2Arg

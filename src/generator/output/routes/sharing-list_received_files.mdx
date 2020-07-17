@@ -1,0 +1,44 @@
+---
+name: /list_received_files
+route: /sharing/list_received_files
+namespace: sharing
+menu: sharing
+description: Returns a list of all files shared with current user.\n Does not include files the user has received via shared folders, and does  not include unclaimed invitations.
+isDeprecated: False
+urlStructure: https://api.dropbox.com/1/sharing/list_received_files
+endpointFormat: rpc
+isPreview: False
+scope: sharing.read
+authentication:
+  - user
+  - team_admin
+paramType
+  namespace: sharing
+  datatype: ListFilesArg
+paramExamples: 
+  - label: default
+    content:{"limit": 100,"actions": []}
+returnType
+  namespace: sharing
+  datatype: ListFilesResult
+returnExamples: 
+  - label: default
+    content:{"entries": [{"id": "id:3kmLmQFnf1AAAAAAAAAAAw","name": "file.txt","policy": {"acl_update_policy": {".tag": "owner"},"shared_link_policy": {".tag": "anyone"},"member_policy": {".tag": "anyone"},"resolved_member_policy": {".tag": "team"}},"preview_url": "https://www.dropbox.com/scl/fi/fir9vjelf","access_type": {".tag": "viewer"},"owner_display_names": ["Jane Doe"],"owner_team": {"id": "dbtid:AAFdgehTzw7WlXhZJsbGCLePe8RvQGYDr-I","name": "Acme, Inc."},"path_display": "/dir/file.txt","path_lower": "/dir/file.txt","permissions": [],"time_invited": "2016-01-20T00:00:00Z"}],"cursor": "AzJJbGlzdF90eXBdofe9c3RPbGlzdGFyZ3NfYnlfZ2lkMRhcbric7Rdog9cmV2aXNpb24H3Qf6o1fkHxQ"}
+errorType
+  namespace: sharing
+  datatype: SharingUserError
+errorExamples: 
+  - label: email_unverified
+    content:{"error_summary": "email_unverified/...","error": {".tag": "email_unverified"}}
+  - label: email_unverified
+    content:{".tag": "email_unverified"}
+  - label: other
+    content:{"error_summary": "other/...","error": {".tag": "other"}}
+  - label: other
+    content:{".tag": "other"}
+---
+
+import Endpoint from '../components/Endpoint'
+import stoneTypes from '../type-lookup/sharing-list_received_files.js'
+
+<Endpoint endpointProps={{typeInfo: stoneTypes, ...props.pageContext.frontmatter}} />

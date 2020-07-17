@@ -1,0 +1,35 @@
+---
+name: /list_folder/get_latest_cursor
+route: /files/list_folder/get_latest_cursor
+namespace: files
+menu: files
+description: A way to quickly get a cursor for the folder's state. Unlike `list_folder`, `list_folder/get_latest_cursor` doesn't return any entries. This endpoint is for app which only needs to know about new files and modifications and doesn't need to know about files that already exist in Dropbox.
+isDeprecated: False
+urlStructure: https://api.dropbox.com/1/files/list_folder/get_latest_cursor
+endpointFormat: rpc
+isPreview: False
+scope: files.metadata.read
+authentication:
+  - user
+  - whole_team
+paramType
+  namespace: files
+  datatype: ListFolderArg
+paramExamples: 
+  - label: default
+    content:{"path": "/Homework/math","recursive": false,"include_media_info": false,"include_deleted": false,"include_has_explicit_shared_members": false,"include_mounted_folders": true,"include_non_downloadable_files": true}
+returnType
+  namespace: files
+  datatype: ListFolderGetLatestCursorResult
+returnExamples: 
+  - label: default
+    content:{"cursor": "ZtkX9_EHj3x7PMkVuFIhwKYXEpwpLwyxp9vMKomUhllil9q7eWiAu"}
+errorType
+  namespace: files
+  datatype: ListFolderError
+---
+
+import Endpoint from '../components/Endpoint'
+import stoneTypes from '../type-lookup/files-list_folder-get_latest_cursor.js'
+
+<Endpoint endpointProps={{typeInfo: stoneTypes, ...props.pageContext.frontmatter}} />

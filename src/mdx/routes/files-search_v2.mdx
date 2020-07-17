@@ -12,9 +12,6 @@ isPreview: false
 scope: files.metadata.read
 authentication:
   - user
-shellExample:
-  label: command line example
-  content: curl -X POST https://api.dropboxapi.com/2/files/search_2 \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN" \\n    --header "Content-Type: application/json" \\n    --data "{\"query\": \"cat\",\"include_highlights\": false}"
 paramType: 
   namespace: files
   datatype: SearchV2Arg

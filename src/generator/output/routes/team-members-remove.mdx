@@ -1,0 +1,129 @@
+---
+name: /members/remove
+route: /team/members/remove
+namespace: team
+menu: team
+description: Removes a member from a team.\nPermission : Team member management\nExactly one of team_member_id, email, or external_id must be provided to identify the user account.\nAccounts can be recovered via `members/recover` for a 7 day period or until the account has been permanently deleted or transferred to another account (whichever comes first). Calling `members/add` while a user is still recoverable on your team will return with `MemberAddResult.user_already_on_team`.\nAccounts can have their files transferred via the admin console for a limited time, based on the version history length associated with the team (180 days for most teams).\nThis endpoint may initiate an asynchronous job. To obtain the final result of the job, the client should periodically poll `members/remove/job_status/get`.
+isDeprecated: False
+urlStructure: https://api.dropbox.com/1/team/members/remove
+endpointFormat: rpc
+isPreview: False
+scope: members.delete
+authentication:
+  - team
+paramType
+  namespace: team
+  datatype: MembersRemoveArg
+paramExamples: 
+  - label: default
+    content:{"user": {".tag": "team_member_id","team_member_id": "dbmid:efgh5678"},"wipe_data": true,"transfer_dest_id": {".tag": "team_member_id","team_member_id": "dbmid:efgh5678"},"transfer_admin_id": {".tag": "team_member_id","team_member_id": "dbmid:efgh5678"},"keep_account": false,"retain_team_shares": false}
+returnType
+  namespace: async
+  datatype: LaunchEmptyResult
+returnExamples: 
+  - label: complete
+    content:{".tag": "complete"}
+  - label: async_job_id
+    content:{".tag": "async_job_id", "async_job_id": "34g93hh34h04y384084"}
+errorType
+  namespace: team
+  datatype: MembersRemoveError
+errorExamples: 
+  - label: user_not_found
+    content:{"error_summary": "user_not_found/...","error": {".tag": "user_not_found"}}
+  - label: user_not_found
+    content:{".tag": "user_not_found"}
+  - label: user_not_in_team
+    content:{"error_summary": "user_not_in_team/...","error": {".tag": "user_not_in_team"}}
+  - label: user_not_in_team
+    content:{".tag": "user_not_in_team"}
+  - label: other
+    content:{"error_summary": "other/...","error": {".tag": "other"}}
+  - label: other
+    content:{".tag": "other"}
+  - label: removed_and_transfer_dest_should_differ
+    content:{"error_summary": "removed_and_transfer_dest_should_differ/...","error": {".tag": "removed_and_transfer_dest_should_differ"}}
+  - label: removed_and_transfer_dest_should_differ
+    content:{".tag": "removed_and_transfer_dest_should_differ"}
+  - label: removed_and_transfer_admin_should_differ
+    content:{"error_summary": "removed_and_transfer_admin_should_differ/...","error": {".tag": "removed_and_transfer_admin_should_differ"}}
+  - label: removed_and_transfer_admin_should_differ
+    content:{".tag": "removed_and_transfer_admin_should_differ"}
+  - label: transfer_dest_user_not_found
+    content:{"error_summary": "transfer_dest_user_not_found/...","error": {".tag": "transfer_dest_user_not_found"}}
+  - label: transfer_dest_user_not_found
+    content:{".tag": "transfer_dest_user_not_found"}
+  - label: transfer_dest_user_not_in_team
+    content:{"error_summary": "transfer_dest_user_not_in_team/...","error": {".tag": "transfer_dest_user_not_in_team"}}
+  - label: transfer_dest_user_not_in_team
+    content:{".tag": "transfer_dest_user_not_in_team"}
+  - label: transfer_admin_user_not_in_team
+    content:{"error_summary": "transfer_admin_user_not_in_team/...","error": {".tag": "transfer_admin_user_not_in_team"}}
+  - label: transfer_admin_user_not_in_team
+    content:{".tag": "transfer_admin_user_not_in_team"}
+  - label: transfer_admin_user_not_found
+    content:{"error_summary": "transfer_admin_user_not_found/...","error": {".tag": "transfer_admin_user_not_found"}}
+  - label: transfer_admin_user_not_found
+    content:{".tag": "transfer_admin_user_not_found"}
+  - label: unspecified_transfer_admin_id
+    content:{"error_summary": "unspecified_transfer_admin_id/...","error": {".tag": "unspecified_transfer_admin_id"}}
+  - label: unspecified_transfer_admin_id
+    content:{".tag": "unspecified_transfer_admin_id"}
+  - label: transfer_admin_is_not_admin
+    content:{"error_summary": "transfer_admin_is_not_admin/...","error": {".tag": "transfer_admin_is_not_admin"}}
+  - label: transfer_admin_is_not_admin
+    content:{".tag": "transfer_admin_is_not_admin"}
+  - label: recipient_not_verified
+    content:{"error_summary": "recipient_not_verified/...","error": {".tag": "recipient_not_verified"}}
+  - label: recipient_not_verified
+    content:{".tag": "recipient_not_verified"}
+  - label: remove_last_admin
+    content:{"error_summary": "remove_last_admin/...","error": {".tag": "remove_last_admin"}}
+  - label: remove_last_admin
+    content:{".tag": "remove_last_admin"}
+  - label: cannot_keep_account_and_transfer
+    content:{"error_summary": "cannot_keep_account_and_transfer/...","error": {".tag": "cannot_keep_account_and_transfer"}}
+  - label: cannot_keep_account_and_transfer
+    content:{".tag": "cannot_keep_account_and_transfer"}
+  - label: cannot_keep_account_and_delete_data
+    content:{"error_summary": "cannot_keep_account_and_delete_data/...","error": {".tag": "cannot_keep_account_and_delete_data"}}
+  - label: cannot_keep_account_and_delete_data
+    content:{".tag": "cannot_keep_account_and_delete_data"}
+  - label: email_address_too_long_to_be_disabled
+    content:{"error_summary": "email_address_too_long_to_be_disabled/...","error": {".tag": "email_address_too_long_to_be_disabled"}}
+  - label: email_address_too_long_to_be_disabled
+    content:{".tag": "email_address_too_long_to_be_disabled"}
+  - label: cannot_keep_invited_user_account
+    content:{"error_summary": "cannot_keep_invited_user_account/...","error": {".tag": "cannot_keep_invited_user_account"}}
+  - label: cannot_keep_invited_user_account
+    content:{".tag": "cannot_keep_invited_user_account"}
+  - label: cannot_retain_shares_when_data_wiped
+    content:{"error_summary": "cannot_retain_shares_when_data_wiped/...","error": {".tag": "cannot_retain_shares_when_data_wiped"}}
+  - label: cannot_retain_shares_when_data_wiped
+    content:{".tag": "cannot_retain_shares_when_data_wiped"}
+  - label: cannot_retain_shares_when_no_account_kept
+    content:{"error_summary": "cannot_retain_shares_when_no_account_kept/...","error": {".tag": "cannot_retain_shares_when_no_account_kept"}}
+  - label: cannot_retain_shares_when_no_account_kept
+    content:{".tag": "cannot_retain_shares_when_no_account_kept"}
+  - label: cannot_retain_shares_when_team_external_sharing_off
+    content:{"error_summary": "cannot_retain_shares_when_team_external_sharing_off/...","error": {".tag": "cannot_retain_shares_when_team_external_sharing_off"}}
+  - label: cannot_retain_shares_when_team_external_sharing_off
+    content:{".tag": "cannot_retain_shares_when_team_external_sharing_off"}
+  - label: cannot_keep_account
+    content:{"error_summary": "cannot_keep_account/...","error": {".tag": "cannot_keep_account"}}
+  - label: cannot_keep_account
+    content:{".tag": "cannot_keep_account"}
+  - label: cannot_keep_account_under_legal_hold
+    content:{"error_summary": "cannot_keep_account_under_legal_hold/...","error": {".tag": "cannot_keep_account_under_legal_hold"}}
+  - label: cannot_keep_account_under_legal_hold
+    content:{".tag": "cannot_keep_account_under_legal_hold"}
+  - label: cannot_keep_account_required_to_sign_tos
+    content:{"error_summary": "cannot_keep_account_required_to_sign_tos/...","error": {".tag": "cannot_keep_account_required_to_sign_tos"}}
+  - label: cannot_keep_account_required_to_sign_tos
+    content:{".tag": "cannot_keep_account_required_to_sign_tos"}
+---
+
+import Endpoint from '../components/Endpoint'
+import stoneTypes from '../type-lookup/team-members-remove.js'
+
+<Endpoint endpointProps={{typeInfo: stoneTypes, ...props.pageContext.frontmatter}} />

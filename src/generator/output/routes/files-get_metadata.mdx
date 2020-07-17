@@ -1,0 +1,42 @@
+---
+name: /get_metadata
+route: /files/get_metadata
+namespace: files
+menu: files
+description: Returns the metadata for a file or folder.\nNote: Metadata for the root folder is unsupported.
+isDeprecated: False
+urlStructure: https://api.dropbox.com/1/files/get_metadata
+endpointFormat: rpc
+isPreview: False
+scope: files.metadata.read
+authentication:
+  - user
+  - whole_team
+paramType
+  namespace: files
+  datatype: GetMetadataArg
+paramExamples: 
+  - label: default
+    content:{"path": "/Homework/math", "include_media_info": false, "include_deleted": false, "include_has_explicit_shared_members": false}
+  - label: id
+    content:{"path": "id:a4ayc_80_OEAAAAAAAAAYa", "include_media_info": false, "include_deleted": false, "include_has_explicit_shared_members": false}
+  - label: rev
+    content:{"path": "rev:a1c10ce0dd78", "include_media_info": false, "include_deleted": false, "include_has_explicit_shared_members": false}
+returnType
+  namespace: files
+  datatype: Metadata
+returnExamples: 
+  - label: default
+    content:{".tag": "file", "name": "Prime_Numbers.txt", "id": "id:a4ayc_80_OEAAAAAAAAAXw", "client_modified": "2015-05-12T15:50:38Z", "server_modified": "2015-05-12T15:50:38Z", "rev": "a1c10ce0dd78", "size": 7212, "path_lower": "/homework/math/prime_numbers.txt", "path_display": "/Homework/math/Prime_Numbers.txt", "sharing_info": {"read_only": true, "parent_shared_folder_id": "84528192421", "modified_by": "dbid:AAH4f99T0taONIb-OurWxbNQ6ywGRopQngc"}, "is_downloadable": true, "property_groups": [{"template_id": "ptid:1a5n2i6d3OYEAAAAAAAAAYa", "fields": [{"name": "Security Policy", "value": "Confidential"}]}], "has_explicit_shared_members": false, "content_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "file_lock_info": {"is_lockholder": true, "lockholder_name": "Imaginary User", "created": "2015-05-12T15:50:38Z"}}
+  - label: default
+    content:{".tag": "folder", "name": "math", "id": "id:a4ayc_80_OEAAAAAAAAAXz", "path_lower": "/homework/math", "path_display": "/Homework/math", "sharing_info": {"read_only": false, "parent_shared_folder_id": "84528192421", "traverse_only": false, "no_access": false}, "property_groups": [{"template_id": "ptid:1a5n2i6d3OYEAAAAAAAAAYa", "fields": [{"name": "Security Policy", "value": "Confidential"}]}]}
+errorType
+  namespace: files
+  datatype: GetMetadataError
+errorExamples: 
+---
+
+import Endpoint from '../components/Endpoint'
+import stoneTypes from '../type-lookup/files-get_metadata.js'
+
+<Endpoint endpointProps={{typeInfo: stoneTypes, ...props.pageContext.frontmatter}} />

@@ -13,9 +13,6 @@ scope: sharing.read
 authentication:
   - user
   - team_admin
-shellExample:
-  label: command line example
-  content: curl -X POST https://api.dropboxapi.com/2/sharing/list_received_files \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN" \\n    --header "Content-Type: application/json" \\n    --data "{\"limit\": 100,\"actions\": []}"
 paramType: 
   namespace: sharing
   datatype: ListFilesArg

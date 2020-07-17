@@ -14,9 +14,6 @@ scope: None
 authentication:
   - user
   - team_admin
-shellExample:
-  label: command line example
-  content: curl -X POST https://api.dropboxapi.com/2/sharing/create_shared_link \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN" \\n    --header "Content-Type: application/json" \\n    --data "{\"path\": \"/Homework/Math/Prime_Numbers.txt\",\"short_url\": false}"
 paramType: 
   namespace: sharing
   datatype: CreateSharedLinkArg

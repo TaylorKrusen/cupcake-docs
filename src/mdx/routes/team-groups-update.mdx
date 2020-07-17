@@ -12,9 +12,6 @@ isPreview: false
 scope: groups.write
 authentication:
   - team
-shellExample:
-  label: command line example
-  content: curl -X POST https://api.dropboxapi.com/2/team/groups/update \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN" \\n    --header "Content-Type: application/json" \\n    --data "{\"group\": {\".tag\": \"group_id\",\"group_id\": \"g:e2db7665347abcd600000000001a2b3c\"},\"return_members\": true,\"new_group_name\": \"Europe west sales\",\"new_group_external_id\": \"sales-234\",\"new_group_management_type\": \"company_managed\"}"
 paramType: 
   namespace: team
   datatype: GroupUpdateArgs

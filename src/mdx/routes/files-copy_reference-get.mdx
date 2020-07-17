@@ -12,9 +12,6 @@ isPreview: false
 scope: files.content.write
 authentication:
   - user
-shellExample:
-  label: command line example
-  content: curl -X POST https://api.dropboxapi.com/2/files/copy_reference/get \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN" \\n    --header "Content-Type: application/json" \\n    --data "{\"path\": \"/video.mp4\"}"
 paramType: 
   namespace: files
   datatype: GetCopyReferenceArg

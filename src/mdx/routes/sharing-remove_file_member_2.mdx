@@ -13,9 +13,6 @@ scope: sharing.write
 authentication:
   - user
   - team_admin
-shellExample:
-  label: command line example
-  content: curl -X POST https://api.dropboxapi.com/2/sharing/remove_file_member_2 \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN" \\n    --header "Content-Type: application/json" \\n    --data "{\"file\": \"id:3kmLmQFnf1AAAAAAAAAAAw\",\"member\": {\".tag\": \"email\",\"email\": \"justin@example.com\"}}"
 paramType: 
   namespace: sharing
   datatype: RemoveFileMemberArg

@@ -14,9 +14,6 @@ scope: files.content.write
 authentication:
   - user
   - team_admin
-shellExample:
-  label: command line example
-  content: curl -X POST https://api.dropboxapi.com/2/files/move_batch \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN" \\n    --header "Content-Type: application/json" \\n    --data "{\"entries\": [{\"from_path\": \"/Homework/math\",\"to_path\": \"/Homework/algebra\"}],\"autorename\": false,\"allow_shared_folder\": false,\"allow_ownership_transfer\": false}"
 paramType: 
   namespace: files
   datatype: RelocationBatchArg

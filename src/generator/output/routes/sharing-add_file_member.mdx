@@ -1,0 +1,48 @@
+---
+name: /add_file_member
+route: /sharing/add_file_member
+namespace: sharing
+menu: sharing
+description: Adds specified members to a file.
+isDeprecated: False
+urlStructure: https://api.dropbox.com/1/sharing/add_file_member
+endpointFormat: rpc
+isPreview: False
+scope: sharing.write
+authentication:
+  - user
+  - team_admin
+paramType
+  namespace: sharing
+  datatype: AddFileMemberArgs
+paramExamples: 
+  - label: default
+    content:{"file": "id:3kmLmQFnf1AAAAAAAAAAAw","members": [{".tag": "email","email": "justin@example.com"}],"custom_message": "This is a custom message about ACME.doc","quiet": false,"access_level": "viewer","add_message_as_comment": false}
+returnType
+  namespace: sharing
+  datatype: FileMemberActionResult[]
+returnExamples: 
+  - label: default
+    content:{"member": {".tag": "email","email": "justin@example.com"},"result": {".tag": "success"}}
+errorType
+  namespace: sharing
+  datatype: AddFileMemberError
+errorExamples: 
+  - label: rate_limit
+    content:{"error_summary": "rate_limit/...","error": {".tag": "rate_limit"}}
+  - label: rate_limit
+    content:{".tag": "rate_limit"}
+  - label: invalid_comment
+    content:{"error_summary": "invalid_comment/...","error": {".tag": "invalid_comment"}}
+  - label: invalid_comment
+    content:{".tag": "invalid_comment"}
+  - label: other
+    content:{"error_summary": "other/...","error": {".tag": "other"}}
+  - label: other
+    content:{".tag": "other"}
+---
+
+import Endpoint from '../components/Endpoint'
+import stoneTypes from '../type-lookup/sharing-add_file_member.js'
+
+<Endpoint endpointProps={{typeInfo: stoneTypes, ...props.pageContext.frontmatter}} />

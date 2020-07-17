@@ -14,9 +14,6 @@ scope: files.content.write
 authentication:
   - user
   - team_admin
-shellExample:
-  label: command line example
-  content: curl -X POST https://api.dropboxapi.com/2/files/create_folder \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN" \\n    --header "Content-Type: application/json" \\n    --data "{\"path\": \"/Homework/math\",\"autorename\": false}"
 paramType: 
   namespace: files
   datatype: CreateFolderArg

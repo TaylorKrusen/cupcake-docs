@@ -13,9 +13,6 @@ scope: files.content.write
 authentication:
   - user
   - team_admin
-shellExample:
-  label: command line example
-  content: curl -X POST https://content.dropboxapi.com/2/files/upload \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN" \\n    --header "Dropbox-API-Arg: {\"path\": \"/Homework/math/Matrices.txt\",\"mode\": \"add\",\"autorename\": true,\"mute\": false,\"strict_conflict\": false}" \\n    --header "Content-Type: application/octet-stream" \\n    --data-binary @local_file.txt
 paramType: 
   namespace: files
   datatype: CommitInfo

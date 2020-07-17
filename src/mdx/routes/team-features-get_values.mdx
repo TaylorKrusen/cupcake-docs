@@ -12,9 +12,6 @@ isPreview: false
 scope: team_info.read
 authentication:
   - team
-shellExample:
-  label: command line example
-  content: curl -X POST https://api.dropboxapi.com/2/team/features/get_values \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN" \\n    --header "Content-Type: application/json" \\n    --data "{\"features\": [{\".tag\": \"upload_api_rate_limit\"},{\".tag\": \"has_team_shared_dropbox\"}]}"
 paramType: 
   namespace: team
   datatype: FeaturesGetValuesBatchArg

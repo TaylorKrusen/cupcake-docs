@@ -1,0 +1,52 @@
+---
+name: /members/recover
+route: /team/members/recover
+namespace: team
+menu: team
+description: Recover a deleted member.\nPermission : Team member management\nExactly one of team_member_id, email, or external_id must be provided to identify the user account.
+isDeprecated: False
+urlStructure: https://api.dropbox.com/1/team/members/recover
+endpointFormat: rpc
+isPreview: False
+scope: members.delete
+authentication:
+  - team
+paramType
+  namespace: team
+  datatype: MembersRecoverArg
+paramExamples: 
+  - label: default
+    content:{"user": {".tag": "team_member_id","team_member_id": "dbmid:efgh5678"}}
+returnType
+  namespace: Void
+  datatype: Void
+errorType
+  namespace: team
+  datatype: MembersRecoverError
+errorExamples: 
+  - label: user_not_found
+    content:{"error_summary": "user_not_found/...","error": {".tag": "user_not_found"}}
+  - label: user_not_found
+    content:{".tag": "user_not_found"}
+  - label: user_unrecoverable
+    content:{"error_summary": "user_unrecoverable/...","error": {".tag": "user_unrecoverable"}}
+  - label: user_unrecoverable
+    content:{".tag": "user_unrecoverable"}
+  - label: user_not_in_team
+    content:{"error_summary": "user_not_in_team/...","error": {".tag": "user_not_in_team"}}
+  - label: user_not_in_team
+    content:{".tag": "user_not_in_team"}
+  - label: team_license_limit
+    content:{"error_summary": "team_license_limit/...","error": {".tag": "team_license_limit"}}
+  - label: team_license_limit
+    content:{".tag": "team_license_limit"}
+  - label: other
+    content:{"error_summary": "other/...","error": {".tag": "other"}}
+  - label: other
+    content:{".tag": "other"}
+---
+
+import Endpoint from '../components/Endpoint'
+import stoneTypes from '../type-lookup/team-members-recover.js'
+
+<Endpoint endpointProps={{typeInfo: stoneTypes, ...props.pageContext.frontmatter}} />
