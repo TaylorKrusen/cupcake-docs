@@ -18,6 +18,7 @@ module.exports = {
         "users",
         "Business API introduction",
         "team",
+        "team_log",
         "deprecated"
     ],
     "dest": "/generated-cupcake-docs",
