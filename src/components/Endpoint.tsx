@@ -39,6 +39,7 @@ export interface EndpointProps {
   returnExamples: Example[];
   errorExamples: Example[];
   urlStructure: string;
+  version: number;
 }
 
 export default function Endpoint(props: {endpointProps: EndpointProps}) {
@@ -62,6 +63,7 @@ export default function Endpoint(props: {endpointProps: EndpointProps}) {
     returnExamples,
     errorExamples,
     urlStructure,
+    version,
   } = props.endpointProps;
   const renderExamples = function (examples: Example[]) {
     if (!examples) {
@@ -83,7 +85,7 @@ export default function Endpoint(props: {endpointProps: EndpointProps}) {
       {isPreview && <Warning>PREVIEW - may change or disappear without notice</Warning>}
       <h1>{route}</h1>
       <RowContainer title="Version">
-        <VersionDropdown versions={[1]} selected={1} />
+        <VersionDropdown versions={[version]} selected={version} />
       </RowContainer>
       <RowContainer title="Description">
         <Description description={description} />

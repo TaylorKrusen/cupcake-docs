@@ -5,10 +5,32 @@ module.exports = {
     "plugins": ['gatsby-plugin-mdx'],
     "typescript": true,
     "menu": [
-        { name: "Introduction", menu: []},
-        { name: "User Endpoints", menu: []},
-        { name: "Business Endpoints", menu: []}
+        "User API introduction",
+        "account",
+        "auth",
+        "check",
+        "cloud_docs",
+        "contacts",
+        "file_properties",
+        "file_requests",
+        "files",
+        "sharing",
+        "users",
+        "Business API introduction",
+        "teams",
+        "deprecated"
     ],
-    "dest": "/cupcake-docs",
-    "base": "/cupcake-docs"
+    themeConfig: {
+      colors: {
+          modes: {
+              dark: {
+                  sidebar: {
+                      navGroup: '#FFFFFF',
+                      tocLink: '#F5F6F7',
+                      tocLinkActive: '#FFFFFF',
+                  }
+              }
+          }
+      },
+    },
 }
