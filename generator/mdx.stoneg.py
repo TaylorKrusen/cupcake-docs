@@ -94,8 +94,8 @@ class MdxBackend(CodeBackend):
             mdx_file_name = 'mdx/routes/{}.mdx'.format('{}/{}'.format(namespace.name, route.name).replace('/', '-'))
             
             if v > 1:
-                js_file_name = 'type-lookup/{}.js'.format('{}/{}-{}'.format(namespace.name, route.name, route.version).replace('/', '-'))
-                mdx_file_name = 'mdx/routes/{}.mdx'.format('{}/{}-{}'.format(namespace.name, route.name, route.version).replace('/', '-'))
+                js_file_name = 'type-lookup/{}.js'.format('{}/{}_v{}'.format(namespace.name, route.name, route.version).replace('/', '-'))
+                mdx_file_name = 'mdx/routes/{}.mdx'.format('{}/{}_v{}'.format(namespace.name, route.name, route.version).replace('/', '-'))
             
             with self.output_to_relative_path(mdx_file_name):
 
