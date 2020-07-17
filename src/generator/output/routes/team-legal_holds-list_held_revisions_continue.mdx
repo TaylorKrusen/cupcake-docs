@@ -1,0 +1,59 @@
+---
+name: /legal_holds/list_held_revisions_continue
+route: /team/legal_holds/list_held_revisions_continue
+namespace: team
+menu: team
+description: Continue listing the file metadata that's under the hold. Note: Legal Holds is a paid add-on. Not all teams have the feature.\nPermission : Team member file access.
+isDeprecated: False
+urlStructure: https://api.dropbox.com/1/team/legal_holds/list_held_revisions_continue
+endpointFormat: rpc
+isPreview: False
+scope: team_data.member
+authentication:
+  - team
+paramType
+  namespace: team
+  datatype: LegalHoldsListHeldRevisionsContinueArg
+paramExamples: 
+  - label: default
+    content:{"id": "pid_dbhid:abcd1234"}
+returnType
+  namespace: team
+  datatype: LegalHoldsListHeldRevisionResult
+returnExamples: 
+  - label: default
+    content:{"entries": [{"new_filename": "111_222.pdf","original_revision_id": "ab2rij4i5ojgfd","original_file_path": "/a.pdf","server_modified": "2019-08-12T12:08:52Z","author_member_id": "dbmid:abcd1234abcd1234abcd1234abcd1234a23","author_member_status": {".tag": "active"},"author_email": "a@a.com","file_type": "Document","size": 3,"content_hash": "abcd1234abcd1234abcd1234abcd1234abcd1234abcd1234abcd1234abcd1234"}],"has_more": false}
+errorType
+  namespace: team
+  datatype: LegalHoldsListHeldRevisionsError
+errorExamples: 
+  - label: unknown_legal_hold_error
+    content:{"error_summary": "unknown_legal_hold_error/...","error": {".tag": "unknown_legal_hold_error"}}
+  - label: unknown_legal_hold_error
+    content:{".tag": "unknown_legal_hold_error"}
+  - label: insufficient_permissions
+    content:{"error_summary": "insufficient_permissions/...","error": {".tag": "insufficient_permissions"}}
+  - label: insufficient_permissions
+    content:{".tag": "insufficient_permissions"}
+  - label: other
+    content:{"error_summary": "other/...","error": {".tag": "other"}}
+  - label: other
+    content:{".tag": "other"}
+  - label: transient_error
+    content:{"error_summary": "transient_error/...","error": {".tag": "transient_error"}}
+  - label: transient_error
+    content:{".tag": "transient_error"}
+  - label: legal_hold_still_empty
+    content:{"error_summary": "legal_hold_still_empty/...","error": {".tag": "legal_hold_still_empty"}}
+  - label: legal_hold_still_empty
+    content:{".tag": "legal_hold_still_empty"}
+  - label: inactive_legal_hold
+    content:{"error_summary": "inactive_legal_hold/...","error": {".tag": "inactive_legal_hold"}}
+  - label: inactive_legal_hold
+    content:{".tag": "inactive_legal_hold"}
+---
+
+import Endpoint from '../components/Endpoint'
+import stoneTypes from '../type-lookup/team-legal_holds-list_held_revisions_continue.js'
+
+<Endpoint endpointProps={{typeInfo: stoneTypes, ...props.pageContext.frontmatter}} />

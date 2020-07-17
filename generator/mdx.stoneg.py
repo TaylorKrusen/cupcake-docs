@@ -94,25 +94,31 @@ class MdxBackend(CodeBackend):
             mdx_file_name = 'mdx/routes/{}.mdx'.format('{}/{}'.format(namespace.name, route.name).replace('/', '-'))
             
             if v > 1:
-                js_file_name = 'type-lookup/{}.js'.format('{}/{}-{}'.format(namespace.name, route.name, route.version).replace('/', '-'))
-                mdx_file_name = 'mdx/routes/{}.mdx'.format('{}/{}-{}'.format(namespace.name, route.name, route.version).replace('/', '-'))
+                js_file_name = 'type-lookup/{}.js'.format('{}/{}_v{}'.format(namespace.name, route.name, route.version).replace('/', '-'))
+                mdx_file_name = 'mdx/routes/{}.mdx'.format('{}/{}_v{}'.format(namespace.name, route.name, route.version).replace('/', '-'))
             
             with self.output_to_relative_path(mdx_file_name):
 
                 self.emit("---")
+                full_route_name = "{}/{}".format(namespace.name, route.name)
                 if v > 1:
-                    self.emit("name: /{}-{}".format(route.name, route.version))
-                    self.emit("route: /{}/{}-{}".format(namespace.name, route.name, route.version))
+                    full_route_name = "{}/{}_{}".format(namespace.name, route.name, route.version)
+                    self.emit("name: /{}_{}".format(route.name, route.version))
                 else:
                     self.emit("name: /{}".format(route.name))
-                    self.emit("route: /{}/{}".format(namespace.name, route.name))                    
+                self.emit("route: /{}".format(full_route_name))
                 self.emit("namespace: {}".format(namespace.name))
                 self.emit("version: {}".format(route.version))
                 self.emit("menu: {}".format(namespace.name if not route.deprecated else 'deprecated'))
                 if route.doc:
                     self.emit_raw("description: {}".format(route.doc.replace('\n', '\\n').replace(': ', ':&nbsp').replace(':val:', '').replace(':field:', '').replace(':route:', '').replace(':type:', '')+"\n"))
                 self.emit("isDeprecated: {}".format('true' if route.deprecated else 'false'))
-                self.emit("urlStructure: https://{}.dropbox.com/{}/{}/{}".format(route.attrs.get("host", "api"), route.version, namespace.name, route.name ))            
+                if route.deprecated and route.deprecated.by:
+                    if route.deprecated.by.version > 1:
+                        self.emit("deprecatedBy: {}_{}".format(route.deprecated.by.name, route.deprecated.by.version))
+                    else:
+                        self.emit("deprecatedBy: {}".format(route.deprecated.by.name))
+                self.emit("urlStructure: https://{}.dropbox.com/2/{}".format(route.attrs.get("host", "api"), full_route_name))
                 self.emit("endpointFormat: {}".format(route.attrs.get("style")))
                 self.emit("isPreview: {}".format('true' if route.attrs.get("is_preview") else 'false'))
                 self.emit("scope: {}".format(route.attrs.get("scope")))
@@ -121,6 +127,11 @@ class MdxBackend(CodeBackend):
                     self.emit("  - {}".format(a))
                 if route.attrs.get("select_admin_mode"):
                     self.emit("  - {}".format(route.attrs.get("select_admin_mode")))
+                curl = self.get_curl_example(route.arg_data_type, full_route_name, route.attrs)
+#                if curl:
+#                    self.emit("shellExample:")
+#                    self.emit("  label: command line example")
+#                    self.emit("  content: '{}'".format(curl.replace('\n', '\\n')))
                 self._generate_route_datatype(route.arg_data_type, PARAMETER)
                 self._generate_route_datatype(route.result_data_type, RETURN_VALUE)
                 self._generate_route_datatype(route.error_data_type, ERROR)
@@ -183,6 +194,53 @@ class MdxBackend(CodeBackend):
         if namespace not in self.routeTypesDict:
             self.routeTypesDict[namespace] = {}
         self.routeTypesDict[namespace][datatype] = self.all_types[namespace][datatype]
+
+    @staticmethod
+    def get_curl_example(datatype, full_route_name, attrs):
+
+        if is_void_type(datatype):
+            arg_dict = None
+        else:
+            # Always demo compact serialization for requests.
+            examples = datatype.get_examples(compact=True)
+            if not examples:
+                return None
+
+            arg_dict = examples.get("default")
+            if not arg_dict:
+                # If there is no example with label "default", let's just take
+                # the first example from the spec.
+                arg_dict = examples.values()[0]
+
+        subdomain = attrs.get("host", "api")
+        style = attrs.get("style", "rpc")
+        auth = attrs.get("auth", "user")
+
+        command = "curl -X POST https://{subdomain}.dropboxapi.com/2/{full_route_name}".format(
+            subdomain=subdomain, full_route_name=full_route_name
+        )
+
+        curl_data = None
+        if arg_dict is not None:
+            curl_data = json.dumps(arg_dict.value, separators=(",", ": ")).replace('"', '\\"')
+
+        if auth == "app":
+            command += ' \\\n    --header "Authorization: Basic YOUR_APP_KEY:YOUR_APP_SECRET"'
+        elif auth != "noauth":
+            command += ' \\\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN"'
+        if style in ("upload", "download"):
+            if curl_data is not None:
+                command += ' \\\n    --header "Dropbox-API-Arg: {curl_data}"'.format(curl_data=curl_data)
+        if style == "upload":
+            command += ' \\\n    --header "Content-Type: application/octet-stream"'
+            command += " \\\n    --data-binary @local_file.txt"
+        elif style == "rpc" and (curl_data is not None):
+            command += (' \\\n    --header "Content-Type: application/json" \\\n'+'    --data "{curl_data}"'
+            ).format(curl_data=curl_data)
+
+        return command
+
+
 
     # helper to emit either complex name or struct name in routes
     def _generate_route_datatype(self, datatype, section):

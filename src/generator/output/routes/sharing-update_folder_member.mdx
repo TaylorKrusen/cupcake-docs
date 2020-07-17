@@ -1,0 +1,46 @@
+---
+name: /update_folder_member
+route: /sharing/update_folder_member
+namespace: sharing
+menu: sharing
+description: Allows an owner or editor of a shared folder to update another member's permissions.
+isDeprecated: False
+urlStructure: https://api.dropbox.com/1/sharing/update_folder_member
+endpointFormat: rpc
+isPreview: False
+scope: sharing.write
+authentication:
+  - user
+  - team_admin
+paramType
+  namespace: sharing
+  datatype: UpdateFolderMemberArg
+paramExamples: 
+  - label: default
+    content:{"shared_folder_id": "84528192421","member": {".tag": "email","email": "justin@example.com"},"access_level": "editor"}
+returnType
+  namespace: sharing
+  datatype: MemberAccessLevelResult
+returnExamples: 
+errorType
+  namespace: sharing
+  datatype: UpdateFolderMemberError
+errorExamples: 
+  - label: insufficient_plan
+    content:{"error_summary": "insufficient_plan/...","error": {".tag": "insufficient_plan"}}
+  - label: insufficient_plan
+    content:{".tag": "insufficient_plan"}
+  - label: no_permission
+    content:{"error_summary": "no_permission/...","error": {".tag": "no_permission"}}
+  - label: no_permission
+    content:{".tag": "no_permission"}
+  - label: other
+    content:{"error_summary": "other/...","error": {".tag": "other"}}
+  - label: other
+    content:{".tag": "other"}
+---
+
+import Endpoint from '../components/Endpoint'
+import stoneTypes from '../type-lookup/sharing-update_folder_member.js'
+
+<Endpoint endpointProps={{typeInfo: stoneTypes, ...props.pageContext.frontmatter}} />

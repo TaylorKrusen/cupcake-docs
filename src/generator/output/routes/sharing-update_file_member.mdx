@@ -1,0 +1,46 @@
+---
+name: /update_file_member
+route: /sharing/update_file_member
+namespace: sharing
+menu: sharing
+description: Changes a member's access on a shared file.
+isDeprecated: False
+urlStructure: https://api.dropbox.com/1/sharing/update_file_member
+endpointFormat: rpc
+isPreview: False
+scope: sharing.write
+authentication:
+  - user
+  - team_admin
+paramType
+  namespace: sharing
+  datatype: UpdateFileMemberArgs
+paramExamples: 
+  - label: default
+    content:{"file": "id:3kmLmQFnf1AAAAAAAAAAAw","member": {".tag": "email","email": "justin@example.com"},"access_level": "viewer"}
+returnType
+  namespace: sharing
+  datatype: MemberAccessLevelResult
+returnExamples: 
+errorType
+  namespace: sharing
+  datatype: FileMemberActionError
+errorExamples: 
+  - label: invalid_member
+    content:{"error_summary": "invalid_member/...","error": {".tag": "invalid_member"}}
+  - label: invalid_member
+    content:{".tag": "invalid_member"}
+  - label: no_permission
+    content:{"error_summary": "no_permission/...","error": {".tag": "no_permission"}}
+  - label: no_permission
+    content:{".tag": "no_permission"}
+  - label: other
+    content:{"error_summary": "other/...","error": {".tag": "other"}}
+  - label: other
+    content:{".tag": "other"}
+---
+
+import Endpoint from '../components/Endpoint'
+import stoneTypes from '../type-lookup/sharing-update_file_member.js'
+
+<Endpoint endpointProps={{typeInfo: stoneTypes, ...props.pageContext.frontmatter}} />

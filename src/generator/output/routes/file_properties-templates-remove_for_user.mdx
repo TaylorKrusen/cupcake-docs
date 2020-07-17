@@ -1,0 +1,40 @@
+---
+name: /templates/remove_for_user
+route: /file_properties/templates/remove_for_user
+namespace: file_properties
+menu: file_properties
+description: Permanently removes the specified template created from `templates/add_for_user`. All properties associated with the template will also be removed. This action cannot be undone.
+isDeprecated: False
+urlStructure: https://api.dropbox.com/1/file_properties/templates/remove_for_user
+endpointFormat: rpc
+isPreview: False
+scope: files.metadata.write
+authentication:
+  - user
+paramType
+  namespace: file_properties
+  datatype: RemoveTemplateArg
+paramExamples: 
+  - label: default
+    content:{"template_id": "ptid:1a5n2i6d3OYEAAAAAAAAAYa"}
+returnType
+  namespace: Void
+  datatype: Void
+errorType
+  namespace: file_properties
+  datatype: TemplateError
+errorExamples: 
+  - label: restricted_content
+    content:{"error_summary": "restricted_content/...","error": {".tag": "restricted_content"}}
+  - label: restricted_content
+    content:{".tag": "restricted_content"}
+  - label: other
+    content:{"error_summary": "other/...","error": {".tag": "other"}}
+  - label: other
+    content:{".tag": "other"}
+---
+
+import Endpoint from '../components/Endpoint'
+import stoneTypes from '../type-lookup/file_properties-templates-remove_for_user.js'
+
+<Endpoint endpointProps={{typeInfo: stoneTypes, ...props.pageContext.frontmatter}} />

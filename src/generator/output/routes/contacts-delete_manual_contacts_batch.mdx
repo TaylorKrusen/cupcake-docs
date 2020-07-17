@@ -1,0 +1,31 @@
+---
+name: /delete_manual_contacts_batch
+route: /contacts/delete_manual_contacts_batch
+namespace: contacts
+menu: contacts
+description: Removes manually added contacts from the given list.
+isDeprecated: False
+urlStructure: https://api.dropbox.com/1/contacts/delete_manual_contacts_batch
+endpointFormat: rpc
+isPreview: False
+scope: contacts.write
+authentication:
+  - user
+paramType
+  namespace: contacts
+  datatype: DeleteManualContactsArg
+paramExamples: 
+  - label: default
+    content:{"email_addresses": ["contactemailaddress1@domain.com","contactemailaddress2@domain.com"]}
+returnType
+  namespace: Void
+  datatype: Void
+errorType
+  namespace: contacts
+  datatype: DeleteManualContactsError
+---
+
+import Endpoint from '../components/Endpoint'
+import stoneTypes from '../type-lookup/contacts-delete_manual_contacts_batch.js'
+
+<Endpoint endpointProps={{typeInfo: stoneTypes, ...props.pageContext.frontmatter}} />

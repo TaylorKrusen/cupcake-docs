@@ -1,0 +1,61 @@
+---
+name: /transfer_folder
+route: /sharing/transfer_folder
+namespace: sharing
+menu: sharing
+description: Transfer ownership of a shared folder to a member of the shared folder.\nUser must have `AccessLevel.owner` access to the shared folder to perform a transfer.
+isDeprecated: False
+urlStructure: https://api.dropbox.com/1/sharing/transfer_folder
+endpointFormat: rpc
+isPreview: False
+scope: sharing.write
+authentication:
+  - user
+  - team_admin
+paramType
+  namespace: sharing
+  datatype: TransferFolderArg
+paramExamples: 
+  - label: default
+    content:{"shared_folder_id": "84528192421","to_dropbox_id": "dbid:AAEufNrMPSPe0dMQijRP0N_aZtBJRm26W4Q"}
+returnType
+  namespace: Void
+  datatype: Void
+errorType
+  namespace: sharing
+  datatype: TransferFolderError
+errorExamples: 
+  - label: invalid_dropbox_id
+    content:{"error_summary": "invalid_dropbox_id/...","error": {".tag": "invalid_dropbox_id"}}
+  - label: invalid_dropbox_id
+    content:{".tag": "invalid_dropbox_id"}
+  - label: new_owner_not_a_member
+    content:{"error_summary": "new_owner_not_a_member/...","error": {".tag": "new_owner_not_a_member"}}
+  - label: new_owner_not_a_member
+    content:{".tag": "new_owner_not_a_member"}
+  - label: new_owner_unmounted
+    content:{"error_summary": "new_owner_unmounted/...","error": {".tag": "new_owner_unmounted"}}
+  - label: new_owner_unmounted
+    content:{".tag": "new_owner_unmounted"}
+  - label: new_owner_email_unverified
+    content:{"error_summary": "new_owner_email_unverified/...","error": {".tag": "new_owner_email_unverified"}}
+  - label: new_owner_email_unverified
+    content:{".tag": "new_owner_email_unverified"}
+  - label: team_folder
+    content:{"error_summary": "team_folder/...","error": {".tag": "team_folder"}}
+  - label: team_folder
+    content:{".tag": "team_folder"}
+  - label: no_permission
+    content:{"error_summary": "no_permission/...","error": {".tag": "no_permission"}}
+  - label: no_permission
+    content:{".tag": "no_permission"}
+  - label: other
+    content:{"error_summary": "other/...","error": {".tag": "other"}}
+  - label: other
+    content:{".tag": "other"}
+---
+
+import Endpoint from '../components/Endpoint'
+import stoneTypes from '../type-lookup/sharing-transfer_folder.js'
+
+<Endpoint endpointProps={{typeInfo: stoneTypes, ...props.pageContext.frontmatter}} />

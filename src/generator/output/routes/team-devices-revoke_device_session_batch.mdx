@@ -1,0 +1,32 @@
+---
+name: /devices/revoke_device_session_batch
+route: /team/devices/revoke_device_session_batch
+namespace: team
+menu: team
+description: Revoke a list of device sessions of team members.
+isDeprecated: False
+urlStructure: https://api.dropbox.com/1/team/devices/revoke_device_session_batch
+endpointFormat: rpc
+isPreview: False
+scope: sessions.modify
+authentication:
+  - team
+paramType
+  namespace: team
+  datatype: RevokeDeviceSessionBatchArg
+paramExamples: 
+  - label: default
+    content:{"revoke_devices": [{".tag": "web_session","session_id": "1234faaf0678bcde","team_member_id": "dbmid:AAHhy7WsR0x-u4ZCqiDl5Fz5zvuL3kmspwU"}]}
+returnType
+  namespace: team
+  datatype: RevokeDeviceSessionBatchResult
+returnExamples: 
+errorType
+  namespace: team
+  datatype: RevokeDeviceSessionBatchError
+---
+
+import Endpoint from '../components/Endpoint'
+import stoneTypes from '../type-lookup/team-devices-revoke_device_session_batch.js'
+
+<Endpoint endpointProps={{typeInfo: stoneTypes, ...props.pageContext.frontmatter}} />

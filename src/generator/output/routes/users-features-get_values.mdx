@@ -1,0 +1,43 @@
+---
+name: /features/get_values
+route: /users/features/get_values
+namespace: users
+menu: users
+description: Get a list of feature values that may be configured for the current account.
+isDeprecated: False
+urlStructure: https://api.dropbox.com/1/users/features/get_values
+endpointFormat: rpc
+isPreview: False
+scope: account_info.read
+authentication:
+  - user
+paramType
+  namespace: users
+  datatype: UserFeaturesGetValuesBatchArg
+paramExamples: 
+  - label: default
+    content:{"features": [{".tag": "paper_as_files"},{".tag": "file_locking"}]}
+returnType
+  namespace: users
+  datatype: UserFeaturesGetValuesBatchResult
+returnExamples: 
+  - label: default
+    content:{"values": [{".tag": "paper_as_files","paper_as_files": {".tag": "enabled","enabled": true}}]}
+errorType
+  namespace: users
+  datatype: UserFeaturesGetValuesBatchError
+errorExamples: 
+  - label: empty_features_list
+    content:{"error_summary": "empty_features_list/...","error": {".tag": "empty_features_list"}}
+  - label: empty_features_list
+    content:{".tag": "empty_features_list"}
+  - label: other
+    content:{"error_summary": "other/...","error": {".tag": "other"}}
+  - label: other
+    content:{".tag": "other"}
+---
+
+import Endpoint from '../components/Endpoint'
+import stoneTypes from '../type-lookup/users-features-get_values.js'
+
+<Endpoint endpointProps={{typeInfo: stoneTypes, ...props.pageContext.frontmatter}} />

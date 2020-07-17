@@ -1,0 +1,43 @@
+---
+name: /groups/get_info
+route: /team/groups/get_info
+namespace: team
+menu: team
+description: Retrieves information about one or more groups. Note that the optional field  `GroupFullInfo.members` is not returned for system-managed groups.\nPermission : Team Information.
+isDeprecated: False
+urlStructure: https://api.dropbox.com/1/team/groups/get_info
+endpointFormat: rpc
+isPreview: False
+scope: groups.read
+authentication:
+  - team
+paramType
+  namespace: team
+  datatype: GroupsSelector
+paramExamples: 
+  - label: default
+    content:{".tag": "group_ids","group_ids": ["g:e2db7665347abcd600000000001a2b3c","g:111111147abcd6000000000222222c"]}
+returnType
+  namespace: team
+  datatype: GroupsGetInfoItem[]
+returnExamples: 
+  - label: default
+    content:{".tag": "group_info","group_name": "project launch","group_id": "g:e2db7665347abcd600000000001a2b3c","group_management_type": {".tag": "user_managed"},"created": 1447255518000,"member_count": 5,"members": [{"profile": {"team_member_id": "dbmid:1234567","email": "mary@lamb.com","email_verified": true,"status": {".tag": "active"},"name": {"given_name": "Franz","surname": "Ferdinand","familiar_name": "Franz","display_name": "Franz Ferdinand (Personal)","abbreviated_name": "FF"},"membership_type": {".tag": "full"},"account_id": "dbid:AAH4f99T0taONIb-OurWxbNQ6ywGRopQngc","secondary_emails": [{"email": "apple@orange.com","is_verified": true},{"email": "banana@honeydew.com","is_verified": true},{"email": "grape@strawberry.com","is_verified": false}],"joined_on": "2015-05-12T15:50:38Z","profile_photo_url": "https://dl-web.dropbox.com/account_photo/get/dbaphid%3AAAHWGmIXV3sUuOmBfTz0wPsiqHUpBWvv3ZA?vers=1556069330102&size=128x128"},"access_type": {".tag": "member"}}]}
+errorType
+  namespace: team
+  datatype: GroupsGetInfoError
+errorExamples: 
+  - label: group_not_on_team
+    content:{"error_summary": "group_not_on_team/...","error": {".tag": "group_not_on_team"}}
+  - label: group_not_on_team
+    content:{".tag": "group_not_on_team"}
+  - label: other
+    content:{"error_summary": "other/...","error": {".tag": "other"}}
+  - label: other
+    content:{".tag": "other"}
+---
+
+import Endpoint from '../components/Endpoint'
+import stoneTypes from '../type-lookup/team-groups-get_info.js'
+
+<Endpoint endpointProps={{typeInfo: stoneTypes, ...props.pageContext.frontmatter}} />

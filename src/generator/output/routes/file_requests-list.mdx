@@ -1,0 +1,43 @@
+---
+name: /list
+route: /file_requests/list
+namespace: file_requests
+menu: file_requests
+description: Returns a list of file requests owned by this user. For apps with the app folder permission, this will only return file requests with destinations in the app folder.
+isDeprecated: False
+urlStructure: https://api.dropbox.com/2/file_requests/list
+endpointFormat: rpc
+isPreview: True
+scope: file_requests.read
+authentication:
+  - user
+paramType
+  namespace: file_requests
+  datatype: ListFileRequestsArg
+paramExamples: 
+  - label: default
+    content:{"limit": 1000}
+returnType
+  namespace: file_requests
+  datatype: ListFileRequestsV2Result
+returnExamples: 
+  - label: default
+    content:{"file_requests": [{"id": "oaCAVmEyrqYnkZX9955Y","url": "https://www.dropbox.com/request/oaCAVmEyrqYnkZX9955Y","title": "Homework submission","created": "2015-10-05T17:00:00Z","is_open": true,"file_count": 3,"destination": "/File Requests/Homework","deadline": {"deadline": "2020-10-12T17:00:00Z","allow_late_uploads": {".tag": "seven_days"}}},{"id": "BAJ7IrRGicQKGToykQdB","url": "https://www.dropbox.com/request/BAJ7IrRGjcQKGToykQdB","title": "Photo contest submission","created": "2015-11-02T04:00:00Z","is_open": true,"file_count": 105,"destination": "/Photo contest entries","deadline": {"deadline": "2020-10-12T17:00:00Z"}},{"id": "rxwMPvK3ATTa0VxOJu5T","url": "https://www.dropbox.com/request/rxwMPvK3ATTa0VxOJu5T","title": "Wedding photo submission","created": "2015-12-15T13:02:00Z","is_open": true,"file_count": 37,"destination": "/Wedding photos"}],"cursor": "ZtkX9_EHj3x7PMkVuFIhwKYXEpwpLwyxp9vMKomUhllil9q7eWiAu","has_more": true}
+errorType
+  namespace: file_requests
+  datatype: ListFileRequestsError
+errorExamples: 
+  - label: disabled_for_team
+    content:{"error_summary": "disabled_for_team/...","error": {".tag": "disabled_for_team"}}
+  - label: disabled_for_team
+    content:{".tag": "disabled_for_team"}
+  - label: other
+    content:{"error_summary": "other/...","error": {".tag": "other"}}
+  - label: other
+    content:{".tag": "other"}
+---
+
+import Endpoint from '../components/Endpoint'
+import stoneTypes from '../type-lookup/file_requests-list.js'
+
+<Endpoint endpointProps={{typeInfo: stoneTypes, ...props.pageContext.frontmatter}} />

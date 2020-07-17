@@ -1,0 +1,43 @@
+---
+name: /templates/get_for_user
+route: /file_properties/templates/get_for_user
+namespace: file_properties
+menu: file_properties
+description: Get the schema for a specified template. This endpoint can't be called on a team member or admin's behalf.
+isDeprecated: False
+urlStructure: https://api.dropbox.com/1/file_properties/templates/get_for_user
+endpointFormat: rpc
+isPreview: False
+scope: files.metadata.read
+authentication:
+  - user
+paramType
+  namespace: file_properties
+  datatype: GetTemplateArg
+paramExamples: 
+  - label: default
+    content:{"template_id": "ptid:1a5n2i6d3OYEAAAAAAAAAYa"}
+returnType
+  namespace: file_properties
+  datatype: GetTemplateResult
+returnExamples: 
+  - label: default
+    content:{"name": "Security","description": "These properties describe how confidential this file or folder is.","fields": [{"name": "Security Policy","description": "This is the security policy of the file or folder described.\nPolicies can be Confidential, Public or Internal.","type": {".tag": "string"}}]}
+errorType
+  namespace: file_properties
+  datatype: TemplateError
+errorExamples: 
+  - label: restricted_content
+    content:{"error_summary": "restricted_content/...","error": {".tag": "restricted_content"}}
+  - label: restricted_content
+    content:{".tag": "restricted_content"}
+  - label: other
+    content:{"error_summary": "other/...","error": {".tag": "other"}}
+  - label: other
+    content:{".tag": "other"}
+---
+
+import Endpoint from '../components/Endpoint'
+import stoneTypes from '../type-lookup/file_properties-templates-get_for_user.js'
+
+<Endpoint endpointProps={{typeInfo: stoneTypes, ...props.pageContext.frontmatter}} />

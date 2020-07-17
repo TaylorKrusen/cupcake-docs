@@ -6,7 +6,8 @@ version: 1
 menu: deprecated
 description: Returns a list of `LinkMetadata` objects for this user, including collection links.\nIf no path is given, returns a list of all shared links for the current user, including collection links, up to a maximum of 1000 links.\nIf a non-empty path is given, returns a list of all shared links that allow access to the given path.  Collection links are never returned in this case.\nNote that the url field in the response is never the shortened URL.
 isDeprecated: true
-urlStructure: https://api.dropbox.com/1/sharing/get_shared_links
+deprecatedBy: list_shared_links
+urlStructure: https://api.dropbox.com/2/sharing/get_shared_links
 endpointFormat: rpc
 isPreview: false
 scope: None

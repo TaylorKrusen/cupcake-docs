@@ -1,0 +1,77 @@
+---
+name: /copy_2
+route: /files/copy_2
+namespace: files
+version: 2
+menu: files
+description: Copy a file or folder to a different location in the user's Dropbox.\nIf the source path is a folder all its contents will be copied.
+isDeprecated: false
+urlStructure: https://api.dropbox.com/2/files/copy_2
+endpointFormat: rpc
+isPreview: false
+scope: files.content.write
+authentication:
+  - user
+  - team_admin
+paramType: 
+  namespace: files
+  datatype: RelocationArg
+paramExamples: 
+  - label: default
+    content: {"from_path": "/Homework/math","to_path": "/Homework/algebra","allow_shared_folder": false,"autorename": false,"allow_ownership_transfer": false}
+returnType: 
+  namespace: files
+  datatype: RelocationResult
+returnExamples: 
+  - label: default
+    content: {"metadata": {".tag": "file","name": "Prime_Numbers.txt","id": "id:a4ayc_80_OEAAAAAAAAAXw","client_modified": "2015-05-12T15:50:38Z","server_modified": "2015-05-12T15:50:38Z","rev": "a1c10ce0dd78","size": 7212,"path_lower": "/homework/math/prime_numbers.txt","path_display": "/Homework/math/Prime_Numbers.txt","sharing_info": {"read_only": true,"parent_shared_folder_id": "84528192421","modified_by": "dbid:AAH4f99T0taONIb-OurWxbNQ6ywGRopQngc"},"is_downloadable": true,"property_groups": [{"template_id": "ptid:1a5n2i6d3OYEAAAAAAAAAYa","fields": [{"name": "Security Policy","value": "Confidential"}]}],"has_explicit_shared_members": false,"content_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855","file_lock_info": {"is_lockholder": true,"lockholder_name": "Imaginary User","created": "2015-05-12T15:50:38Z"}}}
+errorType: 
+  namespace: files
+  datatype: RelocationError
+errorExamples: 
+  - label: cant_copy_shared_folder
+    content: {"error_summary": "cant_copy_shared_folder/...","error": {".tag": "cant_copy_shared_folder"}}
+  - label: cant_copy_shared_folder
+    content: {".tag": "cant_copy_shared_folder"}
+  - label: cant_nest_shared_folder
+    content: {"error_summary": "cant_nest_shared_folder/...","error": {".tag": "cant_nest_shared_folder"}}
+  - label: cant_nest_shared_folder
+    content: {".tag": "cant_nest_shared_folder"}
+  - label: cant_move_folder_into_itself
+    content: {"error_summary": "cant_move_folder_into_itself/...","error": {".tag": "cant_move_folder_into_itself"}}
+  - label: cant_move_folder_into_itself
+    content: {".tag": "cant_move_folder_into_itself"}
+  - label: too_many_files
+    content: {"error_summary": "too_many_files/...","error": {".tag": "too_many_files"}}
+  - label: too_many_files
+    content: {".tag": "too_many_files"}
+  - label: duplicated_or_nested_paths
+    content: {"error_summary": "duplicated_or_nested_paths/...","error": {".tag": "duplicated_or_nested_paths"}}
+  - label: duplicated_or_nested_paths
+    content: {".tag": "duplicated_or_nested_paths"}
+  - label: cant_transfer_ownership
+    content: {"error_summary": "cant_transfer_ownership/...","error": {".tag": "cant_transfer_ownership"}}
+  - label: cant_transfer_ownership
+    content: {".tag": "cant_transfer_ownership"}
+  - label: insufficient_quota
+    content: {"error_summary": "insufficient_quota/...","error": {".tag": "insufficient_quota"}}
+  - label: insufficient_quota
+    content: {".tag": "insufficient_quota"}
+  - label: internal_error
+    content: {"error_summary": "internal_error/...","error": {".tag": "internal_error"}}
+  - label: internal_error
+    content: {".tag": "internal_error"}
+  - label: cant_move_shared_folder
+    content: {"error_summary": "cant_move_shared_folder/...","error": {".tag": "cant_move_shared_folder"}}
+  - label: cant_move_shared_folder
+    content: {".tag": "cant_move_shared_folder"}
+  - label: other
+    content: {"error_summary": "other/...","error": {".tag": "other"}}
+  - label: other
+    content: {".tag": "other"}
+---
+
+import Endpoint from '../../components/Endpoint'
+import stoneTypes from '../../type-lookup/files-copy_v2.js'
+
+<Endpoint endpointProps={{typeInfo: stoneTypes, ...props.pageContext.frontmatter}} />

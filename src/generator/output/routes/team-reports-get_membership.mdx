@@ -1,0 +1,30 @@
+---
+name: /reports/get_membership
+route: /team/reports/get_membership
+namespace: team
+menu: team
+description: Retrieves reporting data about a team's membership.
+isDeprecated: False
+urlStructure: https://api.dropbox.com/1/team/reports/get_membership
+endpointFormat: rpc
+isPreview: False
+scope: team_info.read
+authentication:
+  - team
+paramType
+  namespace: team
+  datatype: DateRange
+paramExamples: 
+returnType
+  namespace: team
+  datatype: GetMembershipReport
+returnExamples: 
+errorType
+  namespace: team
+  datatype: DateRangeError
+---
+
+import Endpoint from '../components/Endpoint'
+import stoneTypes from '../type-lookup/team-reports-get_membership.js'
+
+<Endpoint endpointProps={{typeInfo: stoneTypes, ...props.pageContext.frontmatter}} />

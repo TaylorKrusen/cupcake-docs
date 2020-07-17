@@ -1,0 +1,65 @@
+---
+name: /relinquish_folder_membership
+route: /sharing/relinquish_folder_membership
+namespace: sharing
+menu: sharing
+description: The current user relinquishes their membership in the designated shared folder and will no longer have access to the folder.  A folder owner cannot relinquish membership in their own folder.\nThis will run synchronously if leave_a_copy is false, and asynchronously if leave_a_copy is true.
+isDeprecated: False
+urlStructure: https://api.dropbox.com/1/sharing/relinquish_folder_membership
+endpointFormat: rpc
+isPreview: False
+scope: sharing.write
+authentication:
+  - user
+paramType
+  namespace: sharing
+  datatype: RelinquishFolderMembershipArg
+paramExamples: 
+  - label: default
+    content:{"shared_folder_id": "84528192421","leave_a_copy": false}
+returnType
+  namespace: async
+  datatype: LaunchEmptyResult
+returnExamples: 
+  - label: complete
+    content:{".tag": "complete"}
+  - label: async_job_id
+    content:{".tag": "async_job_id", "async_job_id": "34g93hh34h04y384084"}
+errorType
+  namespace: sharing
+  datatype: RelinquishFolderMembershipError
+errorExamples: 
+  - label: folder_owner
+    content:{"error_summary": "folder_owner/...","error": {".tag": "folder_owner"}}
+  - label: folder_owner
+    content:{".tag": "folder_owner"}
+  - label: mounted
+    content:{"error_summary": "mounted/...","error": {".tag": "mounted"}}
+  - label: mounted
+    content:{".tag": "mounted"}
+  - label: group_access
+    content:{"error_summary": "group_access/...","error": {".tag": "group_access"}}
+  - label: group_access
+    content:{".tag": "group_access"}
+  - label: team_folder
+    content:{"error_summary": "team_folder/...","error": {".tag": "team_folder"}}
+  - label: team_folder
+    content:{".tag": "team_folder"}
+  - label: no_permission
+    content:{"error_summary": "no_permission/...","error": {".tag": "no_permission"}}
+  - label: no_permission
+    content:{".tag": "no_permission"}
+  - label: no_explicit_access
+    content:{"error_summary": "no_explicit_access/...","error": {".tag": "no_explicit_access"}}
+  - label: no_explicit_access
+    content:{".tag": "no_explicit_access"}
+  - label: other
+    content:{"error_summary": "other/...","error": {".tag": "other"}}
+  - label: other
+    content:{".tag": "other"}
+---
+
+import Endpoint from '../components/Endpoint'
+import stoneTypes from '../type-lookup/sharing-relinquish_folder_membership.js'
+
+<Endpoint endpointProps={{typeInfo: stoneTypes, ...props.pageContext.frontmatter}} />

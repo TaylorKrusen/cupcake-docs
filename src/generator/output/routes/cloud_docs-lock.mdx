@@ -1,0 +1,31 @@
+---
+name: /lock
+route: /cloud_docs/lock
+namespace: cloud_docs
+menu: cloud_docs
+description: Lock a Cloud Doc. This route requires Cloud Docs auth. Please make a request to cloud_docs/authorize and supply that token in the Authorization header.
+isDeprecated: False
+urlStructure: https://api.dropbox.com/1/cloud_docs/lock
+endpointFormat: rpc
+isPreview: False
+scope: files.metadata.write
+authentication:
+  - user
+paramType
+  namespace: cloud_docs
+  datatype: LockArg
+paramExamples: 
+returnType
+  namespace: cloud_docs
+  datatype: LockResult
+returnExamples: 
+errorType
+  namespace: cloud_docs
+  datatype: LockingError
+errorExamples: 
+---
+
+import Endpoint from '../components/Endpoint'
+import stoneTypes from '../type-lookup/cloud_docs-lock.js'
+
+<Endpoint endpointProps={{typeInfo: stoneTypes, ...props.pageContext.frontmatter}} />
