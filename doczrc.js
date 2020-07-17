@@ -21,7 +21,7 @@ module.exports = {
         "deprecated"
     ],
     "dest": "/generated-cupcake-docs",
-    "base": "/cupcake-docs-v2",
+    "base": "/cupcake-docs",
     themeConfig: {
       colors: {
           modes: {
