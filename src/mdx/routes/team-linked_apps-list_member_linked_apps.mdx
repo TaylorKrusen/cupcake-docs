@@ -12,6 +12,7 @@ isPreview: false
 scope: sessions.list
 authentication:
   - team
+shellExample: 'curl -X POST https://api.dropboxapi.com/2/team/linked_apps/list_member_linked_apps \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN" \\n    --header "Content-Type: application/json" \\n    --data "{\"team_member_id\": \"dbmid:AAFdgehTzw7WlXhZJsbGCLePe8RvQGYDr-I\"}"'
 paramType: 
   namespace: team
   datatype: ListMemberAppsArg

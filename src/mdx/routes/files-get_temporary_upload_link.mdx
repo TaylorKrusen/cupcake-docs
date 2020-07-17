@@ -12,6 +12,7 @@ isPreview: false
 scope: files.content.write
 authentication:
   - user
+shellExample: 'curl -X POST https://api.dropboxapi.com/2/files/get_temporary_upload_link \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN" \\n    --header "Content-Type: application/json" \\n    --data "{\"commit_info\": {\"path\": \"/Homework/math/Matrices.txt\",\"mode\": \"add\",\"autorename\": true,\"mute\": false,\"strict_conflict\": false},\"duration\": 3600}"'
 paramType: 
   namespace: files
   datatype: GetTemporaryUploadLinkArg

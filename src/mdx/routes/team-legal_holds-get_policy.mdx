@@ -12,6 +12,7 @@ isPreview: false
 scope: team_data.member
 authentication:
   - team
+shellExample: 'curl -X POST https://api.dropboxapi.com/2/team/legal_holds/get_policy \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN" \\n    --header "Content-Type: application/json" \\n    --data "{\"id\": \"pid_dbhid:abcd1234\"}"'
 paramType: 
   namespace: team
   datatype: LegalHoldsGetPolicyArg

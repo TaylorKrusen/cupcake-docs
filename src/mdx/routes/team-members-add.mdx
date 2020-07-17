@@ -12,6 +12,7 @@ isPreview: false
 scope: members.write
 authentication:
   - team
+shellExample: 'curl -X POST https://api.dropboxapi.com/2/team/members/add \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN" \\n    --header "Content-Type: application/json" \\n    --data "{\"new_members\": [{\"member_email\": \"tom.s@company.com\",\"member_given_name\": \"Tom\",\"member_surname\": \"Silverstone\",\"member_external_id\": \"company_id:342432\",\"send_welcome_email\": true,\"role\": \"member_only\"}],\"force_async\": false}"'
 paramType: 
   namespace: team
   datatype: MembersAddArg

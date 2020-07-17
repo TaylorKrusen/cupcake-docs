@@ -13,6 +13,7 @@ scope: files.metadata.read
 authentication:
   - user
   - whole_team
+shellExample: 'curl -X POST https://api.dropboxapi.com/2/files/list_folder/get_latest_cursor \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN" \\n    --header "Content-Type: application/json" \\n    --data "{\"path\": \"/Homework/math\",\"recursive\": false,\"include_media_info\": false,\"include_deleted\": false,\"include_has_explicit_shared_members\": false,\"include_mounted_folders\": true,\"include_non_downloadable_files\": true}"'
 paramType: 
   namespace: files
   datatype: ListFolderArg

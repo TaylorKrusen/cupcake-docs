@@ -11,6 +11,7 @@ isPreview: false
 scope: None
 authentication:
   - user
+shellExample: 'curl -X POST https://api.dropboxapi.com/2/files/properties/add \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN" \\n    --header "Content-Type: application/json" \\n    --data "{\"path\": \"/my_awesome/word.docx\",\"property_groups\": [{\"template_id\": \"ptid:1a5n2i6d3OYEAAAAAAAAAYa\",\"fields\": [{\"name\": \"Security Policy\",\"value\": \"Confidential\"}]}]}"'
 paramType: 
   namespace: file_properties
   datatype: AddPropertiesArg

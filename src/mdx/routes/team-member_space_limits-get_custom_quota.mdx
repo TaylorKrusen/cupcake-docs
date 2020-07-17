@@ -12,6 +12,7 @@ isPreview: false
 scope: members.read
 authentication:
   - team
+shellExample: 'curl -X POST https://api.dropboxapi.com/2/team/member_space_limits/get_custom_quota \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN" \\n    --header "Content-Type: application/json" \\n    --data "{\"users\": [{\".tag\": \"team_member_id\",\"team_member_id\": \"dbmid:efgh5678\"}]}"'
 paramType: 
   namespace: team
   datatype: CustomQuotaUsersArg

@@ -1,0 +1,30 @@
+---
+name: /delete_manual_contacts
+route: /contacts/delete_manual_contacts
+namespace: contacts
+version: 1
+menu: contacts
+description: Removes all manually added contacts. You'll still keep contacts who are on your team or who you imported. New contacts will be added when you share.
+isDeprecated: false
+urlStructure: https://api.dropbox.com/2/contacts/delete_manual_contacts
+endpointFormat: rpc
+isPreview: false
+scope: contacts.write
+authentication:
+  - user
+shellExample: 'curl -X POST https://api.dropboxapi.com/2/contacts/delete_manual_contacts \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN"'
+paramType: 
+  namespace: Void
+  datatype: Void
+returnType: 
+  namespace: Void
+  datatype: Void
+errorType: 
+  namespace: Void
+  datatype: Void
+---
+
+import Endpoint from '../../components/Endpoint'
+import stoneTypes from '../../type-lookup/contacts-delete_manual_contacts.js'
+
+<Endpoint endpointProps={{typeInfo: stoneTypes, ...props.pageContext.frontmatter}} />

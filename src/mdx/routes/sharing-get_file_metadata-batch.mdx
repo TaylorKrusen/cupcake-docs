@@ -12,6 +12,7 @@ isPreview: false
 scope: sharing.read
 authentication:
   - user
+shellExample: 'curl -X POST https://api.dropboxapi.com/2/sharing/get_file_metadata/batch \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN" \\n    --header "Content-Type: application/json" \\n    --data "{\"files\": [\"id:3kmLmQFnf1AAAAAAAAAAAw\",\"id:VvTaJu2VZzAAAAAAAAAADQ\"],\"actions\": []}"'
 paramType: 
   namespace: sharing
   datatype: GetFileMetadataBatchArg

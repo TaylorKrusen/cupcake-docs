@@ -12,6 +12,7 @@ isPreview: false
 scope: members.delete
 authentication:
   - team
+shellExample: 'curl -X POST https://api.dropboxapi.com/2/team/members/remove \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN" \\n    --header "Content-Type: application/json" \\n    --data "{\"user\": {\".tag\": \"team_member_id\",\"team_member_id\": \"dbmid:efgh5678\"},\"wipe_data\": true,\"transfer_dest_id\": {\".tag\": \"team_member_id\",\"team_member_id\": \"dbmid:efgh5678\"},\"transfer_admin_id\": {\".tag\": \"team_member_id\",\"team_member_id\": \"dbmid:efgh5678\"},\"keep_account\": false,\"retain_team_shares\": false}"'
 paramType: 
   namespace: team
   datatype: MembersRemoveArg

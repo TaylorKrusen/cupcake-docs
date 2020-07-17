@@ -13,6 +13,7 @@ scope: sharing.write
 authentication:
   - user
   - team_admin
+shellExample: 'curl -X POST https://api.dropboxapi.com/2/sharing/add_file_member \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN" \\n    --header "Content-Type: application/json" \\n    --data "{\"file\": \"id:3kmLmQFnf1AAAAAAAAAAAw\",\"members\": [{\".tag\": \"email\",\"email\": \"justin@example.com\"}],\"custom_message\": \"This is a custom message about ACME.doc\",\"quiet\": false,\"access_level\": \"viewer\",\"add_message_as_comment\": false}"'
 paramType: 
   namespace: sharing
   datatype: AddFileMemberArgs

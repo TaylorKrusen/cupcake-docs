@@ -128,10 +128,11 @@ class MdxBackend(CodeBackend):
                 if route.attrs.get("select_admin_mode"):
                     self.emit("  - {}".format(route.attrs.get("select_admin_mode")))
                 curl = self.get_curl_example(route.arg_data_type, full_route_name, route.attrs)
-#                if curl:
-#                    self.emit("shellExample:")
-#                    self.emit("  label: command line example")
-#                    self.emit("  content: '{}'".format(curl.replace('\n', '\\n')))
+                if curl:
+                    self.emit("shellExample: '{}'".format(curl.replace('\n', '\\n')))
+                #    self.emit("shellExample:")
+                #    self.emit("  label: command line example")
+                #    self.emit("  content: '{}'".format(curl.replace('\n', '\\n')))
                 self._generate_route_datatype(route.arg_data_type, PARAMETER)
                 self._generate_route_datatype(route.result_data_type, RETURN_VALUE)
                 self._generate_route_datatype(route.error_data_type, ERROR)

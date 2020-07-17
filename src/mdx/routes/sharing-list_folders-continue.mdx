@@ -12,6 +12,7 @@ isPreview: false
 scope: sharing.read
 authentication:
   - user
+shellExample: 'curl -X POST https://api.dropboxapi.com/2/sharing/list_folders/continue \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN" \\n    --header "Content-Type: application/json" \\n    --data "{\"cursor\": \"ZtkX9_EHj3x7PMkVuFIhwKYXEpwpLwyxp9vMKomUhllil9q7eWiAu\"}"'
 paramType: 
   namespace: sharing
   datatype: ListFoldersContinueArg

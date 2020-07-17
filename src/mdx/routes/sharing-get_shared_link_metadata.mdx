@@ -12,6 +12,7 @@ isPreview: false
 scope: sharing.read
 authentication:
   - user
+shellExample: 'curl -X POST https://api.dropboxapi.com/2/sharing/get_shared_link_metadata \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN" \\n    --header "Content-Type: application/json" \\n    --data "{\"url\": \"https://www.dropbox.com/s/2sn712vy1ovegw8/Prime_Numbers.txt?dl=0\",\"path\": \"/Prime_Numbers.txt\"}"'
 paramType: 
   namespace: sharing
   datatype: GetSharedLinkMetadataArg

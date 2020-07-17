@@ -6,5 +6,5 @@ export default function ({deprecatedBy}: {deprecatedBy: string}) {
   if (deprecatedBy) {
     deprecatedByMsg = <span>Use {deprecatedBy} instead.</span>;
   }
-  return <Warning>WARNING: This API is deprecated.{deprecatedByMsg}</Warning>;
+  return <Warning>WARNING: This API is deprecated. {deprecatedByMsg}</Warning>;
 }

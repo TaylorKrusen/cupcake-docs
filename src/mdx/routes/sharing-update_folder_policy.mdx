@@ -13,6 +13,7 @@ scope: sharing.write
 authentication:
   - user
   - team_admin
+shellExample: 'curl -X POST https://api.dropboxapi.com/2/sharing/update_folder_policy \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN" \\n    --header "Content-Type: application/json" \\n    --data "{\"shared_folder_id\": \"84528192421\",\"member_policy\": \"team\",\"acl_update_policy\": \"owner\",\"shared_link_policy\": \"members\"}"'
 paramType: 
   namespace: sharing
   datatype: UpdateFolderPolicyArg

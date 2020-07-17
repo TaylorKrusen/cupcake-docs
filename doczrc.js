@@ -17,7 +17,7 @@ module.exports = {
         "sharing",
         "users",
         "Business API introduction",
-        "teams",
+        "team",
         "deprecated"
     ],
     themeConfig: {

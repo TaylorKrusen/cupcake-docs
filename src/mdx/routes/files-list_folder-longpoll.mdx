@@ -13,6 +13,7 @@ scope: files.metadata.read
 authentication:
   - noauth
   - whole_team
+shellExample: 'curl -X POST https://notify.dropboxapi.com/2/files/list_folder/longpoll \\n    --header "Content-Type: application/json" \\n    --data "{\"cursor\": \"ZtkX9_EHj3x7PMkVuFIhwKYXEpwpLwyxp9vMKomUhllil9q7eWiAu\",\"timeout\": 30}"'
 paramType: 
   namespace: files
   datatype: ListFolderLongpollArg

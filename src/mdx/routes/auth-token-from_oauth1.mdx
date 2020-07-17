@@ -12,6 +12,7 @@ isPreview: false
 scope: None
 authentication:
   - app
+shellExample: 'curl -X POST https://api.dropboxapi.com/2/auth/token/from_oauth1 \\n    --header "Authorization: Basic YOUR_APP_KEY:YOUR_APP_SECRET" \\n    --header "Content-Type: application/json" \\n    --data "{\"oauth1_token\": \"qievr8hamyg6ndck\",\"oauth1_token_secret\": \"qomoftv0472git7\"}"'
 paramType: 
   namespace: auth
   datatype: TokenFromOAuth1Arg

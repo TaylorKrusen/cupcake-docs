@@ -101,7 +101,7 @@ export default function Endpoint(props: {endpointProps: EndpointProps}) {
       </RowContainer>
       <RowContainer title="Required Scope">{scope}</RowContainer>
       <RowContainer title="Example">
-        <ShellExample namespace={namespace} endpoint={endpoint} shellExample={shellExample} />
+        <ShellExample shellExample={shellExample} />
       </RowContainer>
       <RowContainer title="Parameters">
         {renderExamples(paramExamples)}

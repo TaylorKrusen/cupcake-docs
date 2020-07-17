@@ -12,6 +12,7 @@ isPreview: false
 scope: files.content.read
 authentication:
   - user
+shellExample: 'curl -X POST https://content.dropboxapi.com/2/files/download_zip \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN" \\n    --header "Dropbox-API-Arg: {\"path\": \"/Homework/math\"}"'
 paramType: 
   namespace: files
   datatype: DownloadZipArg

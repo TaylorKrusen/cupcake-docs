@@ -12,6 +12,7 @@ isPreview: false
 scope: members.write
 authentication:
   - team
+shellExample: 'curl -X POST https://api.dropboxapi.com/2/team/members/set_profile_photo \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN" \\n    --header "Content-Type: application/json" \\n    --data "{\"user\": {\".tag\": \"team_member_id\",\"team_member_id\": \"dbmid:efgh5678\"},\"photo\": {\".tag\": \"base64_data\",\"base64_data\": \"SW1hZ2UgZGF0YSBpbiBiYXNlNjQtZW5jb2RlZCBieXRlcy4gTm90IGEgdmFsaWQgZXhhbXBsZS4=\"}}"'
 paramType: 
   namespace: team
   datatype: MembersSetProfilePhotoArg

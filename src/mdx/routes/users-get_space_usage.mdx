@@ -1,0 +1,33 @@
+---
+name: /get_space_usage
+route: /users/get_space_usage
+namespace: users
+version: 1
+menu: users
+description: Get the space usage information for the current user's account.
+isDeprecated: false
+urlStructure: https://api.dropbox.com/2/users/get_space_usage
+endpointFormat: rpc
+isPreview: false
+scope: account_info.read
+authentication:
+  - user
+shellExample: 'curl -X POST https://api.dropboxapi.com/2/users/get_space_usage \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN"'
+paramType: 
+  namespace: Void
+  datatype: Void
+returnType: 
+  namespace: users
+  datatype: SpaceUsage
+returnExamples: 
+  - label: default
+    content: {"used": 314159265,"allocation": {".tag": "individual","allocated": 10000000000}}
+errorType: 
+  namespace: Void
+  datatype: Void
+---
+
+import Endpoint from '../../components/Endpoint'
+import stoneTypes from '../../type-lookup/users-get_space_usage.js'
+
+<Endpoint endpointProps={{typeInfo: stoneTypes, ...props.pageContext.frontmatter}} />

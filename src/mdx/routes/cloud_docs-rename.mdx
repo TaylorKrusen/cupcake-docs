@@ -1,0 +1,32 @@
+---
+name: /rename
+route: /cloud_docs/rename
+namespace: cloud_docs
+version: 1
+menu: cloud_docs
+description: Update the title of a Cloud Doc. This route requires Cloud Docs auth. Please make a request to cloud_docs/authorize and supply that token in the Authorization header.
+isDeprecated: false
+urlStructure: https://api.dropbox.com/2/cloud_docs/rename
+endpointFormat: rpc
+isPreview: false
+scope: files.metadata.write
+authentication:
+  - user
+paramType: 
+  namespace: cloud_docs
+  datatype: RenameArg
+paramExamples: 
+returnType: 
+  namespace: cloud_docs
+  datatype: RenameResult
+returnExamples: 
+errorType: 
+  namespace: cloud_docs
+  datatype: RenameError
+errorExamples: 
+---
+
+import Endpoint from '../../components/Endpoint'
+import stoneTypes from '../../type-lookup/cloud_docs-rename.js'
+
+<Endpoint endpointProps={{typeInfo: stoneTypes, ...props.pageContext.frontmatter}} />

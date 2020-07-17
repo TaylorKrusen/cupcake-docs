@@ -1,0 +1,50 @@
+---
+name: /get_content
+route: /cloud_docs/get_content
+namespace: cloud_docs
+version: 1
+menu: cloud_docs
+description: Fetch the binary content of the requested document. This route requires Cloud Docs auth. Please make a request to cloud_docs/authorize and supply that token in the Authorization header.
+isDeprecated: false
+urlStructure: https://content.dropbox.com/2/cloud_docs/get_content
+endpointFormat: download
+isPreview: true
+scope: None
+authentication:
+  - user
+shellExample: 'curl -X POST https://content.dropboxapi.com/2/cloud_docs/get_content \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN" \\n    --header "Dropbox-API-Arg: {\"file_id\": \"id:pXGlEfaZvvAAAAAAAAAAGw\"}"'
+paramType: 
+  namespace: cloud_docs
+  datatype: GetContentArg
+paramExamples: 
+  - label: default
+    content: {"file_id": "id:pXGlEfaZvvAAAAAAAAAAGw"}
+returnType: 
+  namespace: Void
+  datatype: Void
+errorType: 
+  namespace: cloud_docs
+  datatype: CloudDocsAccessError
+errorExamples: 
+  - label: invalid_doc_id
+    content: {"error_summary": "invalid_doc_id/...","error": {".tag": "invalid_doc_id"}}
+  - label: invalid_doc_id
+    content: {".tag": "invalid_doc_id"}
+  - label: not_found
+    content: {"error_summary": "not_found/...","error": {".tag": "not_found"}}
+  - label: not_found
+    content: {".tag": "not_found"}
+  - label: permission_denied
+    content: {"error_summary": "permission_denied/...","error": {".tag": "permission_denied"}}
+  - label: permission_denied
+    content: {".tag": "permission_denied"}
+  - label: other
+    content: {"error_summary": "other/...","error": {".tag": "other"}}
+  - label: other
+    content: {".tag": "other"}
+---
+
+import Endpoint from '../../components/Endpoint'
+import stoneTypes from '../../type-lookup/cloud_docs-get_content.js'
+
+<Endpoint endpointProps={{typeInfo: stoneTypes, ...props.pageContext.frontmatter}} />

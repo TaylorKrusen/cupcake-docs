@@ -12,6 +12,7 @@ isPreview: false
 scope: members.write
 authentication:
   - team
+shellExample: 'curl -X POST https://api.dropboxapi.com/2/team/members/add/job_status/get \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN" \\n    --header "Content-Type: application/json" \\n    --data "{\"async_job_id\": \"34g93hh34h04y384084\"}"'
 paramType: 
   namespace: async
   datatype: PollArg

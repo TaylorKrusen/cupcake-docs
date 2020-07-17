@@ -12,6 +12,7 @@ isPreview: false
 scope: files.metadata.read
 authentication:
   - user
+shellExample: 'curl -X POST https://api.dropboxapi.com/2/file_properties/properties/search \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN" \\n    --header "Content-Type: application/json" \\n    --data "{\"queries\": [{\"query\": \"Confidential\",\"mode\": {\".tag\": \"field_name\",\"field_name\": \"Security\"},\"logical_operator\": \"or_operator\"}],\"template_filter\": \"filter_none\"}"'
 paramType: 
   namespace: file_properties
   datatype: PropertiesSearchArg

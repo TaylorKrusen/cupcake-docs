@@ -13,6 +13,7 @@ isPreview: false
 scope: files.metadata.read
 authentication:
   - user
+shellExample: 'curl -X POST https://api.dropboxapi.com/2/files/search \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN" \\n    --header "Content-Type: application/json" \\n    --data "{\"path\": \"\",\"query\": \"prime numbers\",\"start\": 0,\"max_results\": 100,\"mode\": \"filename\"}"'
 paramType: 
   namespace: files
   datatype: SearchArg

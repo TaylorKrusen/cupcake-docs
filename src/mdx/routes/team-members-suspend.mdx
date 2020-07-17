@@ -12,6 +12,7 @@ isPreview: false
 scope: members.write
 authentication:
   - team
+shellExample: 'curl -X POST https://api.dropboxapi.com/2/team/members/suspend \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN" \\n    --header "Content-Type: application/json" \\n    --data "{\"user\": {\".tag\": \"team_member_id\",\"team_member_id\": \"dbmid:efgh5678\"},\"wipe_data\": false}"'
 paramType: 
   namespace: team
   datatype: MembersDeactivateArg

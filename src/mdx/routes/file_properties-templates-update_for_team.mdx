@@ -12,6 +12,7 @@ isPreview: false
 scope: files.team_metadata.write
 authentication:
   - team
+shellExample: 'curl -X POST https://api.dropboxapi.com/2/file_properties/templates/update_for_team \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN" \\n    --header "Content-Type: application/json" \\n    --data "{\"template_id\": \"ptid:1a5n2i6d3OYEAAAAAAAAAYa\",\"name\": \"New Security Template Name\",\"description\": \"These properties will describe how confidential this file or folder is.\",\"add_fields\": [{\"name\": \"Security Policy\",\"description\": \"This is the security policy of the file or folder described.\nPolicies can be Confidential, Public or Internal.\",\"type\": \"string\"}]}"'
 paramType: 
   namespace: file_properties
   datatype: UpdateTemplateArg

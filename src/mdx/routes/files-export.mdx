@@ -13,6 +13,7 @@ scope: files.content.read
 authentication:
   - user
   - whole_team
+shellExample: 'curl -X POST https://content.dropboxapi.com/2/files/export \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN" \\n    --header "Dropbox-API-Arg: {\"path\": \"/Homework/math/Prime_Numbers.gsheet\"}"'
 paramType: 
   namespace: files
   datatype: ExportArg

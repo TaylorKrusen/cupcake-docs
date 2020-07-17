@@ -1,0 +1,32 @@
+---
+name: /unlock
+route: /cloud_docs/unlock
+namespace: cloud_docs
+version: 1
+menu: cloud_docs
+description: Unlock a Cloud Doc. This route requires Cloud Docs auth. Please make a request to cloud_docs/authorize and supply that token in the Authorization header.
+isDeprecated: false
+urlStructure: https://api.dropbox.com/2/cloud_docs/unlock
+endpointFormat: rpc
+isPreview: false
+scope: files.metadata.write
+authentication:
+  - user
+paramType: 
+  namespace: cloud_docs
+  datatype: UnlockArg
+paramExamples: 
+returnType: 
+  namespace: cloud_docs
+  datatype: UnlockResult
+returnExamples: 
+errorType: 
+  namespace: cloud_docs
+  datatype: LockingError
+errorExamples: 
+---
+
+import Endpoint from '../../components/Endpoint'
+import stoneTypes from '../../type-lookup/cloud_docs-unlock.js'
+
+<Endpoint endpointProps={{typeInfo: stoneTypes, ...props.pageContext.frontmatter}} />

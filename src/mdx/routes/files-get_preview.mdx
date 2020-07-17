@@ -13,6 +13,7 @@ scope: files.content.read
 authentication:
   - user
   - whole_team
+shellExample: 'curl -X POST https://content.dropboxapi.com/2/files/get_preview \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN" \\n    --header "Dropbox-API-Arg: {\"path\": \"/word.docx\"}"'
 paramType: 
   namespace: files
   datatype: PreviewArg
