@@ -1,18 +1,18 @@
 ---
 name: /list_2
-route: /file_requests/list_2
+route: /file_requests/list_v2
 namespace: file_requests
 version: 2
 menu: file_requests
 description: Returns a list of file requests owned by this user. For apps with the app folder permission, this will only return file requests with destinations in the app folder.
 isDeprecated: false
-urlStructure: https://api.dropbox.com/2/file_requests/list_2
+urlStructure: https://api.dropbox.com/2/file_requests/list_v2
 endpointFormat: rpc
 isPreview: true
 scope: file_requests.read
 authentication:
   - user
-shellExample: 'curl -X POST https://api.dropboxapi.com/2/file_requests/list_2 \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN" \\n    --header "Content-Type: application/json" \\n    --data "{\"limit\": 1000}"'
+shellExample: 'curl -X POST https://api.dropboxapi.com/2/file_requests/list_v2 \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN" \\n    --header "Content-Type: application/json" \\n    --data "{\"limit\": 1000}"'
 paramType: 
   namespace: file_requests
   datatype: ListFileRequestsArg

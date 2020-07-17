@@ -1,19 +1,19 @@
 ---
 name: /upload_session/append_2
-route: /files/upload_session/append_2
+route: /files/upload_session/append_v2
 namespace: files
 version: 2
 menu: files
 description: Append more data to an upload session.\nWhen the parameter close is set, this call will close the session.\nA single request should not upload more than 150 MB. The maximum size of a file one can upload to an upload session is 350 GB.\nCalls to this endpoint will count as data transport calls for any Dropbox Business teams with a limit on the number of data transport calls allowed per month. For more information, see the :link:`Data transport limit page https://www.dropbox.com/developers/reference/data-transport-limit`.
 isDeprecated: false
-urlStructure: https://content.dropbox.com/2/files/upload_session/append_2
+urlStructure: https://content.dropbox.com/2/files/upload_session/append_v2
 endpointFormat: upload
 isPreview: false
 scope: files.content.write
 authentication:
   - user
   - team_admin
-shellExample: 'curl -X POST https://content.dropboxapi.com/2/files/upload_session/append_2 \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN" \\n    --header "Dropbox-API-Arg: {\"cursor\": {\"session_id\": \"1234faaf0678bcde\",\"offset\": 0},\"close\": false}" \\n    --header "Content-Type: application/octet-stream" \\n    --data-binary @local_file.txt'
+shellExample: 'curl -X POST https://content.dropboxapi.com/2/files/upload_session/append_v2 \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN" \\n    --header "Dropbox-API-Arg: {\"cursor\": {\"session_id\": \"1234faaf0678bcde\",\"offset\": 0},\"close\": false}" \\n    --header "Content-Type: application/octet-stream" \\n    --data-binary @local_file.txt'
 paramType: 
   namespace: files
   datatype: UploadSessionAppendArg

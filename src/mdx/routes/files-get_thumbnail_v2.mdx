@@ -1,12 +1,12 @@
 ---
 name: /get_thumbnail_2
-route: /files/get_thumbnail_2
+route: /files/get_thumbnail_v2
 namespace: files
 version: 2
 menu: files
 description: Get a thumbnail for a file.
 isDeprecated: false
-urlStructure: https://content.dropbox.com/2/files/get_thumbnail_2
+urlStructure: https://content.dropbox.com/2/files/get_thumbnail_v2
 endpointFormat: download
 isPreview: false
 scope: files.content.read
@@ -14,7 +14,7 @@ authentication:
   - app
   - user
   - whole_team
-shellExample: 'curl -X POST https://content.dropboxapi.com/2/files/get_thumbnail_2 \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN" \\n    --header "Dropbox-API-Arg: {\"resource\": {\".tag\": \"path\",\"path\": \"/a.docx\"},\"format\": \"jpeg\",\"size\": \"w64h64\",\"mode\": \"strict\"}"'
+shellExample: 'curl -X POST https://content.dropboxapi.com/2/files/get_thumbnail_v2 \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN" \\n    --header "Dropbox-API-Arg: {\"resource\": {\".tag\": \"path\",\"path\": \"/a.docx\"},\"format\": \"jpeg\",\"size\": \"w64h64\",\"mode\": \"strict\"}"'
 paramType: 
   namespace: files
   datatype: ThumbnailV2Arg
