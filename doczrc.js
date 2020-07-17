@@ -22,6 +22,8 @@ module.exports = {
     ],
     "dest": "/generated-cupcake-docs",
     "base": "/cupcake-docs",
+    "title": "DBX Cupcake Docs",
+    "description": "Dropbox public API documentation with extra cupcake.",
     themeConfig: {
       colors: {
           modes: {
