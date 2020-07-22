@@ -102,8 +102,8 @@ class MdxBackend(CodeBackend):
                 self.emit("---")
                 full_route_name = "{}/{}".format(namespace.name, route.name)
                 if v > 1:
-                    full_route_name = "{}/{}_{}".format(namespace.name, route.name, route.version)
-                    self.emit("name: /{}_{}".format(route.name, route.version))
+                    full_route_name = "{}/{}_v{}".format(namespace.name, route.name, route.version)
+                    self.emit("name: /{}_v{}".format(route.name, route.version))
                 else:
                     self.emit("name: /{}".format(route.name))
                 self.emit("route: /{}".format(full_route_name))

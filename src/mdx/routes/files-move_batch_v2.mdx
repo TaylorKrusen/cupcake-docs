@@ -1,19 +1,19 @@
 ---
-name: /move_batch_2
-route: /files/move_batch_2
+name: /move_batch_v2
+route: /files/move_batch_v2
 namespace: files
 version: 2
 menu: files
 description: Move multiple files or folders to different locations at once in the user's Dropbox. Note that we do not currently support case-only renaming.\nThis route will replace `move_batch:1`. The main difference is this route will return status for each entry, while `move_batch:1` raises failure if any entry fails.\nThis route will either finish synchronously, or return a job ID and do the async move job in background. Please use `move_batch/check:2` to check the job status.
 isDeprecated: false
-urlStructure: https://api.dropbox.com/2/files/move_batch_2
+urlStructure: https://api.dropbox.com/2/files/move_batch_v2
 endpointFormat: rpc
 isPreview: false
 scope: files.content.write
 authentication:
   - user
   - team_admin
-shellExample: 'curl -X POST https://api.dropboxapi.com/2/files/move_batch_2 \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN" \\n    --header "Content-Type: application/json" \\n    --data "{\"entries\": [{\"from_path\": \"/Homework/math\",\"to_path\": \"/Homework/algebra\"}],\"autorename\": false,\"allow_ownership_transfer\": false}"'
+shellExample: 'curl -X POST https://api.dropboxapi.com/2/files/move_batch_v2 \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN" \\n    --header "Content-Type: application/json" \\n    --data "{\"entries\": [{\"from_path\": \"/Homework/math\",\"to_path\": \"/Homework/algebra\"}],\"autorename\": false,\"allow_ownership_transfer\": false}"'
 paramType: 
   namespace: files
   datatype: MoveBatchArg

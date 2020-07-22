@@ -1,19 +1,19 @@
 ---
-name: /move_batch/check_2
-route: /files/move_batch/check_2
+name: /move_batch/check_v2
+route: /files/move_batch/check_v2
 namespace: files
 version: 2
 menu: files
 description: Returns the status of an asynchronous job for `move_batch:2`. It returns list of results for each entry.
 isDeprecated: false
-urlStructure: https://api.dropbox.com/2/files/move_batch/check_2
+urlStructure: https://api.dropbox.com/2/files/move_batch/check_v2
 endpointFormat: rpc
 isPreview: false
 scope: files.content.write
 authentication:
   - user
   - team_admin
-shellExample: 'curl -X POST https://api.dropboxapi.com/2/files/move_batch/check_2 \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN" \\n    --header "Content-Type: application/json" \\n    --data "{\"async_job_id\": \"34g93hh34h04y384084\"}"'
+shellExample: 'curl -X POST https://api.dropboxapi.com/2/files/move_batch/check_v2 \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN" \\n    --header "Content-Type: application/json" \\n    --data "{\"async_job_id\": \"34g93hh34h04y384084\"}"'
 paramType: 
   namespace: async
   datatype: PollArg

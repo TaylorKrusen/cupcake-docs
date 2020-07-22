@@ -1,19 +1,19 @@
 ---
-name: /move_2
-route: /files/move_2
+name: /move_v2
+route: /files/move_v2
 namespace: files
 version: 2
 menu: files
 description: Move a file or folder to a different location in the user's Dropbox.\nIf the source path is a folder all its contents will be moved.\nNote that we do not currently support case-only renaming.
 isDeprecated: false
-urlStructure: https://api.dropbox.com/2/files/move_2
+urlStructure: https://api.dropbox.com/2/files/move_v2
 endpointFormat: rpc
 isPreview: false
 scope: files.content.write
 authentication:
   - user
   - team_admin
-shellExample: 'curl -X POST https://api.dropboxapi.com/2/files/move_2 \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN" \\n    --header "Content-Type: application/json" \\n    --data "{\"from_path\": \"/Homework/math\",\"to_path\": \"/Homework/algebra\",\"allow_shared_folder\": false,\"autorename\": false,\"allow_ownership_transfer\": false}"'
+shellExample: 'curl -X POST https://api.dropboxapi.com/2/files/move_v2 \\n    --header "Authorization: Bearer YOUR_ACCESS_TOKEN" \\n    --header "Content-Type: application/json" \\n    --data "{\"from_path\": \"/Homework/math\",\"to_path\": \"/Homework/algebra\",\"allow_shared_folder\": false,\"autorename\": false,\"allow_ownership_transfer\": false}"'
 paramType: 
   namespace: files
   datatype: RelocationArg
