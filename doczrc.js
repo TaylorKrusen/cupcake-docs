@@ -22,7 +22,7 @@ module.exports = {
         "deprecated"
     ],
     "dest": "/generated-cupcake-docs",
-    "base": "/cupcake-docs",
+    "base": "/docs",
     "title": "DBX Cupcake Docs",
     "description": "Dropbox public API documentation with extra cupcake.",
     themeConfig: {
