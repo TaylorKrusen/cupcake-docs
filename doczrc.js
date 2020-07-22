@@ -21,7 +21,7 @@ module.exports = {
         "team_log",
         "deprecated"
     ],
-    "dest": "/generated-cupcake-docs",
+    "dest": "/docs",
     "base": "/docs",
     "title": "DBX Cupcake Docs",
     "description": "Dropbox public API documentation with extra cupcake.",
