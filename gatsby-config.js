@@ -1,6 +1,13 @@
 module.exports = {
   plugins: [
     {
+      resolve: `gatsby-plugin-google-analytics`,
+      options: {
+        trackingId: "UA-175142908-1",
+        head: true
+      }
+    },
+    {
       resolve: "gatsby-plugin-prettier-eslint",
       options: {
         prettier: {
